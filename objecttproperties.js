@@ -4,4 +4,4 @@ const person={
 };
 //accesing property
 console.log(person.name); //using dot notation
-console.log(person["name"]);
+console.log(person["name"]);//using bracket notation
