@@ -9,18 +9,30 @@
 </head>
 <body>
         <div class="container min-h-screen">
-            
-            <nav class="flex items-center">
-                <img src="images/logo.jpg">
-                <ul>
-                    <li class="list-none inline-block px-12"><a href="">ABOUT</a></li>
-                    <li class="list-none inline-block px-12"><a href="">HOW IT WORKS</a></li>
-                    <li class="list-none inline-block px-12"><a href="">FAQ</a></li>
-                    <li class="list-none inline-block px-12"><a href="">GIFT</a></li>
-                    <li class="list-none inline-block px-10"><a href="">SUBSCRIBE</a></li>
-                    <li class="list-none inline-block px-10"><a href="">LOGIN</a></li>
-                 </ul>
+             <nav class="flex justify-between items-center w-[92%] mx-auto">
+                <div class="logo">
+                <img class="w-40" src="images/logo.jpg" alt="...">
+            </div>
+                <ul class="flex items-center gap-[4vw]">
+                    <li><a class="hover:text-gray-500" href="">ABOUT</a></li>
+                    <li><a class="hover:text-gray-500"href="">HOW IT WORKS</a></li>
+                    <li><a class="hover:text-gray-500"href="">FAQ</a></li>
+                    <li><a class="hover:text-gray-500"href="">GIFT</a></li>
+                    <li><a class="hover:text-gray-500"href="">SUBSCRIBE</a></li>
+                </ul>   
+                    <div>
+                        <button class="bg-[#a6c1ee] text-white px-5 py-2 rounded-full hover:bg-[#87acec]" type="login">LOGIN</button>
+                    </div> 
              </nav>
+             <div class="mt-20  max-w-xl float-left">
+                <h1 class="text-2xl font-extralight leading-normal">Monthly Desserts Delivered</h1>
+                <p class=" max-w-l mt-2 font-thin">Locally Sourced Artisan Baked Goods Delivered Every Month</p>
+                <div class="mt-5">
+                    <button class="bg-[black] text-white px-5 py-2 ">SHOP</button>
+                    <button class="bg-[#ECF0F1] px-5 py-2 ">GIFT A BOX</button>
+                </div>
+                <img src="images/2.jpg" class="w-full">
+             </div>
         </div> 
 </body>
 </html>
