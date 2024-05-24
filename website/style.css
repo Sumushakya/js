@@ -2,7 +2,34 @@
     
     font-family : 'Poppins', sans-serif;
 }
-.hero-header{
-    background: url(images/1,jpg) top right no-repeat;
-    background-size: cover;
+.flex-container {
+    display: flex;
+    
+
+  }
+  
+  .flex-container > div {
+    background-color: #f1f1f1;
+    gap:.5em;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+  }
+.grid-container{
+    display:grid;
+    grid-template-columns: auto auto auto auto;
+    padding:10px;
+ 
 }
+.item {
+    background-color: rgba(255, 255, 255, 0.8);
+     border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+img{
+    height:100px;
+    width:100px
+}
+
