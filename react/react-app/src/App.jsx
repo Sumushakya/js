@@ -2,22 +2,20 @@
 //import Fruits from "./components/Fruits";
 //import Message from "./components/Message";
 //import Counter from "./components/Counter";
-
-import Form from "./components/Form";
-function App(){
-  return(
+//import Form from "./components/Form";
+import InlineComponents from "./components/Inlinecomponents";
+import OutlineComponents from "./components/Outlinecomponents";
+function App() {
+  return (
     <div className="App">
       {/* <Fruits /> */}
-      <Form />
+      {/* <Form /> */}
+      <InlineComponents />
+      <OutlineComponents />
     </div>
-  )
+  );
 }
 export default App;
-
-
-
-
-
 
 // import Hello from './components/Hello';
 // function App(){
@@ -35,4 +33,4 @@ export default App;
 //     </div>
 //   );
 // }
-// export default App; 
+// export default App;
