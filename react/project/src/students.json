@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "address": "123 Maple Street, Springfield",
+    "roll number": "A001",
+    "total marks": 450
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "address": "456 Oak Avenue, Shelbyville",
+    "roll number": "A002",
+    "total marks": 470
+  },
+  {
+    "id": 3,
+    "name": "Alice Johnson",
+    "address": "789 Pine Road, Capital City",
+    "roll number": "A003",
+    "total marks": 460
+  }
+]
