@@ -29,9 +29,7 @@ function App() {
     });
   };
 
-  const handleEditStudent = (id) => {
-    console.log(`edit student with id ${id}`);
-  };
+  const handleEditStudent = (id) => {};
 
   const handleDeleteStudent = (id) => {
     setStudentsData(studentsData.filter((student) => student.id !== id));
