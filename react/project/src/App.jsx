@@ -29,7 +29,9 @@ function App() {
     });
   };
 
-  const handleEditStudent = (id) => {};
+  const handleEditStudent = (id) => {
+    alert(id);
+  };
 
   const handleDeleteStudent = (id) => {
     setStudentsData(studentsData.filter((student) => student.id !== id));
