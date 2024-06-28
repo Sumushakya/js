@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1280px;
+  height: 72px;
+  align-items: center;
+}
+.navul {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+  cursor: pointer;
+}
+button {
+  padding: 10px, 20px;
+  background-color: red;
+  height: 32px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
