@@ -12,7 +12,6 @@ function App() {
   });
 
   useEffect(() => {
-    //load data from json file
     setStudentsData(students);
   }, []);
 
@@ -29,12 +28,20 @@ function App() {
     });
   };
 
-  const handleEditStudent = (id) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewStudent((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleEditStudent = (e) => {
     alert(id);
   };
 
   const handleDeleteStudent = (id) => {
-    setStudentsData(studentsData.filter((student) => student.id !== id));
+    const a = studentsdata.filter((student) => student.id !== id);
+    setStudentsData(a);
   };
 
   return (
@@ -52,18 +59,18 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {studentsData.map((student) => (
-            <tr key={student.id}>
-              <td>{student.id}</td>
-              <td>{student.name}</td>
-              <td>{student.address}</td>
-              <td>{student["roll number"]}</td>
-              <td>{student["total marks"]}</td>
+          {studentsData.map((idvstudent) => (
+            <tr key={idvstudent.id}>
+              <td>{idvstudent.id}</td>
+              <td>{idvstudent.name}</td>
+              <td>{idvstudent.address}</td>
+              <td>{idvstudent["roll number"]}</td>
+              <td>{idvstudent["total marks"]}</td>
               <td>
-                <button onClick={() => handleEditStudent(student.id)}>
+                <button onClick={() => handleEditStudent(idvstudent.id)}>
                   Edit
                 </button>
-                <button onClick={() => handleDeleteStudent(student.id)}>
+                <button onClick={() => handleDeleteStudent(idvstudent.id)}>
                   Delete
                 </button>
               </td>
@@ -77,12 +84,11 @@ function App() {
           <label>
             ID:
             <input
-              type="number"
+              type="text"
               placeholder="Enter id"
+              name="id"
               value={newStudent.id}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, id: e.target.value })
-              }
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -91,10 +97,9 @@ function App() {
             <input
               type="text"
               placeholder="Enter Name"
+              name="name"
               value={newStudent.name}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, name: e.target.value })
-              }
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -103,10 +108,9 @@ function App() {
             <input
               type="text"
               placeholder="Enter Address"
+              name="address"
               value={newStudent.address}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, address: e.target.value })
-              }
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -115,22 +119,20 @@ function App() {
             <input
               type="text"
               placeholder="Enter rollnumber"
+              name="roll number"
               value={newStudent["roll number"]}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, "roll number": e.target.value })
-              }
+              onChange={handleChange}
             />
           </label>
           <br />
           <label>
             Total Marks:
             <input
-              type="number"
+              type="text"
+              name="total marks"
               placeholder="Enter total marks"
               value={newStudent["total marks"]}
-              onChange={(e) =>
-                setNewStudent({ ...newStudent, "total marks": e.target.value })
-              }
+              onChange={handleChange}
             />
           </label>
           <br />
@@ -140,4 +142,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
