@@ -10,6 +10,7 @@ function App() {
     "roll number": "",
     "total marks": "",
   });
+  const [updateState, setUpdateState] = useState(null);
 
   useEffect(() => {
     setStudentsData(students);
@@ -35,12 +36,12 @@ function App() {
     });
   };
 
-  const handleEditStudent = (e) => {
-    alert(id);
+  const handleEditStudent = (id) => {
+    setUpdateState(id);
   };
 
   const handleDeleteStudent = (id) => {
-    const a = studentsdata.filter((student) => student.id !== id);
+    const a = studentsData.filter((idvstudent) => idvstudent.id !== id);
     setStudentsData(a);
   };
 
@@ -59,23 +60,27 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {studentsData.map((idvstudent) => (
-            <tr key={idvstudent.id}>
-              <td>{idvstudent.id}</td>
-              <td>{idvstudent.name}</td>
-              <td>{idvstudent.address}</td>
-              <td>{idvstudent["roll number"]}</td>
-              <td>{idvstudent["total marks"]}</td>
-              <td>
-                <button onClick={() => handleEditStudent(idvstudent.id)}>
-                  Edit
-                </button>
-                <button onClick={() => handleDeleteStudent(idvstudent.id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+          {studentsData.map((idvstudent) =>
+            updateState === idvstudent.id ? (
+              <Edit idvstudent={idvstudent} />
+            ) : (
+              <tr key={idvstudent.id}>
+                <td>{idvstudent.id}</td>
+                <td>{idvstudent.name}</td>
+                <td>{idvstudent.address}</td>
+                <td>{idvstudent["roll number"]}</td>
+                <td>{idvstudent["total marks"]}</td>
+                <td>
+                  <button onClick={() => handleEditStudent(idvstudent.id)}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDeleteStudent(idvstudent.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
       <div>
@@ -140,6 +145,62 @@ function App() {
         </form>
       </div>
     </div>
+  );
+}
+
+function Edit(idvstudent) {
+  function handleInput(e) {}
+  return (
+    <tr>
+      <td>
+        <input
+          type="text"
+          palceholder="Enter id"
+          name="id"
+          value={idvstudent.id}
+          onChange={handleInput}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          palceholder="Enter Name"
+          name="name"
+          value={idvstudent.name}
+          onChange={handleInput}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          palceholder="Enter Address"
+          name="address"
+          value={idvstudent.address}
+          onChange={handleInput}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          palceholder="Enter Rollnumber"
+          name="roll number"
+          value={idvstudent["roll number"]}
+          onChange={handleInput}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          palceholder="Enter total marks"
+          name="total marks"
+          value={idvstudent["total marks"]}
+          onChange={handleInput}
+        />
+      </td>
+      <td>
+        <button type="submit">Update</button>
+      </td>
+    </tr>
   );
 }
 
