@@ -11,7 +11,7 @@ function App() {
     setData(data);
   }, []);
 
-  function handleEdit() {
+  const handleEdit = (id) => {
     const dt = Data.filter((item) => item.id === id);
     if (dt !== undefined) {
       setId(id);
@@ -19,21 +19,18 @@ function App() {
       setLastName(dt[0].lastName);
       setAge(dt[0].age);
     }
-  }
+  };
 
-  function handleDelete(id) {
-    if (id > 0) {
-      if (window.confirm("Are you sure to delete this item?")) {
-        setData(Data.filter((item) => item.id !== id));
-      }
-    }
-  }
+  const handleDelete = (id) => {
+    const a = Data.filter((item) => item.id !== id);
+    setData(a);
+  };
 
   function handleSave() {}
 
   function handleClear() {
     setId(0);
-    setFirstNam("");
+    setFirstName("");
     setLastName("");
     setAge("");
   }
