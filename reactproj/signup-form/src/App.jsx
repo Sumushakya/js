@@ -1,10 +1,9 @@
-import "./App.css";
-import Login from "./components/Login";
+import FormValidation from "./FormValidation";
 
 function App() {
   return (
     <div>
-      <Login />
+      <FormValidation />
     </div>
   );
 }
