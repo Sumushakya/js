@@ -36,3 +36,9 @@ button {
 button:hover {
   background-color: #2980b9;
 }
+span {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
