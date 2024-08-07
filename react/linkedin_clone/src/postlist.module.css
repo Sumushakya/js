@@ -1,0 +1,9 @@
+.container {
+  width: 60%;
+  height: 500px;
+  float: left;
+  gap: 4em;
+}
+.heading {
+  text-align: center;
+}

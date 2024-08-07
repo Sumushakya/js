@@ -1,0 +1,19 @@
+.pic {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+.container {
+  padding: 10px;
+  box-sizing: border-box;
+  width: 30%;
+  height: 500px;
+  float: left;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.heading {
+  text-align: center;
+}
+.head {
+  text-align: center;
+}
