@@ -1,17 +1,17 @@
-import React from "react";
 import styles from "./nav.module.css";
-import logo from "./assets/logo.png";
-import person from "./assets/person.png";
-import Form from "./Form";
+import logo from "../../assets/logo.png";
+import person2 from "../../assets/person2.png";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
+  const navigate = useNavigate();
   const handleClick = () => {
-    alert("good job!");
+    navigate("/form");
   };
   return (
     <div>
       <nav className={styles.nav}>
-        <img src={logo} alt="logo" width="40px" height="40px" />
+        <img src={logo} alt="logo" width="30px" height="30px" />
         <ul className={styles.ul}>
           <li href="#">Home</li>
           <li href="#">My Network</li>
@@ -19,13 +19,7 @@ const Nav = () => {
           <li href="#">Messaging</li>
           <li href="#">Network</li>
         </ul>
-        <img
-          src={person}
-          alt="pic"
-          width="30px"
-          height="30px"
-          onClick={handleClick}
-        />
+        <img src={person2} alt="pic" onClick={handleClick} />
       </nav>
     </div>
   );

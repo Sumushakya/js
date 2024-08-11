@@ -1,6 +1,6 @@
 .pic {
-  height: 20px;
-  width: 20px;
+  height: 100px;
+  width: 100px;
   margin: auto;
 }
 .container {
@@ -9,11 +9,16 @@
   width: 30%;
   height: 500px;
   float: left;
+  /* border: 1px solid #ccc; */
+  gap: 100px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: 8px;
+  cursor: auto;
 }
 .heading {
   text-align: center;
 }
 .head {
   text-align: center;
+  padding: 10px;
 }
