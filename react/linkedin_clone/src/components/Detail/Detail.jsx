@@ -10,6 +10,7 @@ const Detail = () => {
     skill: "",
     education: "",
   });
+  console.log("detail", formData);
 
   useEffect(() => {
     // Retrieve data from localStorage
@@ -22,15 +23,18 @@ const Detail = () => {
   return (
     <div>
       <div className={styles.container}>
-        <h2 className={styles.heading}>Details</h2>
         <div>
           <img src={person2} alt="pic" />
         </div>
         <div className={styles.head}>
           <p>Name:{formData.name}</p>
+          <hr />
           <p>Headlines:{formData.headline}</p>
+          <hr />
           <p>About:{formData.about}</p>
+          <hr />
           <p>Skill:{formData.skill}</p>
+          <hr />
           <p>Education:{formData.education}</p>
         </div>
       </div>

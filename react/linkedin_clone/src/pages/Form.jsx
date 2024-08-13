@@ -25,6 +25,7 @@ const Form = () => {
     navigate("/");
     console.log("submit", formData);
   };
+
   return (
     <div>
       <Nav />
