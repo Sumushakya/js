@@ -29,68 +29,70 @@ const Form = () => {
   return (
     <div>
       <Nav />
-      <form onSubmit={handleSubmit}>
-        <h1>Detail Form</h1>
-        <br />
-        <label>
-          Name:
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={formData.name}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          Headline
-          <input
-            type="text"
-            placeholder="Headline"
-            name="headline"
-            value={formData.headline}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          About:
-          <input
-            type="text"
-            placeholder="About"
-            name="about"
-            value={formData.about}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          Skill:
-          <input
-            type="text"
-            placeholder="Skill"
-            name="skill"
-            value={formData.skill}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <label>
-          Education:
-          <input
-            type="text"
-            placeholder="Education"
-            name="education"
-            value={formData.education}
-            onChange={handleInput}
-          />
-        </label>
-        <br />
-        <button className={styles.button} type="submit">
-          Submit
-        </button>
-      </form>
+      <div className={styles.formContainer}>
+        <form onSubmit={handleSubmit}>
+          <h1>Detail Form</h1>
+          <br />
+          <label>
+            Name:
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInput}
+            />
+          </label>
+          <br />
+          <label>
+            Headline
+            <input
+              type="text"
+              placeholder="Headline"
+              name="headline"
+              value={formData.headline}
+              onChange={handleInput}
+            />
+          </label>
+          <br />
+          <label>
+            About:
+            <input
+              type="text"
+              placeholder="About"
+              name="about"
+              value={formData.about}
+              onChange={handleInput}
+            />
+          </label>
+          <br />
+          <label>
+            Skill:
+            <input
+              type="text"
+              placeholder="Skill"
+              name="skill"
+              value={formData.skill}
+              onChange={handleInput}
+            />
+          </label>
+          <br />
+          <label>
+            Education:
+            <input
+              type="text"
+              placeholder="Education"
+              name="education"
+              value={formData.education}
+              onChange={handleInput}
+            />
+          </label>
+          <br />
+          <button className={styles.button} type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

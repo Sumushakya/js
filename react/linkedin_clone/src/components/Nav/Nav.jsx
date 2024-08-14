@@ -9,8 +9,8 @@ const Nav = () => {
     navigate("/form");
   };
   return (
-    <div>
-      <nav className={styles.nav}>
+    <div className={styles.conya}>
+      <nav className={styles.navbar}>
         <img src={logo} alt="logo" width="30px" height="30px" />
         <ul className={styles.ul}>
           <li href="#">Home</li>

@@ -21,22 +21,26 @@ const Detail = () => {
   }, []);
 
   return (
-    <div>
-      <div className={styles.container}>
-        <div>
-          <img src={person2} alt="pic" />
-        </div>
-        <div className={styles.head}>
-          <p>Name:{formData.name}</p>
-          <hr />
-          <p>Headlines:{formData.headline}</p>
-          <hr />
-          <p>About:{formData.about}</p>
-          <hr />
-          <p>Skill:{formData.skill}</p>
-          <hr />
-          <p>Education:{formData.education}</p>
-        </div>
+    <div className={styles.container} style={{ flex: 1.2 }}>
+      <div className={styles.avatarContainer}>
+        <img src={person2} alt="pic" />
+      </div>
+      <div className={styles.head}>
+        <p className={styles.pName}>{formData.name}</p>
+        <p className={styles.pHeadline}>{formData.headline}</p>
+        <hr />
+      </div>
+      <div className={styles.card}>
+        <p className={styles.title}>About</p>
+        <p className={styles.description}>{formData.about}</p>
+      </div>
+      <div className={styles.card}>
+        <p className={styles.title}>Skills</p>
+        <p className={styles.description}>{formData.skill}</p>
+      </div>
+      <div className={styles.card}>
+        <p className={styles.title}>Education</p>
+        <p className={styles.description}>{formData.education}</p>
       </div>
     </div>
   );

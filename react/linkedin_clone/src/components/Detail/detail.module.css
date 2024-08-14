@@ -1,24 +1,38 @@
-.pic {
-  height: 100px;
-  width: 100px;
-  margin: auto;
-}
 .container {
-  padding: 10px;
-  box-sizing: border-box;
-  width: 20%;
+  border: 2px solid #e3e4df;
+  background-color: #fff;
+  border-radius: 12px;
   height: 500px;
-  float: left;
-  border: 1px solid #ccc;
-  gap: 100px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  border-radius: 8px;
-  cursor: auto;
 }
-.heading {
-  text-align: center;
+.avatarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
+
 .head {
   text-align: center;
-  padding: 10px;
+}
+.pName {
+  margin: 0;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 900;
+  text-decoration: underline;
+}
+.pHeadline {
+  margin: 0;
+  color: grey;
+  font-size: 15px;
+}
+.card {
+  padding: 6px;
+}
+.title {
+  font-weight: 600;
+  font-size: 16px;
+}
+.description {
+  font-size: 15px;
 }

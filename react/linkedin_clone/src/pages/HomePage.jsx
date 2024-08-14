@@ -7,8 +7,16 @@ const HomePage = () => {
   return (
     <>
       <Nav />
-      <Detail />
-      <PostList />
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          padding: "12px",
+        }}
+      >
+        <Detail />
+        <PostList />
+      </div>
       {/* <Post /> */}
     </>
   );
