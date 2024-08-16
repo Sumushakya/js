@@ -10,8 +10,8 @@ const HomePage = () => {
       <div
         style={{
           display: "flex",
-          gap: "12px",
-          padding: "12px",
+          gap: "25px",
+          padding: "20px",
         }}
       >
         <Detail />

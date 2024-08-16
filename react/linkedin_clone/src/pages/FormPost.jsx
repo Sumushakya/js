@@ -10,6 +10,7 @@ const FormPost = () => {
     des: "",
     image: "",
   });
+
   console.log("ss", postData);
 
   const navigate = useNavigate();
@@ -24,24 +25,18 @@ const FormPost = () => {
     // setPostData(postData);
     const temp = JSON.parse(localStorage.getItem("postList")) || [];
     const updatedPostList = [...temp, postData];
-    console.log(
-      "postdataaaaaaaaaaaa",
-      postData,
-      "tempppppppp",
-      temp,
-      "updatedpostlisttttttttt",
-      updatedPostList
-    );
+
     localStorage.setItem("postList", JSON.stringify([...temp, postData]));
     navigate("/");
     console.log("submit", postData);
   };
+  const handleImageChange = (e) => {};
 
   return (
     <div>
       <Nav />
       <div className={styles.formContainer}>
-        <form onSubmit={handleSubmit}>
+        <form action="POST" onSubmit={handleSubmit}>
           <label>
             Name:
             <input
@@ -76,10 +71,10 @@ const FormPost = () => {
             Image:
             <input
               type="file"
-              accept="image/*"
+              // accept="image/*"
               name="image"
               value={postData.image}
-              onChange={handleInput}
+              onChange={handleImageChange}
             />
           </label>
           <button className={styles.button} type="submit">

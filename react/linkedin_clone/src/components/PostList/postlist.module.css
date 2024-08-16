@@ -10,17 +10,12 @@
   padding: 10px;
   width: 50%;
   height: 40%;
-  border: 1px solid #e3e4df;
+  border: 2px solid #e3e4df;
   border-radius: 12px;
 }
 .contain {
   display: flex;
-  gap: 8px;
-}
-.topic {
-  margin-top: 0;
-  display: flex;
-  flex-direction: row;
+  justify-content: space-between;
 }
 .btn {
   background-color: blue;
@@ -38,33 +33,37 @@
 
 .actionButton {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  background-color: #fff;
-  color: white;
-  padding: 15px;
-  font-size: 16px;
-  cursor: pointer;
+  justify-content: space-evenly;
+  margin-top: "3px";
+  margin: auto;
 }
-button {
+.share {
+  padding: 8px 12px;
+}
+.share:hover {
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid black;
+}
+/* button {
   background-color: #1264b6;
   color: white;
-  padding: 8px 16px;
+  padding: 8px 12px;
   border: 1px solid #e3e4df;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
 }
 
 button:hover {
   background-color: lightblue;
-}
-
-/* 
-  background-color: blue;
-  color: white;
-  padding: 8px 12px;
-
-  border-radius: 8x;
-  font-size: 16px;
-  cursor: pointer; */
+  border-radius: 8px;
+} */
+/* .menu {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+/* }
+.menu:hover {
+  cursor: pointer;
+} */

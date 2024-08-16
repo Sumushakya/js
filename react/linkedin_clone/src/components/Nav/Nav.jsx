@@ -8,10 +8,19 @@ const Nav = () => {
   const handleClick = () => {
     navigate("/form");
   };
+  const handleLogo = () => {
+    navigate("/");
+  };
   return (
     <div className={styles.conya}>
       <nav className={styles.navbar}>
-        <img src={logo} alt="logo" width="30px" height="30px" />
+        <img
+          src={logo}
+          alt="logo"
+          width="30px"
+          height="30px"
+          onClick={handleLogo}
+        />
         <ul className={styles.ul}>
           <li href="#">Home</li>
           <li href="#">My Network</li>
