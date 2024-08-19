@@ -1,0 +1,22 @@
+/* IconBar.css */
+.iconBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.iconItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #1e1c1c;
+}
+
+.iconItem span {
+  margin-left: 5px;
+}
+/* .iconItem:hover {
+  border: 1px solid grey; */
+/* } */

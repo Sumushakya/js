@@ -5,6 +5,7 @@ import styles from "./form.module.css";
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
+    id: "",
     name: "",
     headline: "",
     des: "",
@@ -12,6 +13,7 @@ const FormPost = () => {
   });
 
   console.log("ss", postData);
+  const [newData, setNewData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ const FormPost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("lengthhh", postData.length);
     // setPostData(postData);
     const temp = JSON.parse(localStorage.getItem("postList")) || [];
     const updatedPostList = [...temp, postData];
@@ -36,7 +39,7 @@ const FormPost = () => {
     <div>
       <Nav />
       <div className={styles.formContainer}>
-        <form action="POST" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
             Name:
             <input

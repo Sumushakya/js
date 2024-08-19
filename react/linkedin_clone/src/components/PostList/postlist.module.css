@@ -33,37 +33,53 @@
 
 .actionButton {
   display: flex;
-  justify-content: space-evenly;
-  margin-top: "3px";
-  margin: auto;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
 }
 .share {
   padding: 8px 12px;
+  border: none;
 }
-.share:hover {
+/* .share:hover {
   cursor: pointer;
   padding: 8px;
-  border: 1px solid black;
+  border: 1px solid black; */
+/* } */
+.modal {
+  display: block;
+  position: fixed;
+  /* z-index: 1; */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* overflow: auto; */
 }
-/* button {
-  background-color: #1264b6;
-  color: white;
-  padding: 8px 12px;
-  border: 1px solid #e3e4df;
-  border-radius: 5px;
-  font-size: 15px;
-  cursor: pointer;
+.modalContent {
+  /* position: absolute; */
+  background-color: #fefefe;
+
+  margin-top: 10%;
+  margin-left: 50%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+/* p:hover {
+  background-color: grey;
+} */
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-button:hover {
-  background-color: lightblue;
-  border-radius: 8px;
-} */
-/* .menu {
-  display: flex;
-  flex-direction: column;
-  /* align-items: flex-end; */
-/* }
-.menu:hover {
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
   cursor: pointer;
-} */
+}

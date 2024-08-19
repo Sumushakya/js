@@ -7,7 +7,7 @@
   align-items: center;
   background-color: white;
   padding: 8px;
-  /* position: fixed; */
+  position: fixed;
   /* width: 100%; */
   /* z-index: 1000; */
 }

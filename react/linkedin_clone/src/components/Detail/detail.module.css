@@ -25,6 +25,7 @@
   margin: 0;
   color: grey;
   font-size: 15px;
+  /* border-bottom: 1px solid grey; */
 }
 .card {
   padding: 6px;

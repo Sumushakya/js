@@ -3,12 +3,14 @@ import person from "../../assets/person.png";
 import { useState, useEffect } from "react";
 // import Post from "../Post/Post";
 import { useNavigate } from "react-router-dom";
+import Icon from "../IconBar/Icon";
+import { FaEllipsis } from "react-icons/fa6";
 
 const PostList = () => {
   const [postData, setPostData] = useState([]);
   console.log("data", postData);
 
-  const [openModal, setOpenModal] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
@@ -22,62 +24,66 @@ const PostList = () => {
   const handleAdd = () => {
     navigate("/postform");
   };
-  const handleClick = () => {
-    alert("clicked");
+  // const handleClick = () => {
+  //   setIsVisible(!isVisible);
+  // };
+  const handleDelete = (id) => {
+    console.log("oooooooooooooooo", id, postData);
+
+    const del = postData.filter((idvpostList) => idvpostList.id !== id);
+    console.log("oooooooooooooooo", del);
+    // setPostData(del);
   };
 
   return (
     <div className={styles.container} style={{ flex: 4 }}>
-      {postData.map((postList) => (
-        <div key={postList.id} className={styles.innerbox}>
+      {postData.map((idvpostList) => (
+        <div key={idvpostList.id} className={styles.innerbox}>
           <div className={styles.contain}>
             <div>
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "8px" }}
               >
                 <img src={person} alt="person" />
-
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <text style={{ fontSize: "18px", fontWeight: 800 }}>
-                    {postList.name}
+                  <text style={{ fontSize: "16px", fontWeight: 600 }}>
+                    {idvpostList.name}
                   </text>
                   <text
                     style={{ fontSize: "12px", fontWeight: 500, color: "grey" }}
                   >
-                    {postList.headline}
+                    {idvpostList.headline}
                   </text>
                 </div>
               </div>
             </div>
             <div>
-              <button
-                style={{
-                  padding: "2px 4px",
-                  cursor: "pointer",
-                  // backgroundColor: "white",
-                  // color: "black",
-                  // borderStyle: "none",
-                }}
-                onClick={handleClick}
-              >
-                menu
+              <button onClick={() => setIsVisible(!isVisible)}>
+                <FaEllipsis />
               </button>
-              {/* <button
-                style={{
-                  padding: "2px 4px",
-                  backgroundColor: "white",
-                  borderStyle: "none",
-                }}
-                onClick={handleClick}
+              <div
+                className={styles.modal}
+                style={{ display: isVisible ? "block" : "none" }}
               >
-                ❌
-              </button> */}
+                <div className={styles.modalContent}>
+                  <span
+                    className={styles.close}
+                    onClick={() => setIsVisible(false)}
+                  >
+                    &times;
+                  </span>
+
+                  <div>
+                    <p>Save</p>
+                    <p onClick={() => handleDelete(idvpostList.id)}>Delete</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
           <br />
           <div>
-            <text>{postList.des}</text>
+            <text>{idvpostList.des}</text>
             <br />
             <div
               style={{
@@ -95,28 +101,8 @@ const PostList = () => {
               />
             </div>
           </div>
-          <hr />
-          <div className={styles.actionButton}>
-            <button
-              style={{
-                padding: "8px 12px",
-                color: "black",
-                borderStyle: "none",
-                fontSize: "16px",
-              }}
-            >
-              Like
-            </button>
-            <button style={{ padding: "8px 12px", border: "none" }}>
-              Comment
-            </button>
-            <text
-              // style={{ padding: "8px 12px", borderStyle: "none" }}
-              className={styles.share}
-            >
-              Share
-            </text>
-            {/* <button>Repost</button> */}
+          <div>
+            <Icon />
           </div>
         </div>
       ))}
