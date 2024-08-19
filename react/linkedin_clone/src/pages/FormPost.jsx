@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/Nav/Nav";
 import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
@@ -11,11 +11,19 @@ const FormPost = () => {
     des: "",
     image: "",
   });
-
   console.log("ss", postData);
-  const [newData, setNewData] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedId = localStorage.getItem("currentId");
+    if (storedId) {
+      setPostData((prevData) => ({ ...prevData, id: storedId }));
+    } else {
+      localStorage.setItem("currentId", "1");
+      setPostData((prevData) => ({ ...prevData, id: "1" }));
+    }
+  }, []);
 
   const handleInput = (e) => {
     console.log("input", e.target.name, e.target.value);
@@ -24,12 +32,24 @@ const FormPost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("lengthhh", postData.length);
-    // setPostData(postData);
-    const temp = JSON.parse(localStorage.getItem("postList")) || [];
-    const updatedPostList = [...temp, postData];
+    const newId = (
+      parseInt(localStorage.getItem("currentId"), 10) + 1
+    ).toString();
+    localStorage.setItem("currentId", newId);
+    const updatedPostData = { ...postData, id: newId };
 
-    localStorage.setItem("postList", JSON.stringify([...temp, postData]));
+    // const newId = (
+    //   parseInt(localStorage.getItem("currentId"), 10) + 1
+    // ).toString();
+    // localStorage.setItem("currentId", newId);;
+    // const updatedPostData = { ...postData, id: newId };
+
+    const temp = JSON.parse(localStorage.getItem("postList")) || [];
+
+    localStorage.setItem(
+      "postList",
+      JSON.stringify([updatedPostData, ...temp])
+    );
     navigate("/");
     console.log("submit", postData);
   };

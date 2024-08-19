@@ -24,15 +24,15 @@ const PostList = () => {
   const handleAdd = () => {
     navigate("/postform");
   };
-  // const handleClick = () => {
-  //   setIsVisible(!isVisible);
+  // const handleSave = (id) => {
+  //   console.log("ddd", id);
   // };
+
   const handleDelete = (id) => {
     console.log("oooooooooooooooo", id, postData);
-
-    const del = postData.filter((idvpostList) => idvpostList.id !== id);
-    console.log("oooooooooooooooo", del);
+    // const del = postData.filter((idvpostList) => idvpostList.id !== id);
     // setPostData(del);
+    // localStorage.setItem("postList", JSON.stringify(del));
   };
 
   return (
@@ -61,6 +61,7 @@ const PostList = () => {
               <button onClick={() => setIsVisible(!isVisible)}>
                 <FaEllipsis />
               </button>
+
               <div
                 className={styles.modal}
                 style={{ display: isVisible ? "block" : "none" }}
@@ -74,7 +75,7 @@ const PostList = () => {
                   </span>
 
                   <div>
-                    <p>Save</p>
+                    <p onClick={() => handleSave(idvpostList.id)}>Save</p>
                     <p onClick={() => handleDelete(idvpostList.id)}>Delete</p>
                   </div>
                 </div>

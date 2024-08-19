@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./icon.module.css";
-import { FaThumbsUp, FaComment, FaShare, FaRetweet } from "react-icons/fa";
+import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 
 const Icon = () => {
   return (
@@ -14,12 +14,12 @@ const Icon = () => {
         <span>Comment</span>
       </div>
       <div className={styles.iconItem}>
-        <FaShare />
-        <span>Share</span>
-      </div>
-      <div className={styles.iconItem}>
         <FaRetweet />
         <span>Repost</span>
+      </div>
+      <div className={styles.iconItem}>
+        <FaPaperPlane />
+        <span>Share</span>
       </div>
     </div>
   );
