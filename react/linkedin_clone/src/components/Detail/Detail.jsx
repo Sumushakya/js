@@ -10,7 +10,7 @@ const Detail = () => {
     skill: "",
     education: "",
   });
-  console.log("detail", formData);
+  // console.log("detail", formData);
 
   useEffect(() => {
     // Retrieve data from localStorage

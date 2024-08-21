@@ -24,14 +24,15 @@ const PostList = () => {
   const handleAdd = () => {
     navigate("/postform");
   };
-  // const handleSave = (id) => {
-  //   console.log("ddd", id);
-  // };
+
+  const handleSave = (id) => {
+    console.log("ddd", id, postData);
+  };
 
   const handleDelete = (id) => {
     console.log("oooooooooooooooo", id, postData);
-    // const del = postData.filter((idvpostList) => idvpostList.id !== id);
-    // setPostData(del);
+    const del = postData.filter((idvpostList) => idvpostList.id !== id);
+    setPostData(del);
     // localStorage.setItem("postList", JSON.stringify(del));
   };
 
@@ -41,6 +42,7 @@ const PostList = () => {
         <div key={idvpostList.id} className={styles.innerbox}>
           <div className={styles.contain}>
             <div>
+              {console.log("iiiiiiiiiiiiiiiiiiiii", idvpostList)}
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "8px" }}
               >
@@ -57,14 +59,23 @@ const PostList = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <button onClick={() => setIsVisible(!isVisible)}>
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() =>
+                  setIsVisible({
+                    ...isVisible,
+                    [idvpostList.id]: !isVisible[idvpostList.id],
+                  })
+                }
+              >
                 <FaEllipsis />
               </button>
-
               <div
+                key={idvpostList.id}
                 className={styles.modal}
-                style={{ display: isVisible ? "block" : "none" }}
+                style={{
+                  display: isVisible[idvpostList.id] ? "block" : "none",
+                }}
               >
                 <div className={styles.modalContent}>
                   <span
@@ -74,9 +85,19 @@ const PostList = () => {
                     &times;
                   </span>
 
-                  <div>
-                    <p onClick={() => handleSave(idvpostList.id)}>Save</p>
-                    <p onClick={() => handleDelete(idvpostList.id)}>Delete</p>
+                  <div className={styles.button}>
+                    <button
+                      style={{ background: "none", border: "none" }}
+                      onClick={() => handleSave(idvpostList.id)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      style={{ background: "none", border: "none" }}
+                      onClick={() => handleDelete(idvpostList.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

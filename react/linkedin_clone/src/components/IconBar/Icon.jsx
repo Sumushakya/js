@@ -5,22 +5,22 @@ import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 const Icon = () => {
   return (
     <div className={styles.iconBar}>
-      <div className={styles.iconItem}>
+      <button className={styles.iconItem}>
         <FaThumbsUp />
         <span>Like</span>
-      </div>
-      <div className={styles.iconItem}>
+      </button>
+      <button className={styles.iconItem}>
         <FaComment />
         <span>Comment</span>
-      </div>
-      <div className={styles.iconItem}>
+      </button>
+      <button className={styles.iconItem}>
         <FaRetweet />
         <span>Repost</span>
-      </div>
-      <div className={styles.iconItem}>
+      </button>
+      <button className={styles.iconItem}>
         <FaPaperPlane />
         <span>Share</span>
-      </div>
+      </button>
     </div>
   );
 };

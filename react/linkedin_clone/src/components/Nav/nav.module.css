@@ -7,9 +7,11 @@
   align-items: center;
   background-color: white;
   padding: 8px;
+  /* position: -webkit-sticky;
   position: sticky;
-  width: 100%;
-  z-index: 800;
+  top: 0; */
+  /* width: 100%; */
+  /* z-index: 800; */
 }
 .ul {
   display: flex;

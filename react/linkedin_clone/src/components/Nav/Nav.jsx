@@ -12,7 +12,7 @@ const Nav = () => {
     navigate("/");
   };
   return (
-    <div className={styles.conya}>
+    <div>
       <nav className={styles.navbar}>
         <img
           src={logo}

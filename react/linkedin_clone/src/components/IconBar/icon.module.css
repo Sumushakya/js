@@ -12,6 +12,14 @@
   align-items: center;
   cursor: pointer;
   color: #1e1c1c;
+  border: none;
+  background: none;
+  font-size: 15px;
+  padding: 4px 8px;
+}
+.iconItem:hover {
+  background: #ddd;
+  padding: 4px 8px;
 }
 
 .iconItem span {
