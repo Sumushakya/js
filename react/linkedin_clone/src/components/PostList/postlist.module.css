@@ -18,12 +18,14 @@
   justify-content: space-between;
 }
 .btn {
+  position: fixed;
+  bottom: 25px;
+  right: 22px;
   background-color: blue;
   color: white;
   padding: 8px 12px;
-  float: right;
   border: 1px solid #e3e4df;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
 }
@@ -32,28 +34,47 @@
 }
 
 .modal {
-  display: block;
   position: absolute;
-  top: 0;
+  top: 12px;
   left: 0;
-}
-.modalContent {
+  min-width: 100px;
   background-color: #fefefe;
-  margin-top: 15%;
-  /* margin-left: 50%; */
-  padding: 20px;
+  padding: 0;
   border: 1px solid #888;
+  cursor: pointer;
+}
+.content {
+  padding: 0px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.modalBtnWrapper {
   width: 100%;
+  padding: 4px 8px;
 }
-.button {
-  padding: 10px;
-  font-size: 16px;
+.btnEdit {
+  border: none;
+  background: none;
+  cursor: pointer;
+  /* margin-bottom: 15px; */
 }
+.modalBtnWrapper:hover {
+  background: #ddd;
+}
+.btnDelete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  /* margin-bottom: 5px; */
+}
+
 .close {
-  color: #aaa;
   float: right;
+  color: #aaa;
   font-size: 28px;
-  font-weight: bold;
+  border: none;
+  background: none;
 }
 .close:hover,
 .close:focus {

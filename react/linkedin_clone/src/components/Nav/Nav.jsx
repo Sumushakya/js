@@ -12,7 +12,7 @@ const Nav = () => {
     navigate("/");
   };
   return (
-    <div>
+    <div className={styles.container}>
       <nav className={styles.navbar}>
         <img
           src={logo}
@@ -21,6 +21,7 @@ const Nav = () => {
           height="30px"
           onClick={handleLogo}
         />
+
         <ul className={styles.ul}>
           <li href="#">Home</li>
           <li href="#">My Network</li>

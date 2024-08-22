@@ -9,8 +9,11 @@ import { FaEllipsis } from "react-icons/fa6";
 const PostList = () => {
   const [postData, setPostData] = useState([]);
   console.log("data", postData);
-
-  const [isVisible, setIsVisible] = useState(false);
+  const [message, setMessage] = useState("");
+  const [visible, setVisible] = useState(false);
+  const handleClose = () => {
+    setVisible(false);
+  };
 
   useEffect(() => {
     const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
@@ -25,76 +28,102 @@ const PostList = () => {
     navigate("/postform");
   };
 
-  const handleSave = (id) => {
-    console.log("ddd", id, postData);
+  // const handleSave= (id) => {
+  //   // console.log("ddd", id, postData);
+  //   const updatedPosts = postData.map((indvpostList) =>
+  //     indvpostList.id === id ? { ...indvpostList, saved: true } : indvpostList
+  //   );
+  //   setPostData(updatedPosts);
+  //   localStorage.setItem("postList", JSON.stringify(updatedPosts));
+  //   setMessage("post saved successfully");
+  //   console.log("saved", id, updatedPosts);
+  // };
+  const handleEdit = (id) => {
+    console.log("edit", id, postData);
+
+    navigate("/postform");
   };
 
   const handleDelete = (id) => {
     console.log("oooooooooooooooo", id, postData);
-    const del = postData.filter((idvpostList) => idvpostList.id !== id);
+    const del = postData.filter((indvpostList) => indvpostList.id !== id);
     setPostData(del);
-    // localStorage.setItem("postList", JSON.stringify(del));
+    localStorage.setItem("postList", JSON.stringify(del));
   };
 
   return (
     <div className={styles.container} style={{ flex: 4 }}>
-      {postData.map((idvpostList) => (
-        <div key={idvpostList.id} className={styles.innerbox}>
+      {postData.map((indvpostList) => (
+        <div key={indvpostList.id} className={styles.innerbox}>
           <div className={styles.contain}>
             <div>
-              {console.log("iiiiiiiiiiiiiiiiiiiii", idvpostList)}
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "8px" }}
               >
                 <img src={person} alt="person" />
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <text style={{ fontSize: "16px", fontWeight: 600 }}>
-                    {idvpostList.name}
+                    {indvpostList.name}
                   </text>
                   <text
                     style={{ fontSize: "12px", fontWeight: 500, color: "grey" }}
                   >
-                    {idvpostList.headline}
+                    {indvpostList.headline}
                   </text>
                 </div>
               </div>
             </div>
             <div style={{ position: "relative" }}>
               <button
+                style={{
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                }}
                 onClick={() =>
-                  setIsVisible({
-                    ...isVisible,
-                    [idvpostList.id]: !isVisible[idvpostList.id],
+                  setVisible({
+                    ...visible,
+                    [indvpostList.id]: !visible[indvpostList.id],
                   })
                 }
               >
                 <FaEllipsis />
               </button>
               <div
-                key={idvpostList.id}
+                key={indvpostList.id}
                 className={styles.modal}
                 style={{
-                  display: isVisible[idvpostList.id] ? "block" : "none",
+                  display: visible[indvpostList.id] ? "block" : "none",
                 }}
               >
-                <div className={styles.modalContent}>
-                  <span
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <button
                     className={styles.close}
-                    onClick={() => setIsVisible(false)}
+                    // onClick={() => setVisible(false)}
+                    onClick={handleClose}
                   >
                     &times;
-                  </span>
-
-                  <div className={styles.button}>
+                  </button>
+                </div>
+                <div className={styles.content}>
+                  <div className={styles.modalBtnWrapper}>
                     <button
-                      style={{ background: "none", border: "none" }}
-                      onClick={() => handleSave(idvpostList.id)}
+                      className={styles.btnEdit}
+                      onClick={() => handleEdit(indvpostList.id)}
                     >
-                      Save
+                      Edit
                     </button>
+                  </div>
+                  <div className={styles.modalBtnWrapper}>
                     <button
-                      style={{ background: "none", border: "none" }}
-                      onClick={() => handleDelete(idvpostList.id)}
+                      className={styles.btnDelete}
+                      onClick={() => handleDelete(indvpostList.id)}
                     >
                       Delete
                     </button>
@@ -105,7 +134,7 @@ const PostList = () => {
           </div>
           <br />
           <div>
-            <text>{idvpostList.des}</text>
+            <text>{indvpostList.des}</text>
             <br />
             <div
               style={{

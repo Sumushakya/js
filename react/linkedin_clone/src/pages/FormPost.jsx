@@ -45,31 +45,6 @@ const FormPost = () => {
     console.log("submit", postData);
   };
 
-  //   e.preventDefault();
-  //   const postId = parseInt(localStorage.getItem("postId"), 10) || 0;
-  //   const temp = JSON.parse(localStorage.getItem("postList")) || [];
-
-  //   const newPostData = { ...postData, id: postId + 1 };
-  //   localStorage.setItem("postList", JSON.stringify([newPostData, ...temp]));
-  //   localStorage.setItem("postId", postId + 1);
-  //   navigate("/");
-  //   console.log("submit", newPostData);
-  //   navigate("/");
-  //   console.log("submit", postData);
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const postId = parseInt(localStorage.getItem("postId"), 10) || 0;
-  //   const temp = JSON.parse(localStorage.getItem("postList")) || [];
-
-  //   setPostData({ ...postData, id: postId + 1 });
-  //   const updatedPostList = [postData, ...temp];
-
-  //   localStorage.setItem("postList", JSON.stringify(updatedPostList));
-  //   localStorage.setItem("postId", postId + 1);
-  //   navigate("/");
-  //   console.log("submit", updatedPostList);
-  // };
   const handleImageChange = (e) => {};
 
   return (
