@@ -28,7 +28,6 @@ const Detail = () => {
       <div className={styles.head}>
         <p className={styles.pName}>{formData.name}</p>
         <p className={styles.pHeadline}>{formData.headline}</p>
-        <hr />
       </div>
       <div className={styles.card}>
         <p className={styles.title}>About</p>

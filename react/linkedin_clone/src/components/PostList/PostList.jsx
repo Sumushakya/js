@@ -31,9 +31,9 @@ const PostList = () => {
 
   const handleEdit = (id) => {
     console.log("edit", id, postData);
-    const postDataToEdit = postData.find(
-      (indvpostList) => indvpostList.id === id
-    );
+    {
+      postData.find((indvpostList) => indvpostList.id === id);
+    }
     // navigate("/postform", { state: { key: id } });
 
     navigate("/postform", { state: { actionType: "EDIT", id: id } });

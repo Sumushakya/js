@@ -23,7 +23,9 @@ const Nav = () => {
         />
 
         <ul className={styles.ul}>
-          <li href="#">Home</li>
+          <li href="#" onClick={handleLogo}>
+            Home
+          </li>
           <li href="#">My Network</li>
           <li href="#">Jobs</li>
           <li href="#">Messaging</li>

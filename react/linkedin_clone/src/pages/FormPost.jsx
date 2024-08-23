@@ -53,15 +53,14 @@ const FormPost = () => {
   const handleEditSubmit = (e) => {
     e.preventDefault();
     const postList = JSON.parse(localStorage.getItem("postList"));
-    const updatedPostList = postList.map((post) => {
-      if (post.id === id) {
-        return { ...postData };
-      }
-      return post;
-    });
+    const updatedPostList = postList.map((post) =>
+      post.id === id ? { ...post, ...postData } : post
+    );
     localStorage.setItem("postList", JSON.stringify(updatedPostList));
     navigate("/");
   };
+
+  const handleImageChange = () => {};
 
   return (
     <div>
@@ -109,7 +108,7 @@ const FormPost = () => {
               // accept="image/*"
               name="image"
               value={postData.image}
-              onChange={handleInput}
+              onChange={handleImageChange}
             />
           </label>
           <button className={styles.button} type="submit">
