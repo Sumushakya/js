@@ -35,38 +35,43 @@ const FormPost = () => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleCreateSubmit = (e) => {
     e.preventDefault();
-    if (actionType === "CREATE") {
-      const postId = localStorage.getItem("postId") || 0;
-      const newPostId = parseInt(postId) + 1;
-      localStorage.setItem("postId", newPostId);
+    // if (actionType === "CREATE") {
+    const postId = localStorage.getItem("postId") || 0;
+    const newPostId = parseInt(postId) + 1;
+    localStorage.setItem("postId", newPostId);
 
-      const newPostData = { id: newPostId, ...postData };
-      const postList = JSON.parse(localStorage.getItem("postList")) || [];
-      const updatedPostList = [newPostData, ...postList];
+    const newPostData = { id: newPostId, ...postData };
+    const postList = JSON.parse(localStorage.getItem("postList")) || [];
+    const updatedPostList = [newPostData, ...postList];
 
-      localStorage.setItem("postList", JSON.stringify(updatedPostList));
-      navigate("/");
-    }
-    if (actionType === "EDIT") {
-      const postList = JSON.parse(localStorage.getItem("postList"));
-      const updatedPostList = postList.map((post) => {
-        if (post.id === id) {
-          return { ...postData };
-        }
-        return post;
-      });
-      localStorage.setItem("postList", JSON.stringify(updatedPostList));
-      navigate("/");
-    }
+    localStorage.setItem("postList", JSON.stringify(updatedPostList));
+    navigate("/");
+  };
+  // if (actionType === "EDIT") {
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    const postList = JSON.parse(localStorage.getItem("postList"));
+    const updatedPostList = postList.map((post) => {
+      if (post.id === id) {
+        return { ...postData };
+      }
+      return post;
+    });
+    localStorage.setItem("postList", JSON.stringify(updatedPostList));
+    navigate("/");
   };
 
   return (
     <div>
       <Nav />
       <div className={styles.formContainer}>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={
+            actionType === "CREATE" ? handleCreateSubmit : handleEditSubmit
+          }
+        >
           <label>
             Name:
             <input
