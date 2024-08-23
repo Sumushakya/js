@@ -9,8 +9,9 @@ import { FaEllipsis } from "react-icons/fa6";
 const PostList = () => {
   const [postData, setPostData] = useState([]);
   console.log("data", postData);
-  const [message, setMessage] = useState("");
+
   const [visible, setVisible] = useState(false);
+
   const handleClose = () => {
     setVisible(false);
   };
@@ -18,7 +19,7 @@ const PostList = () => {
   useEffect(() => {
     const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
     if (localStoragePostList) {
-      setPostData((prev) => localStoragePostList);
+      setPostData(() => localStoragePostList);
     }
   }, []);
 
@@ -28,135 +29,135 @@ const PostList = () => {
     navigate("/postform");
   };
 
-  // const handleSave= (id) => {
-  //   // console.log("ddd", id, postData);
-  //   const updatedPosts = postData.map((indvpostList) =>
-  //     indvpostList.id === id ? { ...indvpostList, saved: true } : indvpostList
-  //   );
-  //   setPostData(updatedPosts);
-  //   localStorage.setItem("postList", JSON.stringify(updatedPosts));
-  //   setMessage("post saved successfully");
-  //   console.log("saved", id, updatedPosts);
-  // };
   const handleEdit = (id) => {
     console.log("edit", id, postData);
+    const postDataToEdit = postData.find(
+      (indvpostList) => indvpostList.id === id
+    );
+    // navigate("/postform", { state: { key: id } });
 
-    navigate("/postform");
+    navigate("/postform", { state: { actionType: "EDIT", id: id } });
   };
 
   const handleDelete = (id) => {
     console.log("oooooooooooooooo", id, postData);
-    const del = postData.filter((indvpostList) => indvpostList.id !== id);
-    setPostData(del);
-    localStorage.setItem("postList", JSON.stringify(del));
+    const deleteData = postData.filter(
+      (indvpostList) => indvpostList.id !== id
+    );
+    setPostData(deleteData);
   };
 
   return (
     <div className={styles.container} style={{ flex: 4 }}>
-      {postData.map((indvpostList) => (
-        <div key={indvpostList.id} className={styles.innerbox}>
-          <div className={styles.contain}>
-            <div>
-              <div
-                style={{ display: "flex", flexDirection: "row", gap: "8px" }}
-              >
-                <img src={person} alt="person" />
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <text style={{ fontSize: "16px", fontWeight: 600 }}>
-                    {indvpostList.name}
-                  </text>
-                  <text
-                    style={{ fontSize: "12px", fontWeight: 500, color: "grey" }}
-                  >
-                    {indvpostList.headline}
-                  </text>
+      {postData.length &&
+        postData.map((indvpostList) => (
+          <div key={indvpostList.id} className={styles.innerbox}>
+            <div className={styles.contain}>
+              <div>
+                <div
+                  style={{ display: "flex", flexDirection: "row", gap: "8px" }}
+                >
+                  <img src={person} alt="person" />
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <text style={{ fontSize: "16px", fontWeight: 600 }}>
+                      {indvpostList.name}
+                    </text>
+                    <text
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 500,
+                        color: "grey",
+                      }}
+                    >
+                      {indvpostList.headline}
+                    </text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div style={{ position: "relative" }}>
-              <button
-                style={{
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                }}
-                onClick={() =>
-                  setVisible({
-                    ...visible,
-                    [indvpostList.id]: !visible[indvpostList.id],
-                  })
-                }
-              >
-                <FaEllipsis />
-              </button>
-              <div
-                key={indvpostList.id}
-                className={styles.modal}
-                style={{
-                  display: visible[indvpostList.id] ? "block" : "none",
-                }}
-              >
-                <div
+              <div style={{ position: "relative" }}>
+                <button
                   style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "flex-end",
+                    border: "none",
+                    background: "none",
+                    cursor: "pointer",
+                  }}
+                  onClick={() =>
+                    setVisible({
+                      ...visible,
+                      [indvpostList.id]: !visible[indvpostList.id],
+                    })
+                  }
+                >
+                  <FaEllipsis />
+                </button>
+                <div
+                  key={indvpostList.id}
+                  className={styles.modal}
+                  style={{
+                    display: visible[indvpostList.id] ? "block" : "none",
                   }}
                 >
-                  <button
-                    className={styles.close}
-                    // onClick={() => setVisible(false)}
-                    onClick={handleClose}
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
                   >
-                    &times;
-                  </button>
-                </div>
-                <div className={styles.content}>
-                  <div className={styles.modalBtnWrapper}>
                     <button
-                      className={styles.btnEdit}
-                      onClick={() => handleEdit(indvpostList.id)}
+                      className={styles.close}
+                      // onClick={() => setVisible(false)}
+                      onClick={handleClose}
                     >
-                      Edit
+                      &times;
                     </button>
                   </div>
-                  <div className={styles.modalBtnWrapper}>
-                    <button
-                      className={styles.btnDelete}
-                      onClick={() => handleDelete(indvpostList.id)}
-                    >
-                      Delete
-                    </button>
+                  <div className={styles.content}>
+                    <div className={styles.modalBtnWrapper}>
+                      <button
+                        className={styles.btnEdit}
+                        onClick={() => handleEdit(indvpostList.id)}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <div className={styles.modalBtnWrapper}>
+                      <button
+                        className={styles.btnDelete}
+                        onClick={() => handleDelete(indvpostList.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <br />
-          <div>
-            <text>{indvpostList.des}</text>
             <br />
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <img
-                src="https://media.licdn.com/dms/image/sync/v2/D5610AQHE2Iekrl59Ug/image-shrink_800/image-shrink_800/0/1718625253794/LoL-SC-AdOptimization-JobAlerts-Textpng?e=1724306400&v=beta&t=jfSv4-RNYwNGroG_eh0R5YjcnQp1ULg7V717BTCOnsM"
-                alt="dummy"
+            <div>
+              <text>{indvpostList.des}</text>
+              <br />
+              <div
                 style={{
-                  width: "inherit",
-                  height: "inherit",
+                  width: "100%",
+                  height: "100%",
                 }}
-              />
+              >
+                <img
+                  src="https://media.licdn.com/dms/image/sync/v2/D5610AQHE2Iekrl59Ug/image-shrink_800/image-shrink_800/0/1718625253794/LoL-SC-AdOptimization-JobAlerts-Textpng?e=1724306400&v=beta&t=jfSv4-RNYwNGroG_eh0R5YjcnQp1ULg7V717BTCOnsM"
+                  alt="dummy"
+                  style={{
+                    width: "inherit",
+                    height: "inherit",
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <Icon />
             </div>
           </div>
-          <div>
-            <Icon />
-          </div>
-        </div>
-      ))}
+        ))}
       <br />
       <br />
       <div>

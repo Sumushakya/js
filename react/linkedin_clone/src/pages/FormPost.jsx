@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Nav from "../components/Nav/Nav";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./form.module.css";
+import { useEffect } from "react";
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
-    id: "",
     name: "",
     headline: "",
     des: "",
@@ -15,13 +15,18 @@ const FormPost = () => {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+
+  const { id, actionType } = location.state || {
+    id: null,
+    actionType: "CREATE",
+  };
+
   useEffect(() => {
-    const storedId = localStorage.getItem("currentId");
-    if (storedId) {
-      setPostData((prevData) => ({ ...prevData, id: storedId }));
-    } else {
-      localStorage.setItem("currentId", "0");
-      setPostData((prevData) => ({ ...prevData, id: "0" }));
+    if (actionType === "EDIT") {
+      const postList = JSON.parse(localStorage.getItem("postList"));
+      const editPost = postList.find((post) => post.id === id);
+      setPostData(editPost);
     }
   }, []);
 
@@ -32,20 +37,30 @@ const FormPost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newId = parseInt(localStorage.getItem("currentId"), 10);
+    if (actionType === "CREATE") {
+      const postId = localStorage.getItem("postId") || 0;
+      const newPostId = parseInt(postId) + 1;
+      localStorage.setItem("postId", newPostId);
 
-    const updatedPostData = { ...postData, id: newId + 1 };
-    const temp = JSON.parse(localStorage.getItem("postList")) || [];
-    localStorage.setItem(
-      "postList",
-      JSON.stringify([updatedPostData, ...temp])
-    );
-    localStorage.setItem("currentId", newId + 1);
-    navigate("/");
-    console.log("submit", postData);
+      const newPostData = { id: newPostId, ...postData };
+      const postList = JSON.parse(localStorage.getItem("postList")) || [];
+      const updatedPostList = [newPostData, ...postList];
+
+      localStorage.setItem("postList", JSON.stringify(updatedPostList));
+      navigate("/");
+    }
+    if (actionType === "EDIT") {
+      const postList = JSON.parse(localStorage.getItem("postList"));
+      const updatedPostList = postList.map((post) => {
+        if (post.id === id) {
+          return { ...postData };
+        }
+        return post;
+      });
+      localStorage.setItem("postList", JSON.stringify(updatedPostList));
+      navigate("/");
+    }
   };
-
-  const handleImageChange = (e) => {};
 
   return (
     <div>
@@ -89,11 +104,12 @@ const FormPost = () => {
               // accept="image/*"
               name="image"
               value={postData.image}
-              onChange={handleImageChange}
+              onChange={handleInput}
             />
           </label>
           <button className={styles.button} type="submit">
-            Submit
+            {actionType === "CREATE" ? "Add Post" : "Edit Post"}
+            {/* Submit */}
           </button>
         </form>
       </div>
@@ -101,3 +117,75 @@ const FormPost = () => {
   );
 };
 export default FormPost;
+
+//comment out
+// useEffect(() => {
+//   const storedId = localStorage.getItem("currentId");
+//   if (storedId) {
+//     setPostData((prevData) => ({ ...prevData, id: storedId }));
+//   } else {
+//     localStorage.setItem("currentId", "0");
+//     setPostData((prevData) => ({ ...prevData, id: "1" }));
+//   }
+// }, []);
+
+// const handleSubmit = (e) => {
+// e.preventDefault();
+//   localStorage.setItem('id', id);
+//   // Store the form data in local storage
+//   localStorage.setItem('formData', JSON.stringify(formData));
+//   // Increment the ID for the next submission
+//   setId(id + 1);
+// // };
+// const newId = parseInt(localStorage.getItem("currentId"), 10);
+
+// const updatedPostData = { ...postData, id: newId + 1 };
+// const temp = JSON.parse(localStorage.getItem("postList")) || [];
+// localStorage.setItem(
+//   "postList",
+//   JSON.stringify([updatedPostData, ...temp])
+// );
+// localStorage.setItem("currentId", newId + 1);
+// navigate("/");
+// console.log("submit", postData);
+
+// const updatedPostList = postList.map((post) => {
+//   if (post.id === id) {
+//     return { ...postData };
+//   }
+//   return post;
+// });
+// localStorage.setItem("postList", JSON.stringify(updatedPostList));
+// navigate("/");
+
+// const [actionType, setActionType] = useState("CREATE");
+
+//handleSubmit
+// const handleEditSubmit = (e) => {
+//   e.preventDefault();
+//   // const postList = JSON.parse(localStorage.getItem("postList"));
+//   // const updatedPost = postList.map((post) => {});
+//   // localStorage.setItem("postList", JSON.stringify(updatedPost));
+//   navigate("/");
+
+// console.log("update", id, updatedPost);
+
+// const handleImageChange = (e) => {};
+
+// const handleSubmit = (e) => {
+//   e.preventDefault();
+//   const postId = localStorage.getItem("postId") || 0;
+//   const newPostId = parseInt(postId) + 1;
+//   localStorage.setItem("postId", newPostId);
+//   const newPostData = { id: newPostId, ...postData };
+//   const postList = JSON.parse(localStorage.getItem("postList")) || [];
+//   const updatedPostList = [newPostData, ...postList];
+//   localStorage.setItem("postList", JSON.stringify(updatedPostList));
+//   navigate("/");
+// };
+
+// let id = null;
+// if (location.state) {
+//   id = location.state.key;
+//   setActionType("EDIT");
+// }
