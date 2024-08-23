@@ -1,207 +1,122 @@
-import { useState, useEffect } from "react";
-import students from "./students.json";
+import React, { useState } from "react";
 
-function App() {
-  const [studentsData, setStudentsData] = useState([]);
-  const [newStudent, setNewStudent] = useState({
-    id: "",
-    name: "",
-    address: "",
-    "roll number": "",
-    "total marks": "",
-  });
-  const [updateState, setUpdateState] = useState(null);
+const studentArray = [
+  {
+    id: 1,
+    name: "John Doe",
+    address: "123 Maple Street, Springfield",
+    rollNumber: "A001",
+    totalMarks: 450,
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    address: "456 Oak Avenue, Shelbyville",
+    rollNumber: "A002",
+    totalMarks: 470,
+  },
+  {
+    id: 3,
+    name: "Alice Johnson",
+    address: "789 Pine Road, Capital City",
+    rollNumber: "A003",
+    totalMarks: 460,
+  },
+];
 
-  useEffect(() => {
-    setStudentsData(students);
-  }, []);
+const App = () => {
+  const [studentList, setStudentList] = useState(studentArray);
+  const [newValue, setNewValue] = useState();
+
+  const handleChange = (e) => {
+    console.log("input", e.target.name, e.target.value);
+    setNewValue((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newStudentData = { ...newStudent, id: studentsData.length + 1 };
-    setStudentsData([...studentsData, newStudentData]);
-    setNewStudent({
-      id: "",
-      name: "",
-      address: "",
-      "roll number": "",
-      "total marks": "",
-    });
+    console.log("length", studentList.length);
+    setStudentList((prev) => [
+      ...prev,
+      { ...newValue, id: studentList.length + 1 },
+    ]);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewStudent((prev) => {
-      return { ...prev, [name]: value };
-    });
+  const handleDelete = (id) => {
+    const del = studentList.filter((student) => student.id !== id);
+    setStudentList(del);
   };
 
-  const handleEditStudent = (id) => {
-    setUpdateState(id);
-  };
-
-  const handleDeleteStudent = (id) => {
-    const a = studentsData.filter((idvstudent) => idvstudent.id !== id);
-    setStudentsData(a);
-  };
+  console.log("sd", studentList);
 
   return (
     <div>
-      <h1>Students Table</h1>
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Roll Number</th>
-            <th>Total Marks</th>
-            <th>Action</th>
+            <td>ID</td>
+            <td>FullName</td>
+            <td>Address</td>
+            <td>RollNumber</td>
+            <td>Total Marks</td>
+            <td>Action</td>
           </tr>
         </thead>
         <tbody>
-          {studentsData.map((idvstudent) =>
-            updateState === idvstudent.id ? (
-              <Edit idvstudent={idvstudent} />
-            ) : (
-              <tr key={idvstudent.id}>
-                <td>{idvstudent.id}</td>
-                <td>{idvstudent.name}</td>
-                <td>{idvstudent.address}</td>
-                <td>{idvstudent["roll number"]}</td>
-                <td>{idvstudent["total marks"]}</td>
-                <td>
-                  <button onClick={() => handleEditStudent(idvstudent.id)}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDeleteStudent(idvstudent.id)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            )
-          )}
+          {studentList.map((student) => (
+            <tr key={student.id}>
+              <td>{student.id}</td>
+              <td>{student.name}</td>
+              <td>{student.address}</td>
+              <td>{student.rollNumber}</td>
+              <td>{student.totalMarks}</td>
+              <td>
+                <button onClick={() => handleDelete(student.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div>
-        <h2>Add new Student</h2>
+        <br />
         <form onSubmit={handleSubmit}>
-          <label>
-            ID:
-            <input
-              type="text"
-              placeholder="Enter id"
-              name="id"
-              value={newStudent.id}
-              onChange={handleChange}
-            />
-          </label>
+          <label>Name: </label>
+          <input
+            type="text"
+            placeholder="Enter name"
+            name="name"
+            onChange={handleChange}
+          />
           <br />
-          <label>
-            Name:
-            <input
-              type="text"
-              placeholder="Enter Name"
-              name="name"
-              value={newStudent.name}
-              onChange={handleChange}
-            />
-          </label>
+          <label>Address: </label>
+          <input
+            type="text"
+            placeholder="Enter address"
+            name="address"
+            onChange={handleChange}
+          />
           <br />
-          <label>
-            Address:
-            <input
-              type="text"
-              placeholder="Enter Address"
-              name="address"
-              value={newStudent.address}
-              onChange={handleChange}
-            />
-          </label>
+          <label>Roll Number: </label>
+          <input
+            type="text"
+            placeholder="Enter roll number"
+            name="rollNumber"
+            onChange={handleChange}
+          />
           <br />
-          <label>
-            Roll Number:
-            <input
-              type="text"
-              placeholder="Enter rollnumber"
-              name="roll number"
-              value={newStudent["roll number"]}
-              onChange={handleChange}
-            />
-          </label>
+          <label>Total Marks: </label>
+          <input
+            type="text"
+            placeholder="Enter total marks"
+            name="totalMarks"
+            onChange={handleChange}
+          />
           <br />
-          <label>
-            Total Marks:
-            <input
-              type="text"
-              name="total marks"
-              placeholder="Enter total marks"
-              value={newStudent["total marks"]}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <button type="submit">Add Student</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>
   );
-}
-
-function Edit(idvstudent) {
-  function handleInput(e) {}
-  return (
-    <tr>
-      <td>
-        <input
-          type="text"
-          palceholder="Enter id"
-          name="id"
-          value={idvstudent.id}
-          onChange={handleInput}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          palceholder="Enter Name"
-          name="name"
-          value={idvstudent.name}
-          onChange={handleInput}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          palceholder="Enter Address"
-          name="address"
-          value={idvstudent.address}
-          onChange={handleInput}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          palceholder="Enter Rollnumber"
-          name="roll number"
-          value={idvstudent["roll number"]}
-          onChange={handleInput}
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          palceholder="Enter total marks"
-          name="total marks"
-          value={idvstudent["total marks"]}
-          onChange={handleInput}
-        />
-      </td>
-      <td>
-        <button type="submit">Update</button>
-      </td>
-    </tr>
-  );
-}
+};
 
 export default App;
