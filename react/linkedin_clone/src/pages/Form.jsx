@@ -8,15 +8,45 @@ const Form = () => {
     name: "",
     headline: "",
     about: "",
-    skill: "",
-    education: "",
+    skill: [],
+    education: [],
+    // educations: [],
   });
+  console.log("detailformdata", formData);
+  const [tempSkill, setTempSkill] = useState("");
+  console.log("skilssss", tempSkill);
+
+  const [tempEducation, setTempEducation] = useState("");
 
   const navigate = useNavigate();
 
   const handleInput = (e) => {
     console.log("input", e.target.name, e.target.value);
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleInputSkill = (e) => {
+    setTempSkill(e.target.value);
+    // setTempSkill((prev) => prev + e.target.value);
+    // setFormData((prev) => ({ ...prev, skill: [...prev.skill, tempSkill] }));
+    // console.log("s", tempSkill);
+  };
+
+  const handleAddSkill = () => {
+    setFormData((prev) => ({ ...prev, skill: [...prev.skill, tempSkill] }));
+    setTempSkill("");
+    // console.log("add", setFormData);
+  };
+  const handleInputEducation = (e) => {
+    setTempEducation(e.target.value);
+    console.log("educatiob", tempEducation);
+  };
+  const handleAddEducation = () => {
+    setFormData((prev) => ({
+      ...prev,
+      education: [...prev.education, tempEducation],
+    }));
+    setTempSkill("");
+    // console.log("add", setFormData);
   };
 
   const handleSubmit = (e) => {
@@ -72,25 +102,30 @@ const Form = () => {
               type="text"
               placeholder="Skill"
               name="skill"
-              value={formData.skill}
-              onChange={handleInput}
+              value={tempSkill}
+              onChange={handleInputSkill}
             />
           </label>
-          <br />
-          <label>
+          <button type="button" onClick={handleAddSkill}>
+            Add Skill
+          </button>
+
+          <label style={{ paddingTop: "15px" }}>
             Education:
             <input
               type="text"
               placeholder="Education"
               name="education"
-              value={formData.education}
-              onChange={handleInput}
+              value={tempEducation}
+              onChange={handleInputEducation}
             />
           </label>
-          <br />
-          <button className={styles.button} type="submit">
-            Submit
-          </button>
+          <button onClick={handleAddEducation}>Add Education</button>
+          <div style={{ paddingTop: "10px" }}>
+            <button className={styles.button} type="submit">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

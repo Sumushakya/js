@@ -7,10 +7,10 @@ const Detail = () => {
     name: "",
     headline: "",
     about: "",
-    skill: "",
+    skill: [],
     education: "",
   });
-  // console.log("detail", formData);
+  console.log("detail", formData);
 
   useEffect(() => {
     // Retrieve data from localStorage
@@ -35,11 +35,19 @@ const Detail = () => {
       </div>
       <div className={styles.card}>
         <p className={styles.title}>Skills</p>
-        <p className={styles.description}>{formData.skill}</p>
+        <p className={styles.description}>
+          {formData?.skill?.map((skill, index) => (
+            <li key={index}>{skill}</li>
+          ))}
+        </p>
       </div>
       <div className={styles.card}>
         <p className={styles.title}>Education</p>
-        <p className={styles.description}>{formData.education}</p>
+        <p className={styles.description}>
+          {/* {formData.education.map((education, index) => (
+            <li key={index}>{education}</li>
+          ))} */}
+        </p>
       </div>
     </div>
   );

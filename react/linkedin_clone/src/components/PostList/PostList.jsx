@@ -28,6 +28,11 @@ const PostList = () => {
   const handleAdd = () => {
     navigate("/postform");
   };
+  const handleCloseOutsideClick = (e, id) => {
+    if (e.target.classList.contains(styles.modal)) {
+      setVisible((prevVisible) => ({ ...prevVisible, [id]: false }));
+    }
+  };
 
   const handleEdit = (id) => {
     console.log("edit", id, postData);
@@ -90,47 +95,53 @@ const PostList = () => {
                 >
                   <FaEllipsis />
                 </button>
-                <div
-                  key={indvpostList.id}
-                  className={styles.modal}
-                  style={{
-                    display: visible[indvpostList.id] ? "block" : "none",
-                  }}
-                >
+                {visible[indvpostList.id] && (
                   <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "flex-end",
-                    }}
+                    key={indvpostList.id}
+                    className={styles.modal}
+                    onClick={(e) => handleCloseOutsideClick(e, indvpostList.id)}
+                    style={{ display: "block" }}
                   >
-                    <button
-                      className={styles.close}
-                      // onClick={() => setVisible(false)}
-                      onClick={handleClose}
+                    <div
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "flex-end",
+                      }}
                     >
-                      &times;
-                    </button>
-                  </div>
-                  <div className={styles.content}>
-                    <div className={styles.modalBtnWrapper}>
                       <button
-                        className={styles.btnEdit}
-                        onClick={() => handleEdit(indvpostList.id)}
+                        className={styles.close}
+                        // onClick={() => setVisible(false)}
+                        onClick={() =>
+                          setVisible((prevVisible) => ({
+                            ...prevVisible,
+                            [indvpostList.id]: false,
+                          }))
+                        }
                       >
-                        Edit
+                        &times;
                       </button>
                     </div>
-                    <div className={styles.modalBtnWrapper}>
-                      <button
-                        className={styles.btnDelete}
-                        onClick={() => handleDelete(indvpostList.id)}
-                      >
-                        Delete
-                      </button>
+                    <div className={styles.content}>
+                      <div className={styles.modalBtnWrapper}>
+                        <button
+                          className={styles.btnEdit}
+                          onClick={() => handleEdit(indvpostList.id)}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div className={styles.modalBtnWrapper}>
+                        <button
+                          className={styles.btnDelete}
+                          onClick={() => handleDelete(indvpostList.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
             <br />
@@ -144,7 +155,7 @@ const PostList = () => {
                 }}
               >
                 <img
-                  src="https://media.licdn.com/dms/image/sync/v2/D5610AQHE2Iekrl59Ug/image-shrink_800/image-shrink_800/0/1718625253794/LoL-SC-AdOptimization-JobAlerts-Textpng?e=1724306400&v=beta&t=jfSv4-RNYwNGroG_eh0R5YjcnQp1ULg7V717BTCOnsM"
+                  src="https://st.depositphotos.com/1927453/1975/i/380/depositphotos_19750405-stock-photo-alone-tree-on-meadow-at.jpg"
                   alt="dummy"
                   style={{
                     width: "inherit",
