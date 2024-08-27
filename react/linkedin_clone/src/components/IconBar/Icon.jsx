@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./icon.module.css";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
+import person2 from "../../assets/person2.png";
+// import person3 from "../../assets/person3.png";
+
 // import { useNavigate } from "react-router-dom";
 
-const Icon = () => {
+const Icon = ({ id }) => {
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
-  console.log("comment", newComment);
-  // const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState({});
+  console.log("comment", comments);
+  const [likes, setLikes] = useState({});
 
   const handleCommentClick = () => {
     setShowComments(!showComments); //toggle show section
@@ -16,41 +20,83 @@ const Icon = () => {
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
+  useEffect(() => {
+    const savedComments = JSON.parse(localStorage.getItem("comments")) || {};
+    const savedLikes = JSON.parse(localStorage.getItem("likes")) || {};
+    if (savedComments[id]) {
+      setComments(savedComments);
+    }
+    if (savedLikes[id]) {
+      setLikes(savedLikes);
+    }
+  }, [id]);
 
-  const handleCommentSubmit = () => {};
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    const postComments = comments[id] || 0;
+    const updatedComments = {
+      ...comments,
+      [id]: [newComment, ...postComments],
+    };
+    setComments(updatedComments);
+    localStorage.setItem("comments", JSON.stringify(updatedComments));
+    setNewComment("");
+    console.log("uc", updatedComments);
+  };
+
+  const handleLikeClick = () => {
+    const postLikes = likes[id] || 0;
+    const updatedLikes = { ...likes, [id]: parseInt(postLikes + 1) };
+    setLikes(updatedLikes);
+    localStorage.setItem("likes", JSON.stringify(updatedLikes));
+    console.log("like", updatedLikes);
+  };
 
   return (
-    <div className={styles.iconBar}>
-      <button className={styles.iconItem}>
-        <FaThumbsUp />
-        <span>Like</span>
-      </button>
-      <button className={styles.iconItem}>
-        <FaComment />
-        <span onClick={handleCommentClick}>Comment</span>
-      </button>
-      <button className={styles.iconItem}>
-        <FaRetweet />
-        <span>Repost</span>
-      </button>
-      <button className={styles.iconItem}>
-        <FaPaperPlane />
-        <span>Share</span>
-      </button>
+    <div className={styles.container}>
+      {/* {likes[id] || 0} Likes */}
+      <div className={styles.iconBar}>
+        <button className={styles.iconItem} onClick={handleLikeClick}>
+          <FaThumbsUp />
+          <span>Like</span>
+        </button>
+        <button className={styles.iconItem} onClick={handleCommentClick}>
+          <FaComment />
+          <span>Comment</span>
+        </button>
+        <button className={styles.iconItem}>
+          <FaRetweet />
+          <span>Repost</span>
+        </button>
+        <button className={styles.iconItem}>
+          <FaPaperPlane />
+          <span>Share</span>
+        </button>
+      </div>
       <div>
         {showComments && (
           <div className={styles.commentSection}>
-            <h4>Comments</h4>
-            <form onSubmit={handleCommentSubmit}>
-              <input
-                className={styles.commentInput}
-                type="text"
-                placeholder="Add a comment"
-                value={newComment}
-                onChange={handleChange}
-              />
-              <button className={styles.submitBtn}>Submit</button>
+            <form onSubmit={handleCommentSubmit} className={styles.form}>
+              <div className={styles.formContainer}>
+                <img src={person2} alt="image" />
+                <input
+                  className={styles.commentInput}
+                  type="text"
+                  placeholder="Add a comment"
+                  value={newComment}
+                  onChange={handleChange}
+                />
+                {/* <button className={styles.submitBtn}>Submit</button> */}
+              </div>
             </form>
+            <div>
+              <h4>Comments</h4>
+              {/* {comments.map((comment, id) => (
+                <p key={id}>{comment}</p> */}
+              {(comments[id] || []).map((comment, index) => (
+                <p key={index}>{comment}</p>
+              ))}
+            </div>
           </div>
         )}
       </div>

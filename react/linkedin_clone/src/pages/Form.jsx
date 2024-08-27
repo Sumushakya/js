@@ -17,6 +17,8 @@ const Form = () => {
   console.log("skilssss", tempSkill);
 
   const [tempEducation, setTempEducation] = useState("");
+  const [skillMessage, setSkillMessage] = useState("");
+  const [educationMessage, setEducationMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -33,19 +35,27 @@ const Form = () => {
 
   const handleAddSkill = () => {
     setFormData((prev) => ({ ...prev, skill: [...prev.skill, tempSkill] }));
+    setSkillMessage("Skill Added!");
     setTempSkill("");
+    setTimeout(() => {
+      setSkillMessage("");
+    }, 5000);
     // console.log("add", setFormData);
   };
   const handleInputEducation = (e) => {
     setTempEducation(e.target.value);
-    console.log("educatiob", tempEducation);
+    console.log("educatio", tempEducation);
   };
   const handleAddEducation = () => {
+    setEducationMessage("Added!");
     setFormData((prev) => ({
       ...prev,
       education: [...prev.education, tempEducation],
     }));
-    setTempSkill("");
+    setTempEducation("");
+    setTimeout(() => {
+      setEducationMessage("");
+    }, 5000);
     // console.log("add", setFormData);
   };
 
@@ -66,6 +76,7 @@ const Form = () => {
           <label>
             Name:
             <input
+              required
               type="text"
               placeholder="Name"
               name="name"
@@ -77,6 +88,7 @@ const Form = () => {
           <label>
             Headline
             <input
+              required
               type="text"
               placeholder="Headline"
               name="headline"
@@ -88,6 +100,7 @@ const Form = () => {
           <label>
             About:
             <input
+              required
               type="text"
               placeholder="About"
               name="about"
@@ -109,7 +122,9 @@ const Form = () => {
           <button type="button" onClick={handleAddSkill}>
             Add Skill
           </button>
-
+          {skillMessage && (
+            <p style={{ color: "green", fontWeight: "bold" }}>{skillMessage}</p>
+          )}
           <label style={{ paddingTop: "15px" }}>
             Education:
             <input
@@ -121,6 +136,11 @@ const Form = () => {
             />
           </label>
           <button onClick={handleAddEducation}>Add Education</button>
+          {educationMessage && (
+            <p style={{ color: "green", fontWeight: "bold" }}>
+              {educationMessage}
+            </p>
+          )}
           <div style={{ paddingTop: "10px" }}>
             <button className={styles.button} type="submit">
               Submit

@@ -12,9 +12,9 @@ const PostList = () => {
 
   const [visible, setVisible] = useState(false);
 
-  const handleClose = () => {
-    setVisible(false);
-  };
+  // const handleClose = () => {
+  //   setVisible(false);
+  // };
 
   useEffect(() => {
     const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
@@ -165,7 +165,7 @@ const PostList = () => {
               </div>
             </div>
             <div>
-              <Icon />
+              <Icon id={indvpostList.id} />
             </div>
           </div>
         ))}

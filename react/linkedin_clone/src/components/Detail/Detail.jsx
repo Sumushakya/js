@@ -8,7 +8,7 @@ const Detail = () => {
     headline: "",
     about: "",
     skill: [],
-    education: "",
+    education: [],
   });
   console.log("detail", formData);
 
@@ -19,7 +19,7 @@ const Detail = () => {
       setFormData(savedData);
     }
   }, []);
-
+  // const handleClick = () => {};
   return (
     <div className={styles.container} style={{ flex: 1.2 }}>
       <div className={styles.avatarContainer}>
@@ -44,9 +44,9 @@ const Detail = () => {
       <div className={styles.card}>
         <p className={styles.title}>Education</p>
         <p className={styles.description}>
-          {/* {formData.education.map((education, index) => (
+          {formData.education.map((education, index) => (
             <li key={index}>{education}</li>
-          ))} */}
+          ))}
         </p>
       </div>
     </div>

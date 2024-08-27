@@ -1,10 +1,15 @@
 /* IconBar.css */
+.container {
+  display: flex;
+  flex-direction: column;
+}
 .iconBar {
   display: flex;
   justify-content: space-around;
   align-items: center;
   border-top: 1px solid #ddd;
   padding: 10px 0;
+  margin-top: 5px;
 }
 
 .iconItem {
@@ -25,7 +30,33 @@
 .iconItem span {
   margin-left: 5px;
 }
-.commentSection {
-  /* background-color: blue; */
-  /* display: flex; */
+/* .commentSection {
+  b
+  margin: 0;
+  padding: 0;
+} */
+.form {
+  padding: 0;
+  border: none;
+  margin-left: 4px;
 }
+.formContainer {
+  border: none;
+  display: flex;
+  gap: 12px;
+}
+.commentInput {
+  border-radius: 8px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e3e4df;
+  /* border-radius: 8px; */
+  font-size: 16px;
+}
+.submitBtn {
+  padding: 2px 4px;
+}
+/* .commentSection { */
+/* background-color: blue; */
+/* display: flex; */
+/* } */
