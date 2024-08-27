@@ -15,10 +15,9 @@ const Nav = () => {
     <div className={styles.container}>
       <nav className={styles.navbar}>
         <img
+          className={styles.navImage}
           src={logo}
           alt="logo"
-          width="30px"
-          height="30px"
           onClick={handleLogo}
         />
 
@@ -31,7 +30,12 @@ const Nav = () => {
           <li href="#">Messaging</li>
           <li href="#">Network</li>
         </ul>
-        <img src={person2} alt="pic" onClick={handleClick} />
+        <img
+          className={styles.navImage}
+          src={person2}
+          alt="pic"
+          onClick={handleClick}
+        />
       </nav>
     </div>
   );

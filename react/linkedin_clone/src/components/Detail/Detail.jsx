@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./detail.module.css";
-import person2 from "../../assets/person2.png";
+import person4 from "../../assets/person4.png";
 
 const Detail = () => {
   const [formData, setFormData] = useState({
@@ -19,35 +19,41 @@ const Detail = () => {
       setFormData(savedData);
     }
   }, []);
-  // const handleClick = () => {};
+
   return (
-    <div className={styles.container} style={{ flex: 1.2 }}>
-      <div className={styles.avatarContainer}>
-        <img src={person2} alt="pic" />
-      </div>
-      <div className={styles.head}>
-        <p className={styles.pName}>{formData.name}</p>
-        <p className={styles.pHeadline}>{formData.headline}</p>
-      </div>
-      <div className={styles.card}>
-        <p className={styles.title}>About</p>
-        <p className={styles.description}>{formData.about}</p>
-      </div>
-      <div className={styles.card}>
-        <p className={styles.title}>Skills</p>
-        <p className={styles.description}>
-          {formData?.skill?.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
-        </p>
-      </div>
-      <div className={styles.card}>
-        <p className={styles.title}>Education</p>
-        <p className={styles.description}>
-          {formData.education.map((education, index) => (
-            <li key={index}>{education}</li>
-          ))}
-        </p>
+    <div style={{ flex: 1.2 }}>
+      <div className={styles.container}>
+        <div className={styles.profileCard}>
+          <div className={styles.avatarContainer}>
+            <img src={person4} alt="pic" width="60px" height="60px" />
+          </div>
+        </div>
+        <div className={styles.head}>
+          <p className={styles.pName}>{formData.name}</p>
+          <p className={styles.pHeadline}>{formData.headline}</p>
+        </div>
+        <div className={styles.card}>
+          <div style={{ marginTop: "8px" }}>
+            <p className={styles.title}>About</p>
+            <p className={styles.description}>{formData.about}</p>
+          </div>
+          <div style={{ marginTop: "30px" }}>
+            <p className={styles.title}>Skills</p>
+            <p className={styles.description}>
+              {formData?.skill?.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </p>
+          </div>
+          <div style={{ marginTop: "30px" }}>
+            <p className={styles.title}>Education</p>
+            <p className={styles.description}>
+              {formData.education.map((education, index) => (
+                <li key={index}>{education}</li>
+              ))}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

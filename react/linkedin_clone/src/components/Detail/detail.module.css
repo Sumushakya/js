@@ -1,18 +1,28 @@
 .container {
   border: 2px solid #e3e4df;
   background-color: #fff;
-  border-radius: 12px;
-  height: 500px;
+  border-radius: 8px;
+  /* height: 500px; */
+}
+.profileCard {
+  position: relative;
+  padding: 35px;
+  background-color: lightblue;
+  border-radius: 8px 8px 0 0;
 }
 .avatarContainer {
   display: flex;
+  position: absolute;
+  bottom: -30px;
+  /* left: calc(100%-90px); */
+  left: 120px;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .head {
   text-align: center;
+  margin-top: 30px;
 }
 .pName {
   margin: 0;
@@ -30,14 +40,24 @@
   /* border-bottom: 1px solid grey; */
 }
 .card {
-  padding: 6px;
+  /* margin: 4px; */
+  padding-left: 30px;
 }
 .title {
+  margin: 0;
+  color: #2a78ca;
   font-weight: 600;
   font-size: 16px;
 }
+.title:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .description {
+  margin-top: 4px;
   font-size: 15px;
+  list-style-type: square;
+  color: rgb(65, 60, 60);
 }
 /* .discover {
   align-content: center;

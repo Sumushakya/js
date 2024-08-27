@@ -4,13 +4,11 @@ import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
 // import person3 from "../../assets/person3.png";
 
-// import { useNavigate } from "react-router-dom";
-
 const Icon = ({ id }) => {
+  console.log("postid", id);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState({});
-  console.log("comment", comments);
   const [likes, setLikes] = useState({});
 
   const handleCommentClick = () => {
@@ -33,7 +31,7 @@ const Icon = ({ id }) => {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    const postComments = comments[id] || 0;
+    const postComments = comments[id] || [];
     const updatedComments = {
       ...comments,
       [id]: [newComment, ...postComments],
@@ -54,7 +52,7 @@ const Icon = ({ id }) => {
 
   return (
     <div className={styles.container}>
-      {/* {likes[id] || 0} Likes */}
+      {likes[id] > 0 && <div>{likes[id]} Likes</div>}
       <div className={styles.iconBar}>
         <button className={styles.iconItem} onClick={handleLikeClick}>
           <FaThumbsUp />
@@ -78,7 +76,7 @@ const Icon = ({ id }) => {
           <div className={styles.commentSection}>
             <form onSubmit={handleCommentSubmit} className={styles.form}>
               <div className={styles.formContainer}>
-                <img src={person2} alt="image" />
+                <img src={person2} alt="image" width="40px" height="40px" />
                 <input
                   className={styles.commentInput}
                   type="text"
@@ -91,10 +89,10 @@ const Icon = ({ id }) => {
             </form>
             <div>
               <h4>Comments</h4>
-              {/* {comments.map((comment, id) => (
-                <p key={id}>{comment}</p> */}
               {(comments[id] || []).map((comment, index) => (
-                <p key={index}>{comment}</p>
+                <div className={styles.commentBox} key={index}>
+                  <p key={index}>{comment}</p>
+                </div>
               ))}
             </div>
           </div>

@@ -11,7 +11,7 @@ const HomePage = () => {
       <div
         style={{
           display: "flex",
-          gap: "25px",
+          gap: "30px",
           padding: "20px",
         }}
       >

@@ -59,21 +59,13 @@ const PostList = () => {
           <div key={indvpostList.id} className={styles.innerbox}>
             <div className={styles.contain}>
               <div>
-                <div
-                  style={{ display: "flex", flexDirection: "row", gap: "8px" }}
-                >
-                  <img src={person} alt="person" />
+                <div className={styles.imageContent}>
+                  <img src={person} alt="person" width="40px" height="40px" />
                   <div style={{ display: "flex", flexDirection: "column" }}>
-                    <text style={{ fontSize: "16px", fontWeight: 600 }}>
+                    <text className={styles.nameContent}>
                       {indvpostList.name}
                     </text>
-                    <text
-                      style={{
-                        fontSize: "12px",
-                        fontWeight: 500,
-                        color: "grey",
-                      }}
-                    >
+                    <text className={styles.headlineContent}>
                       {indvpostList.headline}
                     </text>
                   </div>
@@ -147,9 +139,10 @@ const PostList = () => {
             <br />
             <div>
               <text>{indvpostList.des}</text>
-              <br />
+
               <div
                 style={{
+                  marginTop: "5px",
                   width: "100%",
                   height: "100%",
                 }}

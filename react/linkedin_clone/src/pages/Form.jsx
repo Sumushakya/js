@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav/Nav";
 import styles from "./form.module.css";
@@ -10,8 +10,15 @@ const Form = () => {
     about: "",
     skill: [],
     education: [],
-    // educations: [],
   });
+
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("userData"));
+    if (savedData) {
+      setFormData(savedData);
+    }
+  }, []);
+
   console.log("detailformdata", formData);
   const [tempSkill, setTempSkill] = useState("");
   console.log("skilssss", tempSkill);
@@ -44,7 +51,7 @@ const Form = () => {
   };
   const handleInputEducation = (e) => {
     setTempEducation(e.target.value);
-    console.log("educatio", tempEducation);
+    console.log("education", tempEducation);
   };
   const handleAddEducation = () => {
     setEducationMessage("Added!");

@@ -17,6 +17,26 @@
   display: flex;
   justify-content: space-between;
 }
+.imageContent {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.nameContent {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+.nameContent:hover {
+  cursor: pointer;
+  color: #2a78ca;
+  text-decoration: underline;
+}
+.headlineContent {
+  font-size: 12px;
+  font-weight: 500;
+  color: grey;
+}
 .btn {
   position: fixed;
   bottom: 25px;
