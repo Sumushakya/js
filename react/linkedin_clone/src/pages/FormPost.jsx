@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Nav from "../components/Nav/Nav";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./form.module.css";
 import { useEffect } from "react";
+import { PostlistContext } from "../components/context/PostList/PostlistContext";
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
@@ -11,6 +12,7 @@ const FormPost = () => {
     des: "",
     image: "",
   });
+  const { postlistDetails, addPost, editPost } = useContext(PostlistContext);
   console.log("ss", postData);
 
   const navigate = useNavigate();
@@ -24,8 +26,7 @@ const FormPost = () => {
 
   useEffect(() => {
     if (actionType === "EDIT") {
-      const postList = JSON.parse(localStorage.getItem("postList"));
-      const editPost = postList.find((post) => post.id === id);
+      const editPost = postlistDetails.find((post) => post.id === id);
       setPostData(editPost);
     }
   }, []);
@@ -37,26 +38,24 @@ const FormPost = () => {
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
-    // if (actionType === "CREATE") {
-    const postId = localStorage.getItem("postId") || 0;
-    const newPostId = parseInt(postId) + 1;
-    localStorage.setItem("postId", newPostId);
-
-    const newPostData = { id: newPostId, ...postData };
-    const postList = JSON.parse(localStorage.getItem("postList")) || [];
-    const updatedPostList = [newPostData, ...postList];
-
-    localStorage.setItem("postList", JSON.stringify(updatedPostList));
+    // const postId = localStorage.getItem("postId") || 0;
+    // const newPostId = parseInt(postId) + 1;
+    // localStorage.setItem("postId", newPostId);
+    // const newPostData = { id: newPostId, ...postData };
+    // const postList = JSON.parse(localStorage.getItem("postList")) || [];
+    // const updatedPostList = [newPostData, ...postList];
+    // localStorage.setItem("postList", JSON.stringify(updatedPostList));
+    addPost(postData);
     navigate("/");
   };
-  // if (actionType === "EDIT") {
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    const postList = JSON.parse(localStorage.getItem("postList"));
-    const updatedPostList = postList.map((post) =>
-      post.id === id ? { ...post, ...postData } : post
-    );
-    localStorage.setItem("postList", JSON.stringify(updatedPostList));
+    // const postList = JSON.parse(localStorage.getItem("postList"));
+    // const updatedPostList = postList.map((post) =>
+    //   post.id === id ? { ...post, ...postData } : post
+    // );
+    // localStorage.setItem("postList", JSON.stringify(updatedPostList));
+    editPost(id, postData);
     navigate("/");
   };
 

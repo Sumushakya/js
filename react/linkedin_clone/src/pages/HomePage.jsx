@@ -16,6 +16,7 @@ const HomePage = () => {
         }}
       >
         <Detail />
+
         <PostList />
       </div>
       {/* <Post /> */}

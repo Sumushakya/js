@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav/Nav";
 import styles from "./form.module.css";
+import { DetailContext } from "../components/context/Detail/DetailContext";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -11,15 +12,16 @@ const Form = () => {
     skill: [],
     education: [],
   });
+  console.log("detailformdata", formData);
+
+  const { userDetails, setUserDetails } = useContext(DetailContext);
 
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("userData"));
-    if (savedData) {
-      setFormData(savedData);
+    if (userDetails) {
+      setFormData(userDetails);
     }
   }, []);
 
-  console.log("detailformdata", formData);
   const [tempSkill, setTempSkill] = useState("");
   console.log("skilssss", tempSkill);
 
@@ -33,11 +35,9 @@ const Form = () => {
     console.log("input", e.target.name, e.target.value);
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const handleInputSkill = (e) => {
     setTempSkill(e.target.value);
-    // setTempSkill((prev) => prev + e.target.value);
-    // setFormData((prev) => ({ ...prev, skill: [...prev.skill, tempSkill] }));
-    // console.log("s", tempSkill);
   };
 
   const handleAddSkill = () => {
@@ -47,28 +47,29 @@ const Form = () => {
     setTimeout(() => {
       setSkillMessage("");
     }, 5000);
-    // console.log("add", setFormData);
   };
+
   const handleInputEducation = (e) => {
     setTempEducation(e.target.value);
     console.log("education", tempEducation);
   };
+
   const handleAddEducation = () => {
-    setEducationMessage("Added!");
     setFormData((prev) => ({
       ...prev,
       education: [...prev.education, tempEducation],
     }));
-    setTempEducation("");
+    setEducationMessage("Added!");
     setTimeout(() => {
       setEducationMessage("");
     }, 5000);
-    // console.log("add", setFormData);
+    setTempEducation("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("userData", JSON.stringify(formData));
+    // localStorage.setItem("userData", JSON.stringify(formData));
+    setUserDetails(formData);
     navigate("/");
     console.log("submit", formData);
   };
