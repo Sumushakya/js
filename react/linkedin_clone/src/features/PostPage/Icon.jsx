@@ -89,6 +89,9 @@ const Icon = ({ id }) => {
                   value={newComment}
                   onChange={handleChange}
                 />
+                <button className={styles.btnSubmit} type="submit">
+                  Submit
+                </button>
               </div>
             </form>
             <div>

@@ -6,7 +6,7 @@ import { DetailContext } from "../../context/Detail/DetailContext";
 
 const Detail = () => {
   const { userDetails } = useContext(DetailContext);
-  console.log("detail", userDetails);
+  // console.log("userdetailsss", userDetails);
 
   return (
     <div style={{ flex: 1.2 }}>
@@ -17,19 +17,19 @@ const Detail = () => {
           </div>
         </div>
         <div className={styles.head}>
-          <p className={styles.pName}>{userDetails.name}</p>
-          <p className={styles.pHeadline}>{userDetails.headline}</p>
+          <p className={styles.pName}>{userDetails?.name}</p>
+          <p className={styles.pHeadline}>{userDetails?.headline}</p>
         </div>
         <div className={styles.card}>
           <div style={{ marginTop: "8px" }}>
             <p className={styles.title}>About</p>
-            <p className={styles.description}>{userDetails.about}</p>
+            <p className={styles.description}>{userDetails?.about}</p>
           </div>
           <div style={{ marginTop: "30px" }}>
             <p className={styles.title}>Skills</p>
             <p className={styles.description}>
-              {userDetails?.skill?.map((skill, index) => (
-                <li key={index}>{skill}</li>
+              {userDetails?.skill?.map((skills, index) => (
+                <li key={index}>{skills}</li>
               ))}
             </p>
           </div>

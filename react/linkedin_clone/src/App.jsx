@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import HomePage from "./features/HomePage/HomePage";
 import CreateEditDetailForm from "./features/Detailpage/CreateEditDetailForm";
-import CreateEditPostListForm from "./features/PostPage/CreateEditPostListForm";
+import CreateEditPostForm from "./features/PostPage/CreateEditPostForm";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Switch>
         <Route path="/" element={<HomePage />} />
         <Route path="/form" element={<CreateEditDetailForm />} />
-        <Route path="/postform" element={<CreateEditPostListForm />} />
+        <Route path="/postform" element={<CreateEditPostForm />} />
       </Switch>
     </BrowserRouter>
   );

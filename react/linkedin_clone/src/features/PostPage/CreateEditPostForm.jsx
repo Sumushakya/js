@@ -6,6 +6,7 @@ import { PostlistContext } from "../../context/PostList/PostlistContext";
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
+    // id: null,
     name: "",
     headline: "",
     des: "",
@@ -38,22 +39,52 @@ const FormPost = () => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
 
+  const getNextId = () => {
+    const storedId = localStorage.getItem("nextId");
+    if (storedId) {
+      const nextId = parseInt(storedId, 10) + 1;
+      localStorage.setItem("nextId", nextId);
+      return nextId;
+    } else {
+      localStorage.setItem("nextId", "1");
+      return 1;
+    }
+  };
+
   const handleCreateSubmit = (e) => {
     e.preventDefault();
-    setPostlistDetails([postData, ...postlistDetails]);
+    // const newId = getNextId();
+    // const newPost = { ...postData, id: newId };
+    // const updatedPostList = [newPost, ...postlistDetails];
+    // setPostlistDetails(updatedPostList);
+    // localStorage.setItem("nextId", newId + 1);
+    // navigate("/");
+    e.preventDefault();
+    const newId = getNextId();
+    const newPost = { ...postData, id: newId };
+    const updatedPostList = [newPost, ...postlistDetails];
+    setPostlistDetails(updatedPostList);
     navigate("/");
+    // e.preventDefault();
+    // const newId = postlistDetails.length > 0 ? postlistDetails[0].id + 1 : 1; // Generate new ID
+    // const newPost = { ...postData, id: newId };
+    // setPostlistDetails([newPost, ...postlistDetails]);
+    // // setPostlistDetails([postData, ...postlistDetails]);
+    // navigate("/");
   };
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    const restPostList = postlistDetails.filter(
-      (post) => post.id === postData.id
+    // const restPostList = postlistDetails.filter(
+    //   (post) => post.id === postData.id
+    // );
+    // setPostlistDetails([...restPostList, postData]);
+    const updatedPostList = postlistDetails.map((post) =>
+      post.id === id ? postData : post
     );
-    setPostlistDetails([...restPostList, postData]);
+    setPostlistDetails(updatedPostList);
     navigate("/");
   };
-
-  const handleImageChange = () => {};
 
   return (
     <div>
@@ -94,7 +125,7 @@ const FormPost = () => {
               onChange={handleInput}
             />
           </label>
-          <label>
+          {/* <label>
             Image:
             <input
               type="file"
@@ -103,7 +134,7 @@ const FormPost = () => {
               value={postData.image}
               onChange={handleImageChange}
             />
-          </label>
+          </label> */}
           <button className={styles.button} type="submit">
             {actionType === "CREATE" ? "Add Post" : "Edit Post"}
             {/* Submit */}

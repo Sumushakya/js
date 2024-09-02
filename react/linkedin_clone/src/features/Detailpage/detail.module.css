@@ -48,16 +48,21 @@
   color: #2a78ca;
   font-weight: 600;
   font-size: 16px;
-}
-.title:hover {
   cursor: pointer;
-  text-decoration: underline;
 }
 .description {
   margin-top: 4px;
   font-size: 15px;
   list-style-type: square;
   color: rgb(65, 60, 60);
+}
+.skillDetail {
+  /* background-color: red; */
+  border: 2px solid #ddd;
+  background: #f2f2f2;
+  margin-top: 10px;
+  padding-left: 20px;
+  border-radius: 8px;
 }
 /* .discover {
   align-content: center;

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 import styles from "./detailform.module.css";
 import { DetailContext } from "../../context/Detail/DetailContext";
+import { FaCircleXmark } from "react-icons/fa6";
+import * as Yup from "yup";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +17,10 @@ const Form = () => {
   console.log("detailformdata", formData);
 
   const { userDetails, setUserDetails } = useContext(DetailContext);
+
+  // const ValidationSchema = Yup.object({
+  //   name: Yup.string().
+  // });
 
   useEffect(() => {
     if (userDetails) {
@@ -46,7 +52,7 @@ const Form = () => {
     setTempSkill("");
     setTimeout(() => {
       setSkillMessage("");
-    }, 5000);
+    }, 10000);
   };
 
   const handleInputEducation = (e) => {
@@ -59,10 +65,10 @@ const Form = () => {
       ...prev,
       education: [...prev.education, tempEducation],
     }));
-    setEducationMessage("Added!");
+    setEducationMessage(" Education Added!");
     setTimeout(() => {
       setEducationMessage("");
-    }, 5000);
+    }, 10000);
     setTempEducation("");
   };
 
@@ -72,6 +78,18 @@ const Form = () => {
     setUserDetails(formData);
     navigate("/");
     console.log("submit", formData);
+  };
+
+  const handleDeleteSkill = (index) => {
+    const updatedSkill = formData.skill.filter((_, it) => it !== index);
+    setFormData((prev) => ({ ...prev, skill: updatedSkill }));
+  };
+
+  const handleDeleteEducation = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      education: prev.education.filter((education, i) => i !== index),
+    }));
   };
 
   return (
@@ -117,11 +135,17 @@ const Form = () => {
             />
           </label>
           <br />
+
           <label>
-            Skill:
+            Skills:
+            {skillMessage && (
+              <p style={{ color: "green", fontWeight: "bold" }}>
+                {skillMessage}
+              </p>
+            )}
             <input
               type="text"
-              placeholder="Skill"
+              placeholder="Skills"
               name="skill"
               value={tempSkill}
               onChange={handleInputSkill}
@@ -130,11 +154,23 @@ const Form = () => {
           <button type="button" onClick={handleAddSkill}>
             Add Skill
           </button>
-          {skillMessage && (
-            <p style={{ color: "green", fontWeight: "bold" }}>{skillMessage}</p>
-          )}
+          {formData?.skill?.map((skill, index) => (
+            <div className={styles.skill} key={index}>
+              <li>{skill}</li>
+              <FaCircleXmark
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDeleteSkill(index)}
+              />
+            </div>
+          ))}
+
           <label style={{ paddingTop: "15px" }}>
             Education:
+            {educationMessage && (
+              <p style={{ color: "green", fontWeight: "bold" }}>
+                {educationMessage}
+              </p>
+            )}
             <input
               type="text"
               placeholder="Education"
@@ -143,12 +179,19 @@ const Form = () => {
               onChange={handleInputEducation}
             />
           </label>
-          <button onClick={handleAddEducation}>Add Education</button>
-          {educationMessage && (
-            <p style={{ color: "green", fontWeight: "bold" }}>
-              {educationMessage}
-            </p>
-          )}
+          <button type="button" onClick={handleAddEducation}>
+            Add Education
+          </button>
+          {formData?.education?.map((education, index) => (
+            <div className={styles.skill} key={index}>
+              <li>{education}</li>
+              <FaCircleXmark
+                style={{ cursor: "pointer" }}
+                onClick={() => handleDeleteEducation(index)}
+              />
+            </div>
+          ))}
+
           <div style={{ paddingTop: "10px" }}>
             <button className={styles.button} type="submit">
               Submit
