@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Nav from "../components/Nav/Nav";
-import styles from "./form.module.css";
-import { DetailContext } from "../components/context/Detail/DetailContext";
+import Nav from "../../components/Nav/Nav";
+import styles from "./detailform.module.css";
+import { DetailContext } from "../../context/Detail/DetailContext";
 
 const Form = () => {
   const [formData, setFormData] = useState({

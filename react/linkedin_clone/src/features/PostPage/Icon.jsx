@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
 import styles from "./icon.module.css";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
-// import person3 from "../../assets/person3.png";
+import { LikeCommentContext } from "../../context/Icon/LikeCommentContext";
 
 const Icon = ({ id }) => {
+  const { likes, likePost, comments, addComment } =
+    useContext(LikeCommentContext);
   console.log("postid", id);
+
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState({});
-  const [likes, setLikes] = useState({});
 
   const handleCommentClick = () => {
     setShowComments(!showComments); //toggle show section
@@ -18,36 +20,39 @@ const Icon = ({ id }) => {
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
-  useEffect(() => {
-    const savedComments = JSON.parse(localStorage.getItem("comments")) || {};
-    const savedLikes = JSON.parse(localStorage.getItem("likes")) || {};
-    if (savedComments[id]) {
-      setComments(savedComments);
-    }
-    if (savedLikes[id]) {
-      setLikes(savedLikes);
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   const savedComments = JSON.parse(localStorage.getItem("comments")) || {};
+  //   const savedLikes = JSON.parse(localStorage.getItem("likes")) || {};
+  //   if (savedComments[id]) {
+  //     setComments(savedComments);
+  //   }
+  //   if (savedLikes[id]) {
+  //     setLikes(savedLikes);
+  //   }
+  // }, []);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    const postComments = comments[id] || [];
-    const updatedComments = {
-      ...comments,
-      [id]: [newComment, ...postComments],
-    };
-    setComments(updatedComments);
-    localStorage.setItem("comments", JSON.stringify(updatedComments));
+    addComment(id, newComment);
     setNewComment("");
-    console.log("uc", updatedComments);
+    // const postComments = comments[id] || [];
+    // const updatedComments = {
+    //   ...comments,
+    //   [id]: [newComment, ...postComments],
+    // };
+    // setComments(updatedComments);
+    // localStorage.setItem("comments", JSON.stringify(updatedComments));
+    // setNewComment("");
+    // console.log("uc", updatedComments);
   };
 
   const handleLikeClick = () => {
-    const postLikes = likes[id] || 0;
-    const updatedLikes = { ...likes, [id]: parseInt(postLikes + 1) };
-    setLikes(updatedLikes);
-    localStorage.setItem("likes", JSON.stringify(updatedLikes));
-    console.log("like", updatedLikes);
+    // const postLikes = likes[id] || 0;
+    // const updatedLikes = { ...likes, [id]: parseInt(postLikes + 1) };
+    // setLikes(updatedLikes);
+    // localStorage.setItem("likes", JSON.stringify(updatedLikes));
+    // console.log("like", updatedLikes);
+    likePost(id);
   };
 
   return (
@@ -84,7 +89,6 @@ const Icon = ({ id }) => {
                   value={newComment}
                   onChange={handleChange}
                 />
-                {/* <button className={styles.submitBtn}>Submit</button> */}
               </div>
             </form>
             <div>

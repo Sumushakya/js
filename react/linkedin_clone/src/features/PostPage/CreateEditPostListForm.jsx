@@ -1,9 +1,8 @@
-import { useContext, useState } from "react";
-import Nav from "../components/Nav/Nav";
+import { useContext, useEffect, useState } from "react";
+import Nav from "../../components/Nav/Nav";
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from "./form.module.css";
-import { useEffect } from "react";
-import { PostlistContext } from "../components/context/PostList/PostlistContext";
+import styles from "./postlistform.module.css";
+import { PostlistContext } from "../../context/PostList/PostlistContext";
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
@@ -12,8 +11,8 @@ const FormPost = () => {
     des: "",
     image: "",
   });
-  const { postlistDetails, addPost, editPost } = useContext(PostlistContext);
-  console.log("ss", postData);
+  const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
+  console.log("ss", postlistDetails);
 
   const navigate = useNavigate();
 
@@ -25,11 +24,14 @@ const FormPost = () => {
   };
 
   useEffect(() => {
-    if (actionType === "EDIT") {
+    if (actionType === "EDIT" && id) {
+      // const postList = JSON.parse(localStorage.getItem("postList"));
       const editPost = postlistDetails.find((post) => post.id === id);
-      setPostData(editPost);
+      if (editPost) {
+        setPostData(editPost);
+      }
     }
-  }, []);
+  }, [id, actionType, postlistDetails]);
 
   const handleInput = (e) => {
     console.log("input", e.target.name, e.target.value);
@@ -38,24 +40,16 @@ const FormPost = () => {
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
-    // const postId = localStorage.getItem("postId") || 0;
-    // const newPostId = parseInt(postId) + 1;
-    // localStorage.setItem("postId", newPostId);
-    // const newPostData = { id: newPostId, ...postData };
-    // const postList = JSON.parse(localStorage.getItem("postList")) || [];
-    // const updatedPostList = [newPostData, ...postList];
-    // localStorage.setItem("postList", JSON.stringify(updatedPostList));
-    addPost(postData);
+    setPostlistDetails([postData, ...postlistDetails]);
     navigate("/");
   };
+
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    // const postList = JSON.parse(localStorage.getItem("postList"));
-    // const updatedPostList = postList.map((post) =>
-    //   post.id === id ? { ...post, ...postData } : post
-    // );
-    // localStorage.setItem("postList", JSON.stringify(updatedPostList));
-    editPost(id, postData);
+    const restPostList = postlistDetails.filter(
+      (post) => post.id === postData.id
+    );
+    setPostlistDetails([...restPostList, postData]);
     navigate("/");
   };
 

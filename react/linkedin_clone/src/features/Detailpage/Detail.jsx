@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import styles from "./detail.module.css";
 import person4 from "../../assets/person4.png";
-import { DetailContext } from "../context/Detail/DetailContext";
+
+import { DetailContext } from "../../context/Detail/DetailContext";
 
 const Detail = () => {
   const { userDetails } = useContext(DetailContext);
@@ -35,7 +36,7 @@ const Detail = () => {
           <div style={{ marginTop: "30px" }}>
             <p className={styles.title}>Education</p>
             <p className={styles.description}>
-              {userDetails.education.map((education, index) => (
+              {userDetails?.education?.map((education, index) => (
                 <li key={index}>{education}</li>
               ))}
             </p>

@@ -1,15 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { DetailProvider } from "./components/context/Detail/DetailProvider.jsx";
-import { PostlistProvider } from "./components/context/PostList/PostlistProvider.jsx";
+import { DetailProvider } from "./context/Detail/DetailProvider.jsx";
+import { PostlistProvider } from "./context/PostList/PostlistProvider.jsx";
+import { LikeCommentProvider } from "./context/Icon/LikeCommentProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("app")).render(
   <React.StrictMode>
     <PostlistProvider>
-      <DetailProvider>
-        <App />
-      </DetailProvider>
+      <LikeCommentProvider>
+        <DetailProvider>
+          <App />
+        </DetailProvider>
+      </LikeCommentProvider>
     </PostlistProvider>
   </React.StrictMode>
 );

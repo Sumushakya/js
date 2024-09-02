@@ -1,6 +1,6 @@
-import Nav from "../components/Nav/Nav";
-import Detail from "../components/Detail/Detail";
-import PostList from "../components/PostList/PostList";
+import Nav from "../../components/Nav/Nav";
+import Detail from "../Detailpage/Detail";
+import PostList from "../PostPage/ListPostPage";
 // import Modal from "../components/Modal/modal";
 // import Post from "..components/Post/Post";
 
@@ -16,10 +16,8 @@ const HomePage = () => {
         }}
       >
         <Detail />
-
         <PostList />
       </div>
-      {/* <Post /> */}
     </>
   );
 };

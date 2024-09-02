@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DetailContext } from "./DetailContext";
 
 // eslint-disable-next-line react/prop-types
@@ -10,6 +10,21 @@ export const DetailProvider = ({ children }) => {
     skill: [],
     education: [],
   });
+  console.log("uddddd", userDetails);
+
+  useEffect(() => {
+    if (userDetails.length) {
+      localStorage.setItem("userDetails", JSON.stringify(userDetails));
+    }
+  }, [userDetails]);
+
+  useEffect(() => {
+    const savedUserDetails = localStorage.getItem("userDetails");
+    if (!!savedUserDetails) {
+      setUserDetails(JSON.parse(savedUserDetails));
+    }
+  }, []);
+
   return (
     <DetailContext.Provider value={{ userDetails, setUserDetails }}>
       {children}

@@ -1,11 +1,10 @@
 import styles from "./postlist.module.css";
 import person from "../../assets/person.png";
 import { useState, useContext } from "react";
-// import Post from "../Post/Post";
 import { useNavigate } from "react-router-dom";
-import Icon from "../IconBar/Icon";
+import Icon from "./Icon";
 import { FaEllipsis } from "react-icons/fa6";
-import { PostlistContext } from "../context/PostList/PostlistContext";
+import { PostlistContext } from "../../context/PostList/PostlistContext";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
@@ -25,6 +24,7 @@ const PostList = () => {
   const handleAdd = () => {
     navigate("/postform");
   };
+
   const handleCloseOutsideClick = (e, id) => {
     if (e.target.classList.contains(styles.modal)) {
       setVisible((prevVisible) => ({ ...prevVisible, [id]: false }));
@@ -51,7 +51,7 @@ const PostList = () => {
 
   return (
     <div className={styles.container} style={{ flex: 4 }}>
-      {postlistDetails.map((indvpostList) => (
+      {postlistDetails?.map((indvpostList) => (
         <div key={indvpostList.id} className={styles.innerbox}>
           <div className={styles.contain}>
             <div>
