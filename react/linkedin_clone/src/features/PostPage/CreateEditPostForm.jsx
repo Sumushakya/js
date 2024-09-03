@@ -3,10 +3,11 @@ import Nav from "../../components/Nav/Nav";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./postlistform.module.css";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
+import * as Yup from "yup";
+import { Formik } from "formik";
 
 const FormPost = () => {
   const [postData, setPostData] = useState({
-    // id: null,
     name: "",
     headline: "",
     des: "",
@@ -16,7 +17,6 @@ const FormPost = () => {
   console.log("ss", postlistDetails);
 
   const navigate = useNavigate();
-
   const location = useLocation();
 
   const { id, actionType } = location.state || {
@@ -33,6 +33,12 @@ const FormPost = () => {
       }
     }
   }, [id, actionType, postlistDetails]);
+
+  const ValidationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    headline: Yup.string().required("Headline is required"),
+    des: Yup.string().required("Post description is required"),
+  });
 
   const handleInput = (e) => {
     console.log("input", e.target.name, e.target.value);
@@ -90,42 +96,46 @@ const FormPost = () => {
     <div>
       <Nav />
       <div className={styles.formContainer}>
-        <form
-          onSubmit={
-            actionType === "CREATE" ? handleCreateSubmit : handleEditSubmit
-          }
+        <Formik
+          initialValues={{ name: "", headline: "", des: "" }}
+          validationSchema={ValidationSchema}
         >
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={postData.name}
-              placeholder="Name"
-              onChange={handleInput}
-            />
-          </label>
-          <label>
-            Headline:
-            <input
-              type="text"
-              name="headline"
-              value={postData.headline}
-              placeholder="Headline"
-              onChange={handleInput}
-            />
-          </label>
-          <label>
-            Post Description:
-            <input
-              type="text"
-              name="des"
-              value={postData.des}
-              placeholder="Description"
-              onChange={handleInput}
-            />
-          </label>
-          {/* <label>
+          <form
+            onSubmit={
+              actionType === "CREATE" ? handleCreateSubmit : handleEditSubmit
+            }
+          >
+            <label>
+              Name:
+              <input
+                type="text"
+                name="name"
+                value={postData.name}
+                placeholder="Name"
+                onChange={handleInput}
+              />
+            </label>
+            <label>
+              Headline:
+              <input
+                type="text"
+                name="headline"
+                value={postData.headline}
+                placeholder="Headline"
+                onChange={handleInput}
+              />
+            </label>
+            <label>
+              Post Description:
+              <input
+                type="text"
+                name="des"
+                value={postData.des}
+                placeholder="Description"
+                onChange={handleInput}
+              />
+            </label>
+            {/* <label>
             Image:
             <input
               type="file"
@@ -135,11 +145,12 @@ const FormPost = () => {
               onChange={handleImageChange}
             />
           </label> */}
-          <button className={styles.button} type="submit">
-            {actionType === "CREATE" ? "Add Post" : "Edit Post"}
-            {/* Submit */}
-          </button>
-        </form>
+            <button className={styles.button} type="submit">
+              {actionType === "CREATE" ? "Add Post" : "Edit Post"}
+              {/* Submit */}
+            </button>
+          </form>
+        </Formik>
       </div>
     </div>
   );
