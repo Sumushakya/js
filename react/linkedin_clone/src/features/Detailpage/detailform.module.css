@@ -52,6 +52,9 @@ input {
   border-radius: 12px;
   list-style-type: none;
 }
+.error {
+  color: red;
+}
 /* .skill button {
   background-color: red;
   color: white;

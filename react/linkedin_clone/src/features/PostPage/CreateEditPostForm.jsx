@@ -4,15 +4,25 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./postlistform.module.css";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
 import * as Yup from "yup";
-import { Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
+import { commons } from "../../constants/commons";
+
+const { CREATE } = commons;
 
 const FormPost = () => {
-  const [postData, setPostData] = useState({
+  const [initialValues, setInitialValues] = useState({
     name: "",
     headline: "",
     des: "",
     image: "",
   });
+  // const [initialValues, setInitialValues] = useState({
+  //   name: "",
+  //   headline: "",
+  //   des: "",
+  //   // image: "",
+  // });
+
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
   console.log("ss", postlistDetails);
 
@@ -29,10 +39,11 @@ const FormPost = () => {
       // const postList = JSON.parse(localStorage.getItem("postList"));
       const editPost = postlistDetails.find((post) => post.id === id);
       if (editPost) {
-        setPostData(editPost);
+        setInitialValues(editPost);
       }
     }
   }, [id, actionType, postlistDetails]);
+  // console.log("editdataaaaa", initialValues);
 
   const ValidationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -40,10 +51,16 @@ const FormPost = () => {
     des: Yup.string().required("Post description is required"),
   });
 
-  const handleInput = (e) => {
-    console.log("input", e.target.name, e.target.value);
-    setPostData({ ...postData, [e.target.name]: e.target.value });
-  };
+  // const initialValues = {
+  //   name: "",
+  //   headline: "",
+  //   des: "",
+  // };
+
+  // const handleInput = (e) => {
+  //   console.log("input", e.target.name, e.target.value);
+  //   setPostData({ ...postData, [e.target.name]: e.target.value });
+  // };
 
   const getNextId = () => {
     const storedId = localStorage.getItem("nextId");
@@ -57,39 +74,25 @@ const FormPost = () => {
     }
   };
 
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
-    // const newId = getNextId();
-    // const newPost = { ...postData, id: newId };
-    // const updatedPostList = [newPost, ...postlistDetails];
-    // setPostlistDetails(updatedPostList);
-    // localStorage.setItem("nextId", newId + 1);
-    // navigate("/");
-    e.preventDefault();
+  const handleCreateSubmit = (value) => {
+    // e.preventDefault();
     const newId = getNextId();
-    const newPost = { ...postData, id: newId };
+    const newPost = { ...value, id: newId };
     const updatedPostList = [newPost, ...postlistDetails];
     setPostlistDetails(updatedPostList);
     navigate("/");
-    // e.preventDefault();
-    // const newId = postlistDetails.length > 0 ? postlistDetails[0].id + 1 : 1; // Generate new ID
-    // const newPost = { ...postData, id: newId };
-    // setPostlistDetails([newPost, ...postlistDetails]);
-    // // setPostlistDetails([postData, ...postlistDetails]);
-    // navigate("/");
   };
-
-  const handleEditSubmit = (e) => {
-    e.preventDefault();
-    // const restPostList = postlistDetails.filter(
-    //   (post) => post.id === postData.id
-    // );
-    // setPostlistDetails([...restPostList, postData]);
+  const handleEditSubmit = (value) => {
     const updatedPostList = postlistDetails.map((post) =>
-      post.id === id ? postData : post
+      post.id === id ? value : post
     );
     setPostlistDetails(updatedPostList);
     navigate("/");
+  };
+
+  const submitActions = {
+    CREATE: handleCreateSubmit,
+    EDIT: handleEditSubmit,
   };
 
   return (
@@ -97,45 +100,59 @@ const FormPost = () => {
       <Nav />
       <div className={styles.formContainer}>
         <Formik
-          initialValues={{ name: "", headline: "", des: "" }}
+          initialValues={initialValues}
+          enableReinitialize
           validationSchema={ValidationSchema}
+          onSubmit={submitActions[actionType]}
         >
-          <form
-            onSubmit={
-              actionType === "CREATE" ? handleCreateSubmit : handleEditSubmit
-            }
-          >
-            <label>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={postData.name}
-                placeholder="Name"
-                onChange={handleInput}
-              />
-            </label>
-            <label>
-              Headline:
-              <input
-                type="text"
-                name="headline"
-                value={postData.headline}
-                placeholder="Headline"
-                onChange={handleInput}
-              />
-            </label>
-            <label>
-              Post Description:
-              <input
-                type="text"
-                name="des"
-                value={postData.des}
-                placeholder="Description"
-                onChange={handleInput}
-              />
-            </label>
-            {/* <label>
+          {({ isSubmitting, isValid, handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <label>
+                Name:
+                <Field
+                  type="text"
+                  name="name"
+                  // value={initialValues.name}
+                  placeholder="Name"
+                  // onChange={handleInput}
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className={styles.error}
+                />
+              </label>
+              <label>
+                Headline:
+                <Field
+                  type="text"
+                  name="headline"
+                  // value={initialValues.headline}
+                  placeholder="Headline"
+                  // onChange={handleInput}
+                />
+                <ErrorMessage
+                  name="headline"
+                  component="div"
+                  className={styles.error}
+                />
+              </label>
+              <label>
+                Post Description:
+                <Field
+                  type="text"
+                  name="des"
+                  // value={initialValues.des}
+                  placeholder="Description"
+                  // onChange={handleInput}
+                />
+                <ErrorMessage
+                  name="des"
+                  component="div"
+                  className={styles.error}
+                />
+              </label>
+              {/* <label>
             Image:
             <input
               type="file"
@@ -144,87 +161,21 @@ const FormPost = () => {
               value={postData.image}
               onChange={handleImageChange}
             />
-          </label> */}
-            <button className={styles.button} type="submit">
-              {actionType === "CREATE" ? "Add Post" : "Edit Post"}
-              {/* Submit */}
-            </button>
-          </form>
+          </label>  */}
+
+              <button
+                className={styles.button}
+                type="submit"
+                disabled={isSubmitting || !isValid}
+              >
+                {actionType === CREATE ? "Add Post" : "Edit Post"}
+                {/* Submit */}
+              </button>
+            </form>
+          )}
         </Formik>
       </div>
     </div>
   );
 };
 export default FormPost;
-
-//comment out
-// useEffect(() => {
-//   const storedId = localStorage.getItem("currentId");
-//   if (storedId) {
-//     setPostData((prevData) => ({ ...prevData, id: storedId }));
-//   } else {
-//     localStorage.setItem("currentId", "0");
-//     setPostData((prevData) => ({ ...prevData, id: "1" }));
-//   }
-// }, []);
-
-// const handleSubmit = (e) => {
-// e.preventDefault();
-//   localStorage.setItem('id', id);
-//   // Store the form data in local storage
-//   localStorage.setItem('formData', JSON.stringify(formData));
-//   // Increment the ID for the next submission
-//   setId(id + 1);
-// // };
-// const newId = parseInt(localStorage.getItem("currentId"), 10);
-
-// const updatedPostData = { ...postData, id: newId + 1 };
-// const temp = JSON.parse(localStorage.getItem("postList")) || [];
-// localStorage.setItem(
-//   "postList",
-//   JSON.stringify([updatedPostData, ...temp])
-// );
-// localStorage.setItem("currentId", newId + 1);
-// navigate("/");
-// console.log("submit", postData);
-
-// const updatedPostList = postList.map((post) => {
-//   if (post.id === id) {
-//     return { ...postData };
-//   }
-//   return post;
-// });
-// localStorage.setItem("postList", JSON.stringify(updatedPostList));
-// navigate("/");
-
-// const [actionType, setActionType] = useState("CREATE");
-
-//handleSubmit
-// const handleEditSubmit = (e) => {
-//   e.preventDefault();
-//   // const postList = JSON.parse(localStorage.getItem("postList"));
-//   // const updatedPost = postList.map((post) => {});
-//   // localStorage.setItem("postList", JSON.stringify(updatedPost));
-//   navigate("/");
-
-// console.log("update", id, updatedPost);
-
-// const handleImageChange = (e) => {};
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   const postId = localStorage.getItem("postId") || 0;
-//   const newPostId = parseInt(postId) + 1;
-//   localStorage.setItem("postId", newPostId);
-//   const newPostData = { id: newPostId, ...postData };
-//   const postList = JSON.parse(localStorage.getItem("postList")) || [];
-//   const updatedPostList = [newPostData, ...postList];
-//   localStorage.setItem("postList", JSON.stringify(updatedPostList));
-//   navigate("/");
-// };
-
-// let id = null;
-// if (location.state) {
-//   id = location.state.key;
-//   setActionType("EDIT");
-// }
