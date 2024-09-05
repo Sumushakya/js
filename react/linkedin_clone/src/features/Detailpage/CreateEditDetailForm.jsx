@@ -5,9 +5,9 @@ import styles from "./detailform.module.css";
 import { DetailContext } from "../../context/Detail/DetailContext";
 import { FaCircleXmark } from "react-icons/fa6";
 import * as Yup from "yup";
-import { Field, FieldArray, Formik, ErrorMessage } from "formik";
+import { Field, FieldArray, Formik, ErrorMessage, Form } from "formik";
 
-const Form = () => {
+const CreateEditDetailForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     headline: "",
@@ -23,71 +23,14 @@ const Form = () => {
     if (userDetails) {
       setFormData(userDetails);
     }
-  }, []);
-
-  // const [tempSkill, setTempSkill] = useState("");
-  // console.log("skilssss", tempSkill);
-
-  // const [tempEducation, setTempEducation] = useState("");
-  // const [skillMessage, setSkillMessage] = useState("");
-  // const [educationMessage, setEducationMessage] = useState("");
+  }, [userDetails]);
 
   const navigate = useNavigate();
 
-  // const handleInput = (e) => {
-  //   console.log("input", e.target.name, e.target.value);
-  //   setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  // };
-
-  // const handleInputSkill = (e) => {
-  //   setTempSkill(e.target.value);
-  // };
-
-  // const handleAddSkill = () => {
-  //   setFormData((prev) => ({ ...prev, skill: [...prev.skill, tempSkill] }));
-  //   setSkillMessage("Skill Added!");
-  //   setTempSkill("");
-  //   setTimeout(() => {
-  //     setSkillMessage("");
-  //   }, 10000);
-  // };
-
-  // const handleInputEducation = (e) => {
-  //   setTempEducation(e.target.value);
-  //   console.log("education", tempEducation);
-  // };
-
-  // const handleAddEducation = () => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     education: [...prev.education, tempEducation],
-  //   }));
-  //   setEducationMessage(" Education Added!");
-  //   setTimeout(() => {
-  //     setEducationMessage("");
-  //   }, 10000);
-  //   setTempEducation("");
-  // };
-
   const handleSubmit = (values) => {
-    // e.preventDefault();
-    // localStorage.setItem("userData", JSON.stringify(formData));
     setUserDetails(values);
     navigate("/");
-    // console.log("submit", formData);
   };
-
-  // const handleDeleteSkill = (index) => {
-  //   const updatedSkill = formData.skill.filter((_, it) => it !== index);
-  //   setFormData((prev) => ({ ...prev, skill: updatedSkill }));
-  // };
-
-  // const handleDeleteEducation = (index) => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     education: prev.education.filter((education, i) => i !== index),
-  //   }));
-  // };
 
   const ValidationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -98,7 +41,7 @@ const Form = () => {
       .min(1, "atleast 1 skill is required"),
     education: Yup.array()
       .of(Yup.string().required("Education is required"))
-      .min(1, "atleast 1 skill is required"),
+      .min(1, "atleast 1 education is required"),
   });
 
   return (
@@ -107,22 +50,17 @@ const Form = () => {
       <div className={styles.formContainer}>
         <Formik
           initialValues={formData}
+          enableReinitialize
           validationSchema={ValidationSchema}
           onSubmit={handleSubmit}
         >
-          {({ setFieldValue }) => (
-            <form>
+          {({ values, handleChange, isSubmitting, setFieldValue }) => (
+            <Form>
               <h1>Detail Form</h1>
               <br />
               <label>
                 Name:
-                <Field
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  // value={formData.name}
-                  // onChange={handleInput}
-                />
+                <Field type="text" placeholder="Name" name="name" />
                 <ErrorMessage
                   name="name"
                   component="div"
@@ -132,26 +70,19 @@ const Form = () => {
               <br />
               <label>
                 Headline
-                <Field
-                  type="text"
-                  placeholder="Headline"
+                <Field type="text" placeholder="Headline" name="headline" />
+                <ErrorMessage
                   name="headline"
-                  // value={formData.headline}
-                  // onChange={handleInput}
+                  component="div"
+                  className={styles.error}
                 />
               </label>
               <br />
               <label>
                 About:
-                <Field
-                  type="text"
-                  placeholder="About"
-                  name="about"
-                  // value={formData.about}
-                  // onChange={handleInput}
-                />
+                <Field type="text" placeholder="About" name="about" />
                 <ErrorMessage
-                  name=""
+                  name="about"
                   component="div"
                   className={styles.error}
                 />
@@ -159,129 +90,98 @@ const Form = () => {
               <br />
               <label>
                 Skills:
-                {/* {skillMessage && (
-                  <p style={{ color: "green", fontWeight: "bold" }}>
-                    {skillMessage}
-                  </p>
-                )} */}
-                <FieldArray name="skill">
-                  {({ ArrayHelpers }) => (
+                <FieldArray
+                  name="skill"
+                  render={(arrayHelpers) => (
                     <div>
                       <Field
                         type="text"
-                        placeholder="Skills"
+                        name="newSkill"
+                        placeholder="Add a skill"
+                        onChange={handleChange}
+                      />
+                      <ErrorMessage
                         name="skill"
-                        // value={tempSkill}
-                        onChange={(e) =>
-                          setFieldValue("tempSkill", e.target.value)
-                        }
+                        component="div"
+                        className={styles.error}
                       />
                       <button
                         type="button"
                         onClick={() => {
-                          ArrayHelpers.push(formData.tempSkill);
-                          setFieldValue("tempSkill", "");
+                          if (values.newSkill) {
+                            arrayHelpers.push(values.newSkill);
+                            setFieldValue("newSkill", "");
+                          }
                         }}
+                        className={styles.addButton}
                       >
                         Add Skill
                       </button>
-                      {formData?.skill?.map((skill, index) => (
-                        <div className={styles.skill} key={index}>
-                          <li>{skill}</li>
+                      {values.skill.map((indvSkill, index) => (
+                        <div key={index} className={styles.skill}>
+                          <li>{indvSkill}</li>
                           <FaCircleXmark
                             style={{ cursor: "pointer" }}
-                            onClick={() => ArrayHelpers.remove(index)}
+                            onClick={() => arrayHelpers.remove(index)}
                           />
                         </div>
                       ))}
-                      <ErrorMessage name="skill" component="div" />
                     </div>
                   )}
-                </FieldArray>
+                />
               </label>
-
-              {/* <label>
-                Skills:
-                <FieldArray name="skill">
-                  {({ push, remove }) => (
-                    <>
-                      <Field
-                        type="text"
-                        placeholder="Skills"
-                        onChange={(e) => setFieldValue("tempSkill", e.target.value)}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          push(formData.tempSkill);
-                          setFieldValue("tempSkill", ""); // Clear tempSkill field
-                        }}
-                      >
-                        Add Skill
-                      </button>
-                      {formData.skill.map((skill, index) => (
-                        <div className={styles.skill} key={index}>
-                          <li>{skill}</li>
-                          <FaCircleXmark
-                            style={{ cursor: "pointer" }}
-                            onClick={() => remove(index)}
-                          />
-                        </div>
-                      ))}
-                      <ErrorMessage name="skill" component="div" />
-                    </>
-                  )}
-                </FieldArray>
-              </label> */}
-              <label style={{ paddingTop: "15px" }}>
+              <label>
                 Education:
-                {/* {educationMessage && (
-                  <p style={{ color: "green", fontWeight: "bold" }}>
-                    {educationMessage}
-                  </p>
-                )} */}
-                <FieldArray>
-                  {({ ArrayHelpers }) => (
+                <FieldArray
+                  name="education"
+                  render={(arrayHelpers) => (
                     <div>
                       <Field
                         type="text"
-                        placeholder="Education"
+                        name="newEducation"
+                        placeholder="Add education"
+                        onChange={handleChange}
+                      />
+                      <ErrorMessage
                         name="education"
-                        // value={tempEducation}
-                        onChange={(e) =>
-                          setFieldValue("tempEducation", e.target.value)
-                        }
+                        component="div"
+                        className={styles.error}
                       />
                       <button
                         type="button"
+                        className={styles.addButton}
                         onClick={() => {
-                          ArrayHelpers.push(formData.education);
-                          setFormData("tempEducation", "");
+                          if (values.newEducation) {
+                            arrayHelpers.push(values.newEducation);
+                            setFieldValue("newEducation", "");
+                          }
                         }}
                       >
-                        Add Education
+                        Add education
                       </button>
-                      {formData?.education?.map((education, index) => (
-                        <div className={styles.skill} key={index}>
-                          <li>{education}</li>
+                      {values.education.map((indvEducation, index) => (
+                        <div key={index} className={styles.skill}>
+                          <li>{indvEducation}</li>
                           <FaCircleXmark
-                            style={{ cursor: "pointer" }}
-                            onClick={() => ArrayHelpers.remove(index)}
+                            styles={{ cursor: "pointer" }}
+                            onClick={() => arrayHelpers.remove(index)}
                           />
                         </div>
                       ))}
-                      <ErrorMessage name="education" component="div" />
                     </div>
                   )}
-                </FieldArray>
+                />
               </label>
-
               <div style={{ paddingTop: "10px" }}>
-                <button className={styles.button} type="submit">
+                <button
+                  className={styles.button}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
                   Submit
                 </button>
               </div>
-            </form>
+            </Form>
           )}
         </Formik>
       </div>
@@ -289,4 +189,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default CreateEditDetailForm;

@@ -6,7 +6,7 @@ import { DetailContext } from "../../context/Detail/DetailContext";
 
 const Detail = () => {
   const { userDetails } = useContext(DetailContext);
-  // console.log("userdetailsss", userDetails);
+  console.log("userdetailsss", userDetails);
 
   return (
     <div style={{ flex: 1.2 }}>
