@@ -4,8 +4,9 @@ import styles from "./icon.module.css";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
 import { LikeCommentContext } from "../../context/Icon/LikeCommentContext";
+import { Box, Button, Text } from "@chakra-ui/react";
 
-const Icon = ({ id }) => {
+const Icons = ({ id }) => {
   const { likes, likePost, comments, addComment } =
     useContext(LikeCommentContext);
   console.log("postid", id);
@@ -56,31 +57,42 @@ const Icon = ({ id }) => {
   };
 
   return (
-    <div className={styles.container}>
-      {likes[id] > 0 && <div>{likes[id]} Likes</div>}
-      <div className={styles.iconBar}>
-        <button className={styles.iconItem} onClick={handleLikeClick}>
+    <Box className={styles.container}>
+      {likes[id] > 0 && <Box>{likes[id]} Likes</Box>}
+      <Box className={styles.iconBar}>
+        <Button
+          border="none"
+          background="none"
+          // className={styles.iconItem}
+          onClick={handleLikeClick}
+        >
           <FaThumbsUp />
           <span>Like</span>
-        </button>
-        <button className={styles.iconItem} onClick={handleCommentClick}>
+        </Button>
+        <Button
+          border="none"
+          background="none"
+          // className={styles.iconItem}
+          onClick={handleCommentClick}
+        >
           <FaComment />
           <span>Comment</span>
-        </button>
-        <button className={styles.iconItem}>
+        </Button>
+        <Button border="none" background="none">
           <FaRetweet />
           <span>Repost</span>
-        </button>
-        <button className={styles.iconItem}>
+        </Button>
+        <Button border="none" background="none">
           <FaPaperPlane />
+
           <span>Share</span>
-        </button>
-      </div>
-      <div>
+        </Button>
+      </Box>
+      <Box>
         {showComments && (
-          <div className={styles.commentSection}>
+          <Box className={styles.commentSection}>
             <form onSubmit={handleCommentSubmit} className={styles.form}>
-              <div className={styles.formContainer}>
+              <Box className={styles.formContainer}>
                 <img src={person2} alt="image" width="40px" height="40px" />
                 <input
                   className={styles.commentInput}
@@ -89,24 +101,24 @@ const Icon = ({ id }) => {
                   value={newComment}
                   onChange={handleChange}
                 />
-                <button className={styles.btnSubmit} type="submit">
+                <Button className={styles.btnSubmit} type="submit">
                   Submit
-                </button>
-              </div>
+                </Button>
+              </Box>
             </form>
-            <div>
+            <Box>
               <h4>Comments</h4>
               {(comments[id] || []).map((comment, index) => (
-                <div className={styles.commentBox} key={index}>
-                  <p key={index}>{comment}</p>
-                </div>
+                <Box className={styles.commentBox} key={index}>
+                  <Text key={index}>{comment}</Text>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
-export default Icon;
+export default Icons;

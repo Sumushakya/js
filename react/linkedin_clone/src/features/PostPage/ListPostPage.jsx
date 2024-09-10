@@ -2,9 +2,10 @@ import styles from "./postlist.module.css";
 import person from "../../assets/person.png";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Icon from "./Icon";
+import Icons from "./Icons";
 import { FaEllipsis } from "react-icons/fa6";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
+import { Box, Button, Text } from "@chakra-ui/react";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
@@ -50,25 +51,25 @@ const PostList = () => {
   };
 
   return (
-    <div className={styles.container} style={{ flex: 4 }}>
+    <Box className={styles.container} style={{ flex: 4 }}>
       {postlistDetails?.map((indvpostList) => (
-        <div key={indvpostList.id} className={styles.innerbox}>
-          <div className={styles.contain}>
-            <div>
-              <div className={styles.imageContent}>
+        <Box key={indvpostList.id} className={styles.innerbox}>
+          <Box className={styles.contain}>
+            <Box>
+              <Box className={styles.imageContent}>
                 <img src={person} alt="person" width="40px" height="40px" />
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <text className={styles.nameContent}>
+                <Box style={{ display: "flex", flexDirection: "column" }}>
+                  <Text className={styles.nameContent}>
                     {indvpostList.name}
-                  </text>
-                  <text className={styles.headlineContent}>
+                  </Text>
+                  <Text className={styles.headlineContent}>
                     {indvpostList.headline}
-                  </text>
-                </div>
-              </div>
-            </div>
-            <div style={{ position: "relative" }}>
-              <button
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+            <Box style={{ position: "relative" }}>
+              <Button
                 style={{
                   border: "none",
                   background: "none",
@@ -82,22 +83,22 @@ const PostList = () => {
                 }
               >
                 <FaEllipsis />
-              </button>
+              </Button>
               {visible[indvpostList.id] && (
-                <div
+                <Box
                   key={indvpostList.id}
                   className={styles.modal}
                   onClick={(e) => handleCloseOutsideClick(e, indvpostList.id)}
                   style={{ display: "block" }}
                 >
-                  <div
+                  <Box
                     style={{
                       width: "100%",
                       display: "flex",
                       justifyContent: "flex-end",
                     }}
                   >
-                    <button
+                    <Button
                       className={styles.close}
                       // onClick={() => setVisible(false)}
                       onClick={() =>
@@ -108,35 +109,35 @@ const PostList = () => {
                       }
                     >
                       &times;
-                    </button>
-                  </div>
-                  <div className={styles.content}>
-                    <div className={styles.modalBtnWrapper}>
-                      <button
+                    </Button>
+                  </Box>
+                  <Box className={styles.content}>
+                    <Box className={styles.modalBtnWrapper}>
+                      <Button
                         className={styles.btnEdit}
                         onClick={() => handleEdit(indvpostList.id)}
                       >
                         Edit
-                      </button>
-                    </div>
-                    <div className={styles.modalBtnWrapper}>
-                      <button
+                      </Button>
+                    </Box>
+                    <Box className={styles.modalBtnWrapper}>
+                      <Button
                         className={styles.btnDelete}
                         onClick={() => handleDelete(indvpostList.id)}
                       >
                         Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                      </Button>
+                    </Box>
+                  </Box>
+                </Box>
               )}
-            </div>
-          </div>
+            </Box>
+          </Box>
           <br />
-          <div>
-            <text>{indvpostList.des}</text>
+          <Box>
+            <Text>{indvpostList.des}</Text>
 
-            <div
+            <Box
               style={{
                 marginTop: "5px",
                 width: "100%",
@@ -151,21 +152,26 @@ const PostList = () => {
                   height: "inherit",
                 }}
               />
-            </div>
-          </div>
-          <div>
-            <Icon id={indvpostList.id} />
-          </div>
-        </div>
+            </Box>
+          </Box>
+          <Box>
+            <Icons id={indvpostList.id} />
+          </Box>
+        </Box>
       ))}
       <br />
       <br />
-      <div>
-        <button className={styles.btn} onClick={handleAdd}>
+      <Box>
+        <Button
+          colorScheme="blue"
+          position="fixed"
+          className={styles.btn}
+          onClick={handleAdd}
+        >
           Add post
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

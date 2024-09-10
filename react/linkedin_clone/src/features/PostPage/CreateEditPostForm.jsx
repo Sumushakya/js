@@ -6,6 +6,7 @@ import { PostlistContext } from "../../context/PostList/PostlistContext";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { commons } from "../../constants/commons";
+import { Box } from "@chakra-ui/react";
 
 const { CREATE } = commons;
 
@@ -82,9 +83,9 @@ const FormPost = () => {
   };
 
   return (
-    <div>
+    <Box>
       <Nav />
-      <div className={styles.formContainer}>
+      <Box className={styles.formContainer}>
         <Formik
           initialValues={initialValues}
           enableReinitialize
@@ -98,7 +99,7 @@ const FormPost = () => {
                 <Field type="text" name="name" placeholder="Name" />
                 <ErrorMessage
                   name="name"
-                  component="div"
+                  component="Box"
                   className={styles.error}
                 />
               </label>
@@ -107,7 +108,7 @@ const FormPost = () => {
                 <Field type="text" name="headline" placeholder="Headline" />
                 <ErrorMessage
                   name="headline"
-                  component="div"
+                  component="Box"
                   className={styles.error}
                 />
               </label>
@@ -116,7 +117,7 @@ const FormPost = () => {
                 <Field type="text" name="des" placeholder="Description" />
                 <ErrorMessage
                   name="des"
-                  component="div"
+                  component="Box"
                   className={styles.error}
                 />
               </label>
@@ -142,8 +143,8 @@ const FormPost = () => {
             </Form>
           )}
         </Formik>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 export default FormPost;

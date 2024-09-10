@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import Nav from "../../components/Nav/Nav";
 import Detail from "../Detailpage/Detail";
 import PostList from "../PostPage/ListPostPage";
@@ -8,7 +9,7 @@ const HomePage = () => {
   return (
     <>
       <Nav />
-      <div
+      <Box
         style={{
           display: "flex",
           gap: "30px",
@@ -17,7 +18,7 @@ const HomePage = () => {
       >
         <Detail />
         <PostList />
-      </div>
+      </Box>
     </>
   );
 };

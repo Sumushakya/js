@@ -6,6 +6,7 @@ import { DetailContext } from "../../context/Detail/DetailContext";
 import { FaCircleXmark } from "react-icons/fa6";
 import * as Yup from "yup";
 import { Field, FieldArray, Formik, ErrorMessage, Form } from "formik";
+import { Box, Button } from "@chakra-ui/react";
 
 const CreateEditDetailForm = () => {
   const [formData, setFormData] = useState({
@@ -45,9 +46,9 @@ const CreateEditDetailForm = () => {
   });
 
   return (
-    <div>
+    <Box>
       <Nav />
-      <div className={styles.formContainer}>
+      <Box className={styles.formContainer}>
         <Formik
           initialValues={formData}
           enableReinitialize
@@ -63,7 +64,8 @@ const CreateEditDetailForm = () => {
                 <Field type="text" placeholder="Name" name="name" />
                 <ErrorMessage
                   name="name"
-                  component="div"
+                  component="Box
+                  "
                   className={styles.error}
                 />
               </label>
@@ -73,7 +75,8 @@ const CreateEditDetailForm = () => {
                 <Field type="text" placeholder="Headline" name="headline" />
                 <ErrorMessage
                   name="headline"
-                  component="div"
+                  component="Box
+                  "
                   className={styles.error}
                 />
               </label>
@@ -83,7 +86,8 @@ const CreateEditDetailForm = () => {
                 <Field type="text" placeholder="About" name="about" />
                 <ErrorMessage
                   name="about"
-                  component="div"
+                  component="Box
+                  "
                   className={styles.error}
                 />
               </label>
@@ -93,7 +97,7 @@ const CreateEditDetailForm = () => {
                 <FieldArray
                   name="skill"
                   render={(arrayHelpers) => (
-                    <div>
+                    <Box>
                       <Field
                         type="text"
                         name="newSkill"
@@ -102,10 +106,13 @@ const CreateEditDetailForm = () => {
                       />
                       <ErrorMessage
                         name="skill"
-                        component="div"
+                        component="Box
+                        "
                         className={styles.error}
                       />
-                      <button
+                      <Button
+                        colorScheme="blue"
+                        size="sm"
                         type="button"
                         onClick={() => {
                           if (values.newSkill) {
@@ -116,17 +123,17 @@ const CreateEditDetailForm = () => {
                         className={styles.addButton}
                       >
                         Add Skill
-                      </button>
+                      </Button>
                       {values.skill.map((indvSkill, index) => (
-                        <div key={index} className={styles.skill}>
+                        <Box key={index} className={styles.skill}>
                           <li>{indvSkill}</li>
                           <FaCircleXmark
                             style={{ cursor: "pointer" }}
                             onClick={() => arrayHelpers.remove(index)}
                           />
-                        </div>
+                        </Box>
                       ))}
-                    </div>
+                    </Box>
                   )}
                 />
               </label>
@@ -135,7 +142,7 @@ const CreateEditDetailForm = () => {
                 <FieldArray
                   name="education"
                   render={(arrayHelpers) => (
-                    <div>
+                    <Box>
                       <Field
                         type="text"
                         name="newEducation"
@@ -144,10 +151,13 @@ const CreateEditDetailForm = () => {
                       />
                       <ErrorMessage
                         name="education"
-                        component="div"
+                        component="Box
+                        "
                         className={styles.error}
                       />
-                      <button
+                      <Button
+                        colorScheme="blue"
+                        size="sm"
                         type="button"
                         className={styles.addButton}
                         onClick={() => {
@@ -158,34 +168,37 @@ const CreateEditDetailForm = () => {
                         }}
                       >
                         Add education
-                      </button>
+                      </Button>
                       {values.education.map((indvEducation, index) => (
-                        <div key={index} className={styles.skill}>
+                        <Box key={index} className={styles.skill}>
                           <li>{indvEducation}</li>
                           <FaCircleXmark
                             styles={{ cursor: "pointer" }}
                             onClick={() => arrayHelpers.remove(index)}
                           />
-                        </div>
+                        </Box>
                       ))}
-                    </div>
+                      {console.log("valueseducation", values.education)}
+                    </Box>
                   )}
                 />
               </label>
-              <div style={{ paddingTop: "10px" }}>
-                <button
+              <Box style={{ paddingTop: "10px" }}>
+                <Button
+                  colorScheme="blue"
+                  size="md"
                   className={styles.button}
                   type="submit"
                   disabled={isSubmitting}
                 >
                   Submit
-                </button>
-              </div>
+                </Button>
+              </Box>
             </Form>
           )}
         </Formik>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

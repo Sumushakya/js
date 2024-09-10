@@ -1,49 +1,53 @@
 import { useContext } from "react";
 import styles from "./detail.module.css";
 import person4 from "../../assets/person4.png";
-
 import { DetailContext } from "../../context/Detail/DetailContext";
+import { Box, Text, Image, ListItem, UnorderedList } from "@chakra-ui/react";
 
 const Detail = () => {
   const { userDetails } = useContext(DetailContext);
   console.log("userdetailsss", userDetails);
 
   return (
-    <div style={{ flex: 1.2 }}>
-      <div className={styles.container}>
-        <div className={styles.profileCard}>
-          <div className={styles.avatarContainer}>
-            <img src={person4} alt="pic" width="60px" height="60px" />
-          </div>
-        </div>
-        <div className={styles.head}>
-          <p className={styles.pName}>{userDetails?.name}</p>
-          <p className={styles.pHeadline}>{userDetails?.headline}</p>
-        </div>
-        <div className={styles.card}>
-          <div style={{ marginTop: "8px" }}>
-            <p className={styles.title}>About</p>
-            <p className={styles.description}>{userDetails?.about}</p>
-          </div>
-          <div style={{ marginTop: "30px" }}>
-            <p className={styles.title}>Skills</p>
-            <p className={styles.description}>
+    <Box style={{ flex: 1.2 }}>
+      <Box className={styles.container}>
+        <Box className={styles.profileCard}>
+          <Box className={styles.avatarContainer}>
+            <Image src={person4} alt="pic" boxSize="70px" objectFit="cover" />
+          </Box>
+        </Box>
+        <Box className={styles.head}>
+          <Text className={styles.pName}>{userDetails?.name}</Text>
+          <Text className={styles.pHeadline}>{userDetails?.headline}</Text>
+        </Box>
+        <Box className={styles.card}>
+          <Box style={{ marginTop: "8px" }}>
+            <Text className={styles.title}>About</Text>
+            <Text className={styles.description}>{userDetails?.about}</Text>
+          </Box>
+          <Box style={{ marginTop: "30px" }}>
+            <Text className={styles.title}>Skills</Text>
+            <Text className={styles.description}>
               {userDetails?.skill?.map((skills, index) => (
-                <li key={index}>{skills}</li>
+                <UnorderedList key={index}>
+                  <ListItem>{skills}</ListItem>
+                </UnorderedList>
               ))}
-            </p>
-          </div>
-          <div style={{ marginTop: "30px" }}>
-            <p className={styles.title}>Education</p>
-            <p className={styles.description}>
+            </Text>
+          </Box>
+          <Box style={{ marginTop: "30px" }}>
+            <Text className={styles.title}>Education</Text>
+            <Text className={styles.description}>
               {userDetails?.education?.map((education, index) => (
-                <li key={index}>{education}</li>
+                <UnorderedList key={index}>
+                  <ListItem>{education}</ListItem>
+                </UnorderedList>
               ))}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Text>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
