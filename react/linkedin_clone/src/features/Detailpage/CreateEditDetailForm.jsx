@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Nav from "../../components/Nav/Nav";
+import Nav from "../../components/Nav";
 import styles from "./detailform.module.css";
 import { DetailContext } from "../../context/Detail/DetailContext";
 import { FaCircleXmark } from "react-icons/fa6";
 import * as Yup from "yup";
 import { Field, FieldArray, Formik, ErrorMessage, Form } from "formik";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Heading } from "@chakra-ui/react";
+import CustomButton from "../../components/CustomButton";
 
 const CreateEditDetailForm = () => {
   const [formData, setFormData] = useState({
@@ -57,15 +58,16 @@ const CreateEditDetailForm = () => {
         >
           {({ values, handleChange, isSubmitting, setFieldValue }) => (
             <Form>
-              <h1>Detail Form</h1>
+              <Heading as="h6" size="md">
+                Detail Form
+              </Heading>
               <br />
               <label>
                 Name:
                 <Field type="text" placeholder="Name" name="name" />
                 <ErrorMessage
                   name="name"
-                  component="Box
-                  "
+                  component="Box"
                   className={styles.error}
                 />
               </label>
@@ -75,8 +77,7 @@ const CreateEditDetailForm = () => {
                 <Field type="text" placeholder="Headline" name="headline" />
                 <ErrorMessage
                   name="headline"
-                  component="Box
-                  "
+                  component="Box"
                   className={styles.error}
                 />
               </label>
@@ -86,8 +87,7 @@ const CreateEditDetailForm = () => {
                 <Field type="text" placeholder="About" name="about" />
                 <ErrorMessage
                   name="about"
-                  component="Box
-                  "
+                  component="Box"
                   className={styles.error}
                 />
               </label>
@@ -106,11 +106,10 @@ const CreateEditDetailForm = () => {
                       />
                       <ErrorMessage
                         name="skill"
-                        component="Box
-                        "
+                        component="Box"
                         className={styles.error}
                       />
-                      <Button
+                      {/* <Button
                         colorScheme="blue"
                         size="sm"
                         type="button"
@@ -123,7 +122,21 @@ const CreateEditDetailForm = () => {
                         className={styles.addButton}
                       >
                         Add Skill
-                      </Button>
+                      </Button> */}
+                      <CustomButton
+                        btnLabel="Add Skills"
+                        btnSxProps={{
+                          backgroundColor: "#1264b6",
+                          color: "white",
+                          mt: "8px",
+                        }}
+                        onClick={() => {
+                          if (values.newSkill) {
+                            arrayHelpers.push(values.newSkill);
+                            setFieldValue("newSkill", "");
+                          }
+                        }}
+                      />
                       {values.skill.map((indvSkill, index) => (
                         <Box key={index} className={styles.skill}>
                           <li>{indvSkill}</li>
@@ -137,6 +150,7 @@ const CreateEditDetailForm = () => {
                   )}
                 />
               </label>
+              <br />
               <label>
                 Education:
                 <FieldArray
@@ -151,11 +165,10 @@ const CreateEditDetailForm = () => {
                       />
                       <ErrorMessage
                         name="education"
-                        component="Box
-                        "
+                        component="Box"
                         className={styles.error}
                       />
-                      <Button
+                      {/* <Button
                         colorScheme="blue"
                         size="sm"
                         type="button"
@@ -168,7 +181,21 @@ const CreateEditDetailForm = () => {
                         }}
                       >
                         Add education
-                      </Button>
+                      </Button> */}
+                      <CustomButton
+                        btnLabel="Add Education"
+                        btnSxProps={{
+                          backgroundColor: "#1264b6",
+                          color: "white",
+                          mt: "8px",
+                        }}
+                        onClick={() => {
+                          if (values.newEducation) {
+                            arrayHelpers.push(values.newEducation);
+                            setFieldValue("newEducation", "");
+                          }
+                        }}
+                      />
                       {values.education.map((indvEducation, index) => (
                         <Box key={index} className={styles.skill}>
                           <li>{indvEducation}</li>
@@ -183,16 +210,13 @@ const CreateEditDetailForm = () => {
                   )}
                 />
               </label>
-              <Box style={{ paddingTop: "10px" }}>
-                <Button
-                  colorScheme="blue"
-                  size="md"
-                  className={styles.button}
+              <Box pt="10px">
+                <CustomButton
                   type="submit"
-                  disabled={isSubmitting}
-                >
-                  Submit
-                </Button>
+                  isSubmitting={isSubmitting}
+                  btnLabel="Submit"
+                  btnSxProps={{ backgroundColor: "#1264b6", color: "white" }}
+                />
               </Box>
             </Form>
           )}

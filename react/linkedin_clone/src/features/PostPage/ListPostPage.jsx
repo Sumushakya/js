@@ -3,9 +3,10 @@ import person from "../../assets/person.png";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Icons from "./Icons";
-import { FaEllipsis } from "react-icons/fa6";
+import { FaEllipsis, FaCircleXmark } from "react-icons/fa6";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import CustomButton from "../../components/CustomButton";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
@@ -69,21 +70,28 @@ const PostList = () => {
               </Box>
             </Box>
             <Box style={{ position: "relative" }}>
-              <Button
-                style={{
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                }}
+              {/* <Button
+                border="none"
+                background="none"
+                onClick={() =>
+                  setVisible({
+                    ...visible,
+                    [indvpostList.id]: !visible[indvpostList.id],
+                  })A
+                }
+              >
+                <FaEllipsis/>
+              </Button> */}
+              <CustomButton
+                btnLeftIcon={<FaEllipsis />}
+                btnSxProps={{ border: "none", background: "none" }}
                 onClick={() =>
                   setVisible({
                     ...visible,
                     [indvpostList.id]: !visible[indvpostList.id],
                   })
                 }
-              >
-                <FaEllipsis />
-              </Button>
+              />
               {visible[indvpostList.id] && (
                 <Box
                   key={indvpostList.id}
@@ -98,7 +106,9 @@ const PostList = () => {
                       justifyContent: "flex-end",
                     }}
                   >
-                    <Button
+                    {/* <Button
+                      border="none"
+                      background="none"
                       className={styles.close}
                       // onClick={() => setVisible(false)}
                       onClick={() =>
@@ -109,24 +119,48 @@ const PostList = () => {
                       }
                     >
                       &times;
-                    </Button>
+                    </Button> */}
+                    <CustomButton
+                      btnLeftIcon={<FaCircleXmark />}
+                      btnSxProps={{ border: "none", background: "none" }}
+                      onClick={() =>
+                        setVisible((prevVisible) => ({
+                          ...prevVisible,
+                          [indvpostList.id]: false,
+                        }))
+                      }
+                    />
                   </Box>
                   <Box className={styles.content}>
                     <Box className={styles.modalBtnWrapper}>
-                      <Button
+                      {/* <Button
+                        border="none"
+                        background="none"
                         className={styles.btnEdit}
                         onClick={() => handleEdit(indvpostList.id)}
                       >
                         Edit
-                      </Button>
+                      </Button> */}
+                      <CustomButton
+                        btnLabel="Edit"
+                        btnSxProps={{ border: "none", background: "none" }}
+                        onClick={() => handleEdit(indvpostList.id)}
+                      />
                     </Box>
                     <Box className={styles.modalBtnWrapper}>
-                      <Button
+                      {/* <Button
+                        border="none"
+                        background="none"
                         className={styles.btnDelete}
                         onClick={() => handleDelete(indvpostList.id)}
                       >
                         Delete
-                      </Button>
+                      </Button> */}
+                      <CustomButton
+                        btnLabel="Delete"
+                        btnSxProps={{ border: "none", background: "none" }}
+                        onClick={() => handleDelete(indvpostList.id)}
+                      />
                     </Box>
                   </Box>
                 </Box>
@@ -162,14 +196,16 @@ const PostList = () => {
       <br />
       <br />
       <Box>
-        <Button
-          colorScheme="blue"
-          position="fixed"
-          className={styles.btn}
+        <CustomButton
+          btnLabel="Add Post"
+          btnSxProps={{
+            backgroundColor: "#1264b6",
+            color: "white",
+            position: "fixed",
+          }}
           onClick={handleAdd}
-        >
-          Add post
-        </Button>
+          className={styles.btn}
+        />
       </Box>
     </Box>
   );

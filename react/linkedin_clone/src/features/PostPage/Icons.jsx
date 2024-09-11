@@ -4,7 +4,8 @@ import styles from "./icon.module.css";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
 import { LikeCommentContext } from "../../context/Icon/LikeCommentContext";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
+import CustomButton from "../../components/CustomButton";
 
 const Icons = ({ id }) => {
   const { likes, likePost, comments, addComment } =
@@ -58,35 +59,52 @@ const Icons = ({ id }) => {
 
   return (
     <Box className={styles.container}>
-      {likes[id] > 0 && <Box>{likes[id]} Likes</Box>}
+      {likes[id] > 0 && <Box> {likes[id]} Likes</Box>}
       <Box className={styles.iconBar}>
-        <Button
+        {/* <Button
           border="none"
           background="none"
+          display="flex"
+          gap="4px"
           // className={styles.iconItem}
           onClick={handleLikeClick}
         >
           <FaThumbsUp />
-          <span>Like</span>
-        </Button>
-        <Button
+          <span> Like</span>
+        </Button> */}
+        <CustomButton
+          variant="ghost"
+          btnLabel="Like"
+          onClick={handleLikeClick}
+          btnLeftIcon={<FaThumbsUp />}
+          btnSxProps={styles.iconBtn}
+        />
+        {/* <Button
           border="none"
           background="none"
-          // className={styles.iconItem}
+          display="flex"
+          gap="4px"
           onClick={handleCommentClick}
         >
           <FaComment />
-          <span>Comment</span>
-        </Button>
-        <Button border="none" background="none">
-          <FaRetweet />
-          <span>Repost</span>
-        </Button>
-        <Button border="none" background="none">
-          <FaPaperPlane />
-
-          <span>Share</span>
-        </Button>
+          <span> Comment</span>
+        </Button> */}
+        <CustomButton
+          variant="ghost"
+          btnLabel="Comment"
+          onClick={handleCommentClick}
+          btnLeftIcon={<FaComment />}
+        />
+        <CustomButton
+          variant="ghost"
+          btnLabel="Repost"
+          btnLeftIcon={<FaRetweet />}
+        />
+        <CustomButton
+          variant="ghost"
+          btnLabel="Share"
+          btnLeftIcon={<FaPaperPlane />}
+        />
       </Box>
       <Box>
         {showComments && (
@@ -101,13 +119,13 @@ const Icons = ({ id }) => {
                   value={newComment}
                   onChange={handleChange}
                 />
-                <Button className={styles.btnSubmit} type="submit">
-                  Submit
-                </Button>
+                <CustomButton btnLabel="Submit" type="submit" />
               </Box>
             </form>
             <Box>
-              <h4>Comments</h4>
+              <Heading as="h2" size="sm" mt="10px">
+                Comments
+              </Heading>
               {(comments[id] || []).map((comment, index) => (
                 <Box className={styles.commentBox} key={index}>
                   <Text key={index}>{comment}</Text>

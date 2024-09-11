@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Nav from "../../components/Nav/Nav";
+import Nav from "../../components/Nav";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./postlistform.module.css";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { commons } from "../../constants/commons";
 import { Box } from "@chakra-ui/react";
+import CustomButton from "../../components/CustomButton";
+// import { styles } from "../../components/CustomButton/styles";
 
 const { CREATE } = commons;
 
@@ -92,7 +94,7 @@ const FormPost = () => {
           validationSchema={ValidationSchema}
           onSubmit={submitActions[actionType]}
         >
-          {({ isSubmitting, isValid, handleSubmit }) => (
+          {({ isSubmitting, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
               <label>
                 Name:
@@ -132,14 +134,12 @@ const FormPost = () => {
             />
           </label>  */}
 
-              <button
-                className={styles.button}
+              <CustomButton
                 type="submit"
-                disabled={isSubmitting || !isValid}
-              >
-                {actionType === CREATE ? "Add Post" : "Edit Post"}
-                {/* Submit */}
-              </button>
+                isSubmitting={isSubmitting}
+                btnLabel={actionType === CREATE ? "Add Post" : "Edit Post"}
+                btnSxProps={{ backgroundColor: "#1264b6", color: "white" }}
+              />
             </Form>
           )}
         </Formik>
