@@ -3,7 +3,7 @@ import person from "../../assets/person.png";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Icons from "./Icons";
-import { FaEllipsis, FaCircleXmark } from "react-icons/fa6";
+import { FaEllipsis, FaCircleXmark, FaCirclePlus } from "react-icons/fa6";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
 import { Box, Text } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
@@ -77,12 +77,15 @@ const PostList = () => {
                   setVisible({
                     ...visible,
                     [indvpostList.id]: !visible[indvpostList.id],
-                  })A
+                  })
                 }
               >
                 <FaEllipsis/>
               </Button> */}
+
               <CustomButton
+                enableHover={false}
+                btnType="ICON_BUTTON"
                 btnLeftIcon={<FaEllipsis />}
                 btnSxProps={{ border: "none", background: "none" }}
                 onClick={() =>
@@ -121,6 +124,7 @@ const PostList = () => {
                       &times;
                     </Button> */}
                     <CustomButton
+                      btnType="ICON_BUTTON"
                       btnLeftIcon={<FaCircleXmark />}
                       btnSxProps={{ border: "none", background: "none" }}
                       onClick={() =>
@@ -148,14 +152,6 @@ const PostList = () => {
                       />
                     </Box>
                     <Box className={styles.modalBtnWrapper}>
-                      {/* <Button
-                        border="none"
-                        background="none"
-                        className={styles.btnDelete}
-                        onClick={() => handleDelete(indvpostList.id)}
-                      >
-                        Delete
-                      </Button> */}
                       <CustomButton
                         btnLabel="Delete"
                         btnSxProps={{ border: "none", background: "none" }}
@@ -197,7 +193,9 @@ const PostList = () => {
       <br />
       <Box>
         <CustomButton
+          enableHover={true}
           btnLabel="Add Post"
+          btnRightIcon={<FaCirclePlus />}
           btnSxProps={{
             backgroundColor: "#1264b6",
             color: "white",

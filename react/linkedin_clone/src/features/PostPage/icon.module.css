@@ -22,10 +22,11 @@
   font-size: 15px;
   padding: 4px 8px;
 }
-.iconBtn {
-  border: none;
+/* .iconBtn {
+  border: 1px solid black;
   background: none;
-}
+} */
+
 .iconItem:hover {
   background: #ddd;
   padding: 4px 8px;

@@ -22,16 +22,6 @@ const Icons = ({ id }) => {
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
-  // useEffect(() => {
-  //   const savedComments = JSON.parse(localStorage.getItem("comments")) || {};
-  //   const savedLikes = JSON.parse(localStorage.getItem("likes")) || {};
-  //   if (savedComments[id]) {
-  //     setComments(savedComments);
-  //   }
-  //   if (savedLikes[id]) {
-  //     setLikes(savedLikes);
-  //   }
-  // }, []);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -61,34 +51,12 @@ const Icons = ({ id }) => {
     <Box className={styles.container}>
       {likes[id] > 0 && <Box> {likes[id]} Likes</Box>}
       <Box className={styles.iconBar}>
-        {/* <Button
-          border="none"
-          background="none"
-          display="flex"
-          gap="4px"
-          // className={styles.iconItem}
-          onClick={handleLikeClick}
-        >
-          <FaThumbsUp />
-          <span> Like</span>
-        </Button> */}
         <CustomButton
           variant="ghost"
-          btnLabel="Like"
           onClick={handleLikeClick}
+          btnLabel="Like"
           btnLeftIcon={<FaThumbsUp />}
-          btnSxProps={styles.iconBtn}
         />
-        {/* <Button
-          border="none"
-          background="none"
-          display="flex"
-          gap="4px"
-          onClick={handleCommentClick}
-        >
-          <FaComment />
-          <span> Comment</span>
-        </Button> */}
         <CustomButton
           variant="ghost"
           btnLabel="Comment"

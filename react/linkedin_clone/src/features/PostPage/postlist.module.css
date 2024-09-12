@@ -49,13 +49,13 @@
   font-size: 15px;
   cursor: pointer;
 }
-.btn:hover {
+/* .btn:hover {
   background-color: #2980b9;
-}
+} */
 
 .modal {
   position: absolute;
-  top: 12px;
+  top: 30px;
   left: 0;
   min-width: 100px;
   background-color: #fefefe;
@@ -101,4 +101,8 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+.btnIcon {
+  border: none;
+  background: none;
 }

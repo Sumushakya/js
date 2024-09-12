@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav";
 import styles from "./detailform.module.css";
 import { DetailContext } from "../../context/Detail/DetailContext";
-import { FaCircleXmark } from "react-icons/fa6";
+import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 import * as Yup from "yup";
 import { Field, FieldArray, Formik, ErrorMessage, Form } from "formik";
-import { Box, Button, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
 
 const CreateEditDetailForm = () => {
@@ -124,7 +124,9 @@ const CreateEditDetailForm = () => {
                         Add Skill
                       </Button> */}
                       <CustomButton
+                        enableHover={true}
                         btnLabel="Add Skills"
+                        btnRightIcon={<FaCirclePlus />}
                         btnSxProps={{
                           backgroundColor: "#1264b6",
                           color: "white",
@@ -183,7 +185,9 @@ const CreateEditDetailForm = () => {
                         Add education
                       </Button> */}
                       <CustomButton
+                        enableHover={true}
                         btnLabel="Add Education"
+                        btnRightIcon={<FaCirclePlus />}
                         btnSxProps={{
                           backgroundColor: "#1264b6",
                           color: "white",
@@ -212,6 +216,7 @@ const CreateEditDetailForm = () => {
               </label>
               <Box pt="10px">
                 <CustomButton
+                  enableHover={true}
                   type="submit"
                   isSubmitting={isSubmitting}
                   btnLabel="Submit"
