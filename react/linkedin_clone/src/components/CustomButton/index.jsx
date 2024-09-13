@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@chakra-ui/react";
+import { Button, IconButton, Tooltip } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 // import { styles } from "./styles";
 import { ButtonType } from "../../constants/ButtonType";
@@ -9,27 +9,35 @@ const { REGULAR } = ButtonType;
 function CustomButton(props) {
   const {
     btnType = REGULAR,
-    enableHover,
-    // hoverStyles,
+    // enableHover,
     isSubmitting,
+    iconBtnStyle,
+    regularBtnStyle,
     btnLabel,
     btnLeftIcon,
     btnRightIcon,
     btnSxProps,
+    tooltipLabel,
     ...rest
   } = props;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const hoverStyles = enableHover
-    ? { _hover: { bg: "blue" } }
-    : { _hover: { border: "none", background: "none" } };
+  // const hoverStyles = enableHover
+  //   ? { _hover: { bg: "#1264b6" } }
+  //   : {
+  //       _hover: {
+  //         border: "none",
+  //         background: "#f2f2f2",
+  //         borderRadius: "12px",
+  //       },
+  //     };
 
   const prepareBtn = useMemo(() => {
     const tempBtn = {
       ICON_BUTTON: (
         <IconButton
           icon={btnLeftIcon}
-          sx={{ ...btnSxProps, ...hoverStyles }}
+          sx={{ ...iconBtnStyle, ...btnSxProps }}
           {...rest}
           aria-label={btnLabel || "Default Label"}
         />
@@ -39,22 +47,32 @@ function CustomButton(props) {
           isDisabled={isSubmitting}
           leftIcon={btnLeftIcon}
           rightIcon={btnRightIcon}
-          sx={{ ...btnSxProps, ...hoverStyles }}
+          sx={{ ...regularBtnStyle, ...btnSxProps }}
           {...rest}
         >
           {btnLabel}
         </Button>
       ),
     };
+    if (tooltipLabel) {
+      return {
+        ICON_BUTTON: (
+          <Tooltip label={tooltipLabel}>{tempBtn.ICON_BUTTON}</Tooltip>
+        ),
+        REGULAR: <Tooltip label={tooltipLabel}>{tempBtn.REGULAR}</Tooltip>,
+      };
+    }
     return tempBtn;
   }, [
-    btnLabel,
     btnLeftIcon,
-    btnRightIcon,
+    iconBtnStyle,
     btnSxProps,
-    hoverStyles,
-    isSubmitting,
     rest,
+    btnLabel,
+    isSubmitting,
+    btnRightIcon,
+    regularBtnStyle,
+    tooltipLabel,
   ]);
 
   return prepareBtn[btnType];
@@ -62,7 +80,6 @@ function CustomButton(props) {
 
 CustomButton.defaultProps = {
   isSubmitting: false,
-  enableHover: false,
 };
 CustomButton.propTypes = {
   isSubmitting: PropTypes.bool,
@@ -71,7 +88,8 @@ CustomButton.propTypes = {
   btnRightIcon: PropTypes.node,
   btnSxProps: PropTypes.object,
   btnType: PropTypes.oneOf(["REGULAR", "ICON_BUTTON"]),
-  enableHover: PropTypes.bool,
+
+  tooltipLabel: PropTypes.string,
 };
 
 export default CustomButton;

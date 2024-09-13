@@ -1,18 +1,27 @@
 import styles from "./postlist.module.css";
 import person from "../../assets/person.png";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Icons from "./Icons";
-import { FaEllipsis, FaCircleXmark, FaCirclePlus } from "react-icons/fa6";
+import { FaEllipsis, FaCirclePlus, FaPenToSquare } from "react-icons/fa6";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
+import { FaTrash } from "react-icons/fa";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
   console.log("data", postlistDetails);
 
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   // useEffect(() => {
   //   const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
@@ -25,12 +34,6 @@ const PostList = () => {
 
   const handleAdd = () => {
     navigate("/postform");
-  };
-
-  const handleCloseOutsideClick = (e, id) => {
-    if (e.target.classList.contains(styles.modal)) {
-      setVisible((prevVisible) => ({ ...prevVisible, [id]: false }));
-    }
   };
 
   const handleEdit = (id) => {
@@ -70,97 +73,28 @@ const PostList = () => {
               </Box>
             </Box>
             <Box style={{ position: "relative" }}>
-              {/* <Button
-                border="none"
-                background="none"
-                onClick={() =>
-                  setVisible({
-                    ...visible,
-                    [indvpostList.id]: !visible[indvpostList.id],
-                  })
-                }
-              >
-                <FaEllipsis/>
-              </Button> */}
-
-              <CustomButton
-                enableHover={false}
-                btnType="ICON_BUTTON"
-                btnLeftIcon={<FaEllipsis />}
-                btnSxProps={{ border: "none", background: "none" }}
-                onClick={() =>
-                  setVisible({
-                    ...visible,
-                    [indvpostList.id]: !visible[indvpostList.id],
-                  })
-                }
-              />
-              {visible[indvpostList.id] && (
-                <Box
-                  key={indvpostList.id}
-                  className={styles.modal}
-                  onClick={(e) => handleCloseOutsideClick(e, indvpostList.id)}
-                  style={{ display: "block" }}
-                >
-                  <Box
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "flex-end",
-                    }}
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  icon={<FaEllipsis />}
+                  variant="ghost"
+                  _hover={{ bag: "f2f2f2", borderRadius: "12px" }}
+                />
+                <MenuList>
+                  <MenuItem
+                    icon={<FaPenToSquare />}
+                    onClick={() => handleEdit(indvpostList.id)}
                   >
-                    {/* <Button
-                      border="none"
-                      background="none"
-                      className={styles.close}
-                      // onClick={() => setVisible(false)}
-                      onClick={() =>
-                        setVisible((prevVisible) => ({
-                          ...prevVisible,
-                          [indvpostList.id]: false,
-                        }))
-                      }
-                    >
-                      &times;
-                    </Button> */}
-                    <CustomButton
-                      btnType="ICON_BUTTON"
-                      btnLeftIcon={<FaCircleXmark />}
-                      btnSxProps={{ border: "none", background: "none" }}
-                      onClick={() =>
-                        setVisible((prevVisible) => ({
-                          ...prevVisible,
-                          [indvpostList.id]: false,
-                        }))
-                      }
-                    />
-                  </Box>
-                  <Box className={styles.content}>
-                    <Box className={styles.modalBtnWrapper}>
-                      {/* <Button
-                        border="none"
-                        background="none"
-                        className={styles.btnEdit}
-                        onClick={() => handleEdit(indvpostList.id)}
-                      >
-                        Edit
-                      </Button> */}
-                      <CustomButton
-                        btnLabel="Edit"
-                        btnSxProps={{ border: "none", background: "none" }}
-                        onClick={() => handleEdit(indvpostList.id)}
-                      />
-                    </Box>
-                    <Box className={styles.modalBtnWrapper}>
-                      <CustomButton
-                        btnLabel="Delete"
-                        btnSxProps={{ border: "none", background: "none" }}
-                        onClick={() => handleDelete(indvpostList.id)}
-                      />
-                    </Box>
-                  </Box>
-                </Box>
-              )}
+                    Edit
+                  </MenuItem>
+                  <MenuItem
+                    icon={<FaTrash />}
+                    onClick={() => handleDelete(indvpostList.id)}
+                  >
+                    Delete
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </Box>
           </Box>
           <br />
@@ -196,8 +130,8 @@ const PostList = () => {
           enableHover={true}
           btnLabel="Add Post"
           btnRightIcon={<FaCirclePlus />}
+          regularBtnStyle={{ bg: "blue", _hover: { bg: "#1264b6" } }}
           btnSxProps={{
-            backgroundColor: "#1264b6",
             color: "white",
             position: "fixed",
           }}

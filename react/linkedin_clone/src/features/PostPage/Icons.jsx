@@ -4,8 +4,10 @@ import styles from "./icon.module.css";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
 import { LikeCommentContext } from "../../context/Icon/LikeCommentContext";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Input, Text } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
+import CustomModal from "../../components/CustomModal";
+import { FaXmark } from "react-icons/fa6";
 
 const Icons = ({ id }) => {
   const { likes, likePost, comments, addComment } =
@@ -14,9 +16,10 @@ const Icons = ({ id }) => {
 
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCommentClick = () => {
-    setShowComments(!showComments); //toggle show section
+    setShowComments(!showComments);
   };
 
   const handleChange = (e) => {
@@ -46,6 +49,13 @@ const Icons = ({ id }) => {
     // console.log("like", updatedLikes);
     likePost(id);
   };
+  const handleRepostClick = () => {
+    setIsModalOpen(true);
+    console.log("open modal");
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box className={styles.container}>
@@ -67,7 +77,9 @@ const Icons = ({ id }) => {
           variant="ghost"
           btnLabel="Repost"
           btnLeftIcon={<FaRetweet />}
+          onClick={handleRepostClick}
         />
+
         <CustomButton
           variant="ghost"
           btnLabel="Share"
@@ -103,6 +115,43 @@ const Icons = ({ id }) => {
           </Box>
         )}
       </Box>
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        size="lg"
+        isCentered={true}
+        title="Do you want to repost?"
+        bodyContent={
+          <>
+            <Input placeholder="Start Writing..." type="text" />
+          </>
+        }
+        footerButtons={
+          <>
+            <CustomButton
+              btnLabel="Repost"
+              btnLeftIcon={<FaRetweet />}
+              regularBtnStyle={{
+                bg: "blue",
+                color: "white",
+                _hover: { bg: "#1264b6" },
+                mr: "10px",
+              }}
+            />
+
+            <CustomButton
+              btnLabel="Close"
+              btnLeftIcon={<FaXmark />}
+              regularBtnStyle={{
+                bg: "red",
+                color: "white",
+                _hover: { bg: "tomato" },
+              }}
+              onClick={handleCloseModal}
+            />
+          </>
+        }
+      />
     </Box>
   );
 };

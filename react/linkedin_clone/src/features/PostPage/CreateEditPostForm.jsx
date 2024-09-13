@@ -136,10 +136,10 @@ const FormPost = () => {
 
               <CustomButton
                 type="submit"
-                enableHover={true}
+                regularBtnStyle={{ bg: "blue", _hover: { bg: "#1264b6" } }}
                 isSubmitting={isSubmitting}
                 btnLabel={actionType === CREATE ? "Add Post" : "Edit Post"}
-                btnSxProps={{ backgroundColor: "#1264b6", color: "white" }}
+                btnSxProps={{ backgroundColor: "blue", color: "white" }}
               />
             </Form>
           )}

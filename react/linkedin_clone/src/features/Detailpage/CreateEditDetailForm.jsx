@@ -127,8 +127,11 @@ const CreateEditDetailForm = () => {
                         enableHover={true}
                         btnLabel="Add Skills"
                         btnRightIcon={<FaCirclePlus />}
+                        regularBtnStyle={{
+                          bg: "blue",
+                          _hover: { bg: "#1264b6" },
+                        }}
                         btnSxProps={{
-                          backgroundColor: "#1264b6",
                           color: "white",
                           mt: "8px",
                         }}
@@ -188,8 +191,12 @@ const CreateEditDetailForm = () => {
                         enableHover={true}
                         btnLabel="Add Education"
                         btnRightIcon={<FaCirclePlus />}
+                        // tooltipLabel="Remove"
+                        regularBtnStyle={{
+                          bg: "blue",
+                          _hover: { bg: "#1264b6" },
+                        }}
                         btnSxProps={{
-                          backgroundColor: "#1264b6",
                           color: "white",
                           mt: "8px",
                         }}
@@ -220,7 +227,7 @@ const CreateEditDetailForm = () => {
                   type="submit"
                   isSubmitting={isSubmitting}
                   btnLabel="Submit"
-                  btnSxProps={{ backgroundColor: "#1264b6", color: "white" }}
+                  regularBtnStyle={{ bg: "blue", _hover: { bg: "#1264b6" } }}
                 />
               </Box>
             </Form>
