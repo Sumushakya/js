@@ -1,27 +1,19 @@
-import styles from "./postlist.module.css";
+// import styles from "./postlist.module.css";
 import person from "../../assets/person.png";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Icons from "./Icons";
+import Icons from "./PostpageFooter";
 import { FaEllipsis, FaCirclePlus, FaPenToSquare } from "react-icons/fa6";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
-import {
-  Box,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
 import { FaTrash } from "react-icons/fa";
+import { styles } from "./styles";
+import CustomMenu from "../../components/CustomMenu";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
   console.log("data", postlistDetails);
-
-  // const [visible, setVisible] = useState(false);
 
   // useEffect(() => {
   //   const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
@@ -55,47 +47,43 @@ const PostList = () => {
   };
 
   return (
-    <Box className={styles.container} style={{ flex: 4 }}>
+    <Box flex="4" style={styles.container}>
+      {/* style={{ flex: 4 }} */}
       {postlistDetails?.map((indvpostList) => (
-        <Box key={indvpostList.id} className={styles.innerbox}>
-          <Box className={styles.contain}>
-            <Box>
-              <Box className={styles.imageContent}>
-                <img src={person} alt="person" width="40px" height="40px" />
-                <Box style={{ display: "flex", flexDirection: "column" }}>
-                  <Text className={styles.nameContent}>
-                    {indvpostList.name}
-                  </Text>
-                  <Text className={styles.headlineContent}>
-                    {indvpostList.headline}
-                  </Text>
+        <Box key={indvpostList.id} style={styles.innerbox}>
+          <Box>
+            <Flex justify="space-between">
+              <Box>
+                <Box>
+                  <Flex direction="row" gap="8px">
+                    <img src={person} alt="person" width="40px" height="40px" />
+                    <Box
+                    //  style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <Flex direction="column">
+                        <Text style={styles.nameContent}>
+                          {indvpostList.name}
+                        </Text>
+                        <Text style={styles.headlineContent}>
+                          {indvpostList.headline}
+                        </Text>
+                      </Flex>
+                    </Box>
+                  </Flex>
                 </Box>
               </Box>
-            </Box>
-            <Box style={{ position: "relative" }}>
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  icon={<FaEllipsis />}
-                  variant="ghost"
-                  _hover={{ bag: "f2f2f2", borderRadius: "12px" }}
+              <Box style={{ position: "relative" }}>
+                <CustomMenu
+                  btnLeftIcon1={<FaEllipsis />}
+                  btnLeftIcon2={<FaPenToSquare />}
+                  btnLeftIcon3={<FaTrash />}
+                  title1="Edit"
+                  title2="Delete"
+                  editClick={() => handleEdit(indvpostList.id)}
+                  deleteClick={() => handleDelete(indvpostList.id)}
                 />
-                <MenuList>
-                  <MenuItem
-                    icon={<FaPenToSquare />}
-                    onClick={() => handleEdit(indvpostList.id)}
-                  >
-                    Edit
-                  </MenuItem>
-                  <MenuItem
-                    icon={<FaTrash />}
-                    onClick={() => handleDelete(indvpostList.id)}
-                  >
-                    Delete
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Box>
+              </Box>
+            </Flex>
           </Box>
           <br />
           <Box>
@@ -127,7 +115,6 @@ const PostList = () => {
       <br />
       <Box>
         <CustomButton
-          enableHover={true}
           btnLabel="Add Post"
           btnRightIcon={<FaCirclePlus />}
           regularBtnStyle={{ bg: "blue", _hover: { bg: "#1264b6" } }}
@@ -136,7 +123,7 @@ const PostList = () => {
             position: "fixed",
           }}
           onClick={handleAdd}
-          className={styles.btn}
+          style={styles.btn}
         />
       </Box>
     </Box>

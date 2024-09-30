@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import Nav from "../../components/Nav";
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from "./postlistform.module.css";
+// import styles from "./postlistform.module.css";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import { commons } from "../../constants/commons";
 import { Box } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
-// import { styles } from "../../components/CustomButton/styles";
+import { styles } from "./styles";
 
 const { CREATE } = commons;
 
@@ -30,6 +30,8 @@ const FormPost = () => {
     id: null,
     actionType: "CREATE",
   };
+
+  // useEffect(()=>{},)
 
   useEffect(() => {
     if (actionType === "EDIT" && id) {
@@ -87,7 +89,7 @@ const FormPost = () => {
   return (
     <Box>
       <Nav />
-      <Box className={styles.formContainer}>
+      <Box style={styles.formContainer}>
         <Formik
           initialValues={initialValues}
           enableReinitialize
@@ -95,33 +97,44 @@ const FormPost = () => {
           onSubmit={submitActions[actionType]}
         >
           {({ isSubmitting, handleSubmit }) => (
-            <Form onSubmit={handleSubmit}>
-              <label>
+            <Form onSubmit={handleSubmit} style={styles.form}>
+              <label style={styles.label}>
                 Name:
-                <Field type="text" name="name" placeholder="Name" />
+                <Field
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  style={styles.input}
+                />
                 <ErrorMessage
                   name="name"
                   component="Box"
-                  className={styles.error}
+                  style={styles.error}
                 />
               </label>
-              <label>
+              <label style={styles.label}>
                 Headline:
-                <Field type="text" name="headline" placeholder="Headline" />
+                <Field
+                  type="text"
+                  name="headline"
+                  placeholder="Headline"
+                  style={styles.input}
+                />
                 <ErrorMessage
                   name="headline"
                   component="Box"
-                  className={styles.error}
+                  style={styles.error}
                 />
               </label>
-              <label>
+              <label style={styles.label}>
                 Post Description:
-                <Field type="text" name="des" placeholder="Description" />
-                <ErrorMessage
+                <Field
+                  type="text"
                   name="des"
-                  component="Box"
-                  className={styles.error}
+                  placeholder="Description"
+                  style={styles.input}
                 />
+                <ErrorMessage name="des" component="Box" style={styles.error} />
               </label>
               {/* <label>
             Image:

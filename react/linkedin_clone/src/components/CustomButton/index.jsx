@@ -21,17 +21,6 @@ function CustomButton(props) {
     ...rest
   } = props;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // const hoverStyles = enableHover
-  //   ? { _hover: { bg: "#1264b6" } }
-  //   : {
-  //       _hover: {
-  //         border: "none",
-  //         background: "#f2f2f2",
-  //         borderRadius: "12px",
-  //       },
-  //     };
-
   const prepareBtn = useMemo(() => {
     const tempBtn = {
       ICON_BUTTON: (

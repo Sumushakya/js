@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav";
-import styles from "./detailform.module.css";
+// import styles from "./detailform.module.css";
 import { DetailContext } from "../../context/Detail/DetailContext";
 import { FaCirclePlus, FaCircleXmark } from "react-icons/fa6";
 import * as Yup from "yup";
 import { Field, FieldArray, Formik, ErrorMessage, Form } from "formik";
 import { Box, Heading } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
+import { styles } from "./styles";
 
 const CreateEditDetailForm = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +50,7 @@ const CreateEditDetailForm = () => {
   return (
     <Box>
       <Nav />
-      <Box className={styles.formContainer}>
+      <Box style={styles.formContainer}>
         <Formik
           initialValues={formData}
           enableReinitialize
@@ -58,7 +59,7 @@ const CreateEditDetailForm = () => {
         >
           {({ values, handleChange, isSubmitting, setFieldValue }) => (
             <Form>
-              <Heading as="h6" size="md">
+              <Heading as="h6" size="md" margin="auto">
                 Detail Form
               </Heading>
               <br />
@@ -68,7 +69,7 @@ const CreateEditDetailForm = () => {
                 <ErrorMessage
                   name="name"
                   component="Box"
-                  className={styles.error}
+                  style={styles.error}
                 />
               </label>
               <br />
@@ -78,7 +79,7 @@ const CreateEditDetailForm = () => {
                 <ErrorMessage
                   name="headline"
                   component="Box"
-                  className={styles.error}
+                  style={styles.error}
                 />
               </label>
               <br />
@@ -88,7 +89,7 @@ const CreateEditDetailForm = () => {
                 <ErrorMessage
                   name="about"
                   component="Box"
-                  className={styles.error}
+                  style={styles.error}
                 />
               </label>
               <br />
@@ -107,24 +108,10 @@ const CreateEditDetailForm = () => {
                       <ErrorMessage
                         name="skill"
                         component="Box"
-                        className={styles.error}
+                        style={styles.error}
                       />
-                      {/* <Button
-                        colorScheme="blue"
-                        size="sm"
-                        type="button"
-                        onClick={() => {
-                          if (values.newSkill) {
-                            arrayHelpers.push(values.newSkill);
-                            setFieldValue("newSkill", "");
-                          }
-                        }}
-                        className={styles.addButton}
-                      >
-                        Add Skill
-                      </Button> */}
+
                       <CustomButton
-                        enableHover={true}
                         btnLabel="Add Skills"
                         btnRightIcon={<FaCirclePlus />}
                         regularBtnStyle={{
@@ -143,7 +130,7 @@ const CreateEditDetailForm = () => {
                         }}
                       />
                       {values.skill.map((indvSkill, index) => (
-                        <Box key={index} className={styles.skill}>
+                        <Box key={index} style={styles.skill}>
                           <li>{indvSkill}</li>
                           <FaCircleXmark
                             style={{ cursor: "pointer" }}
@@ -171,22 +158,9 @@ const CreateEditDetailForm = () => {
                       <ErrorMessage
                         name="education"
                         component="Box"
-                        className={styles.error}
+                        style={styles.error}
                       />
-                      {/* <Button
-                        colorScheme="blue"
-                        size="sm"
-                        type="button"
-                        className={styles.addButton}
-                        onClick={() => {
-                          if (values.newEducation) {
-                            arrayHelpers.push(values.newEducation);
-                            setFieldValue("newEducation", "");
-                          }
-                        }}
-                      >
-                        Add education
-                      </Button> */}
+
                       <CustomButton
                         enableHover={true}
                         btnLabel="Add Education"
@@ -208,10 +182,10 @@ const CreateEditDetailForm = () => {
                         }}
                       />
                       {values.education.map((indvEducation, index) => (
-                        <Box key={index} className={styles.skill}>
+                        <Box key={index} style={styles.skill}>
                           <li>{indvEducation}</li>
                           <FaCircleXmark
-                            styles={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer" }}
                             onClick={() => arrayHelpers.remove(index)}
                           />
                         </Box>
@@ -223,11 +197,14 @@ const CreateEditDetailForm = () => {
               </label>
               <Box pt="10px">
                 <CustomButton
-                  enableHover={true}
                   type="submit"
                   isSubmitting={isSubmitting}
                   btnLabel="Submit"
-                  regularBtnStyle={{ bg: "blue", _hover: { bg: "#1264b6" } }}
+                  regularBtnStyle={{
+                    bg: "blue",
+                    color: "white",
+                    _hover: { bg: "#1264b6" },
+                  }}
                 />
               </Box>
             </Form>

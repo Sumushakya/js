@@ -1,10 +1,9 @@
-import styles from "./nav.module.css";
+// import styles from "./nav.module.css";
 import logo from "../../assets/logo.png";
 import person2 from "../../assets/person2.png";
 import { useNavigate } from "react-router-dom";
-import { Box, Flex, Image, ListItem, UnorderedList } from "@chakra-ui/react";
-// import { Text } from "@chakra-ui/react";
-
+import { Box, Image, ListItem, UnorderedList } from "@chakra-ui/react";
+import { styles } from "./styles";
 const Nav = () => {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -14,17 +13,17 @@ const Nav = () => {
     navigate("/");
   };
   return (
-    <Box position="sticky" top="0" zIndex="999" bgColor="white" p={4}>
-      {/* <Box className={styles.navbar}> */}
-      <Flex align="center" justifyContent="space-between">
+    <Box style={styles.container}>
+      <Box style={styles.navbar}>
+        {/* <Flex align="center" justify="space-between"> */}
         <Image
-          className={styles.navImage}
+          style={styles.navImage}
           src={logo}
           alt="logo"
           onClick={handleLogo}
         />
 
-        <UnorderedList listStyleType="none" className={styles.ul}>
+        <UnorderedList listStyleType="none" style={styles.ul}>
           <ListItem href="#" onClick={handleLogo}>
             Home
           </ListItem>
@@ -34,12 +33,13 @@ const Nav = () => {
           <ListItem href="#">Network</ListItem>
         </UnorderedList>
         <Image
-          className={styles.navImage}
+          style={styles.navImage}
           src={person2}
           alt="pic"
           onClick={handleClick}
         />
-      </Flex>
+        {/* </Flex> */}
+      </Box>
     </Box>
   );
 };
