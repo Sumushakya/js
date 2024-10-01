@@ -1,6 +1,6 @@
 // import styles from "./postlist.module.css";
 import person from "../../assets/person.png";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Icons from "./PostpageFooter";
 import { FaEllipsis, FaCirclePlus, FaPenToSquare } from "react-icons/fa6";
@@ -10,6 +10,7 @@ import CustomButton from "../../components/CustomButton";
 import { FaTrash } from "react-icons/fa";
 import { styles } from "./styles";
 import CustomMenu from "../../components/CustomMenu";
+import axios from "axios";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
@@ -45,6 +46,14 @@ const PostList = () => {
     );
     setPostlistDetails(deleteData);
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/posts`)
+      .then((res) => setPostlistDetails(res.data));
+  }, [setPostlistDetails]);
+
+  console.log("hgdhgguhjk", postlistDetails);
 
   return (
     <Box flex="4" style={styles.container}>

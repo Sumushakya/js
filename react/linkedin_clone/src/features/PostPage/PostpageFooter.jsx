@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 // import styles from "./icon.module.css";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
@@ -9,9 +9,10 @@ import CustomButton from "../../components/CustomButton";
 import CustomModal from "../../components/CustomModal";
 import { FaXmark } from "react-icons/fa6";
 import { styles } from "./styles";
+import axios from "axios";
 
 const Icons = ({ id }) => {
-  const { likes, likePost, comments, addComment } =
+  const { likes, comments, addComment, likePost } =
     useContext(LikeCommentContext);
   console.log("postid", id);
 
@@ -48,8 +49,12 @@ const Icons = ({ id }) => {
     // setLikes(updatedLikes);
     // localStorage.setItem("likes", JSON.stringify(updatedLikes));
     // console.log("like", updatedLikes);
-    likePost(id);
+    // const updatedLikes = (likes[id] || 0) + 1;
+    // likePost(id);
+    // const currentLikes = likes[id] || 0;
+    // const updatedLikes = currentLikes + 1;
   };
+
   const handleRepostClick = () => {
     setIsModalOpen(true);
     console.log("open modal");
@@ -57,6 +62,16 @@ const Icons = ({ id }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  // useEffect(() => {
+  //   // const article = { title: "tdghhd" };
+  //   axios
+  //     .put(`http://localhost:5000/posts/${id}`, { likes: updatedLikes })
+  //     .then((res) => {
+  //       console.log("Like updated:", res.data);
+  //       likePost(id);
+  //     });
+  // }, []);
 
   return (
     <Box>

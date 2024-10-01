@@ -1,32 +1,40 @@
 {
   "posts": [
     {
+      "id": "1",
       "des": "Ea adipisicing nihil",
       "headline": "Aut aut et rem magna",
-      "id": "12",
       "image": "",
-      "name": "sss"
+      "name": "sss",
+      "likes": 6,
+      "comments": ["uih", "ytfghjj"]
     },
     {
+      "id": "2",
       "des": "Ea adipisicing nihil",
       "headline": "Aut aut et rem magna",
-      "id": "12",
       "image": "",
-      "name": "sss"
+      "name": "sss",
+      "likes": 6,
+      "comments": ["uih", "ytfghjj"]
     },
     {
+      "id": "3",
       "des": "Ea adipisicing nihil",
       "headline": "Aut aut et rem magna",
-      "id": "12",
       "image": "",
-      "name": "sss"
+      "name": "sss",
+      "likes": 6,
+      "comments": ["uih", "ytfghjj"]
     },
     {
-      "id": "10",
+      "id": "4",
       "des": "skkkkkkk",
       "headline": "Aut aut et rem magna",
       "image": "",
-      "name": "rty"
+      "name": "rty",
+      "likes": 6,
+      "comments": ["uih", "ytfghjj"]
     }
   ]
 }

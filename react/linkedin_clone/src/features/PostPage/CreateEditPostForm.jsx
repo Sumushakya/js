@@ -31,8 +31,6 @@ const FormPost = () => {
     actionType: "CREATE",
   };
 
-  // useEffect(()=>{},)
-
   useEffect(() => {
     if (actionType === "EDIT" && id) {
       const editPost = postlistDetails.find((post) => post.id === id);
