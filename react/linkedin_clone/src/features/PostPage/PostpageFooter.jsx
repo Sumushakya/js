@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
-// import styles from "./icon.module.css";
+import { useEffect, useState } from "react";
 import { FaThumbsUp, FaComment, FaPaperPlane, FaRetweet } from "react-icons/fa";
 import person2 from "../../assets/person2.png";
-import { LikeCommentContext } from "../../context/Icon/LikeCommentContext";
 import { Box, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
 import CustomModal from "../../components/CustomModal";
@@ -11,14 +9,21 @@ import { FaXmark } from "react-icons/fa6";
 import { styles } from "./styles";
 import axios from "axios";
 
-const Icons = ({ id }) => {
-  const { likes, comments, addComment, likePost } =
-    useContext(LikeCommentContext);
-  console.log("postid", id);
-
+const PostpageFooter = ({ postDetail }) => {
+  const { id, comments = [], likes, ...restPostData } = postDetail;
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [commentsList, setCommentsList] = useState();
+  const [updatedLikes, setUpdatedLikes] = useState();
+
+  useEffect(() => {
+    setCommentsList(comments);
+  }, [comments]);
+
+  useEffect(() => {
+    setUpdatedLikes(likes);
+  }, [likes]);
 
   const handleCommentClick = () => {
     setShowComments(!showComments);
@@ -30,29 +35,31 @@ const Icons = ({ id }) => {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    addComment(id, newComment);
-    setNewComment("");
-    // const postComments = comments[id] || [];
-    // const updatedComments = {
-    //   ...comments,
-    //   [id]: [newComment, ...postComments],
-    // };
-    // setComments(updatedComments);
-    // localStorage.setItem("comments", JSON.stringify(updatedComments));
-    // setNewComment("");
-    // console.log("uc", updatedComments);
+
+    axios
+      .put(`http://localhost:5000/posts/${id}`, {
+        ...restPostData,
+        id: id,
+        likes: likes,
+        comments: [newComment, ...commentsList],
+      })
+      .then((res) => {
+        setNewComment("");
+        setCommentsList(res.data.comments);
+      });
   };
 
   const handleLikeClick = () => {
-    // const postLikes = likes[id] || 0;
-    // const updatedLikes = { ...likes, [id]: parseInt(postLikes + 1) };
-    // setLikes(updatedLikes);
-    // localStorage.setItem("likes", JSON.stringify(updatedLikes));
-    // console.log("like", updatedLikes);
-    // const updatedLikes = (likes[id] || 0) + 1;
-    // likePost(id);
-    // const currentLikes = likes[id] || 0;
-    // const updatedLikes = currentLikes + 1;
+    const tempUpdatedLikes = (updatedLikes || 0) + 1;
+    axios
+      .put(`http://localhost:5000/posts/${id}`, {
+        ...restPostData,
+        likes: tempUpdatedLikes,
+        comments: comments,
+      })
+      .then((res) => {
+        setUpdatedLikes(res.data.likes);
+      });
   };
 
   const handleRepostClick = () => {
@@ -63,20 +70,10 @@ const Icons = ({ id }) => {
     setIsModalOpen(false);
   };
 
-  // useEffect(() => {
-  //   // const article = { title: "tdghhd" };
-  //   axios
-  //     .put(`http://localhost:5000/posts/${id}`, { likes: updatedLikes })
-  //     .then((res) => {
-  //       console.log("Like updated:", res.data);
-  //       likePost(id);
-  //     });
-  // }, []);
-
   return (
     <Box>
       <Flex direction="column">
-        {likes[id] > 0 && <Box> {likes[id]} Likes</Box>}
+        {updatedLikes > 0 && <Box> {updatedLikes} Likes</Box>}
         <Box style={styles.iconBar}>
           <Flex align="center" justify="space-around">
             <CustomButton
@@ -127,9 +124,9 @@ const Icons = ({ id }) => {
                 <Heading as="h2" size="sm" mt="10px" ml="10px">
                   Comments
                 </Heading>
-                {(comments[id] || []).map((comment, index) => (
+                {commentsList?.map((indvComment, index) => (
                   <Box style={styles.commentBox} key={index}>
-                    <Text key={index}>{comment}</Text>
+                    <Text key={index}>{indvComment}</Text>
                   </Box>
                 ))}
               </Box>
@@ -178,4 +175,14 @@ const Icons = ({ id }) => {
   );
 };
 
-export default Icons;
+export default PostpageFooter;
+
+// const postComments = comments[id] || [];
+// const updatedComments = {
+//   ...comments,
+//   [id]: [newComment, ...postComments],
+// };
+// setComments(updatedComments);
+// localStorage.setItem("comments", JSON.stringify(updatedComments));
+// setNewComment("");
+// console.log("uc", updatedComments);

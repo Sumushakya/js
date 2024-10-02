@@ -2,7 +2,7 @@
 import person from "../../assets/person.png";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Icons from "./PostpageFooter";
+import PostpageFooter from "./PostpageFooter";
 import { FaEllipsis, FaCirclePlus, FaPenToSquare } from "react-icons/fa6";
 import { PostlistContext } from "../../context/PostList/PostlistContext";
 import { Box, Flex, Text } from "@chakra-ui/react";
@@ -14,7 +14,6 @@ import axios from "axios";
 
 const PostList = () => {
   const { postlistDetails, setPostlistDetails } = useContext(PostlistContext);
-  console.log("data", postlistDetails);
 
   // useEffect(() => {
   //   const localStoragePostList = JSON.parse(localStorage.getItem("postList"));
@@ -40,7 +39,6 @@ const PostList = () => {
   };
 
   const handleDelete = (id) => {
-    console.log("oooooooooooooooo", id, postlistDetails);
     const deleteData = postlistDetails.filter(
       (indvpostList) => indvpostList.id !== id
     );
@@ -53,11 +51,8 @@ const PostList = () => {
       .then((res) => setPostlistDetails(res.data));
   }, [setPostlistDetails]);
 
-  console.log("hgdhgguhjk", postlistDetails);
-
   return (
     <Box flex="4" style={styles.container}>
-      {/* style={{ flex: 4 }} */}
       {postlistDetails?.map((indvpostList) => (
         <Box key={indvpostList.id} style={styles.innerbox}>
           <Box>
@@ -66,9 +61,7 @@ const PostList = () => {
                 <Box>
                   <Flex direction="row" gap="8px">
                     <img src={person} alt="person" width="40px" height="40px" />
-                    <Box
-                    //  style={{ display: "flex", flexDirection: "column" }}
-                    >
+                    <Box>
                       <Flex direction="column">
                         <Text style={styles.nameContent}>
                           {indvpostList.name}
@@ -116,7 +109,7 @@ const PostList = () => {
             </Box>
           </Box>
           <Box>
-            <Icons id={indvpostList.id} />
+            <PostpageFooter postDetail={indvpostList} />
           </Box>
         </Box>
       ))}
