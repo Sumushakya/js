@@ -46,6 +46,7 @@ const PostList = () => {
   };
 
   useEffect(() => {
+    // const getData
     axios
       .get(`http://localhost:5000/posts`)
       .then((res) => setPostlistDetails(res.data));

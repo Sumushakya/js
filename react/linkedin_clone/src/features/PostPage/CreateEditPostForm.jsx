@@ -9,6 +9,7 @@ import { commons } from "../../constants/commons";
 import { Box } from "@chakra-ui/react";
 import CustomButton from "../../components/CustomButton";
 import { styles } from "./styles";
+import axios from "axios";
 
 const { CREATE } = commons;
 
@@ -71,14 +72,27 @@ const FormPost = () => {
     setPostlistDetails(updatedPostList);
     navigate("/");
   };
-  const handleEditSubmit = (value) => {
-    const updatedPostList = postlistDetails.map((post) =>
-      post.id === id ? value : post
-    );
-    setPostlistDetails(updatedPostList);
-    navigate("/");
-  };
 
+  const handleEditSubmit = (value) => {
+    axios
+      .put(`http://localhost:5000/posts/${id}`, value)
+      .then((response) => {
+        const updatedPostList = postlistDetails.map((post) =>
+          post.id === id ? value : post
+        );
+        setPostlistDetails(updatedPostList);
+        navigate("/");
+      })
+
+      .catch((error) => {
+        console.log("post is not updated", error);
+      });
+
+    // const updatedPostList = postlistDetails.map((post) =>
+    //   post.id === id ? value : post
+    // );
+    // setPostlistDetails(updatedPostList);
+  };
   const submitActions = {
     CREATE: handleCreateSubmit,
     EDIT: handleEditSubmit,
@@ -160,3 +174,17 @@ const FormPost = () => {
   );
 };
 export default FormPost;
+
+// axios
+//   .put(`http://localhost:5000/posts/${id}`, value)
+//   .then((response) => {
+//     if (response.status === 200) {
+//       const updatedPostList = postlistDetails.map((post) =>
+//         post.id === id ? value : post
+//       );
+//       setPostlistDetails(updatedPostList);
+//       navigate("/");
+//     } else {
+//       console.error("Failed to update the post. Please try again.");
+//     }
+//   });
