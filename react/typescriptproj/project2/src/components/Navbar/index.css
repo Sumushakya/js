@@ -1,18 +1,18 @@
-.container {
+/* .container {
   position: sticky;
   top: 0;
   z-index: 999;
-}
+} */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
-  /* padding: 8px; */
+  padding: 8px;
 }
 .ul {
   display: flex;
-  /* gap: 24px; */
+  gap: 24px;
   list-style: none;
   justify-content: space-around;
   cursor: pointer;

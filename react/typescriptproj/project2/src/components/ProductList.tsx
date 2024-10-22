@@ -7,21 +7,20 @@ const ProductList: React.FC = () => {
   if (isLoading) return <div>Loading...</div>;
 
   const categories = Array.from(
-    new Set(products?.map((product) => product.category))
+    new Set(products?.map((product) => product.category)) //(product.category:map the products their category values)
   );
-  return (
-    <div>
-      {categories.map((category) => (
-        <Category
-          key={category}
-          category={category}
-          products={products?.filter(
-            (product) => product.category === category
-          )}
-        />
-      ))}
-    </div>
-  );
+
+  // const filtercategories =Array.from(new Set(products?.filter((product)=>product.category===category)))
+  //  products.filter(
+  //   (product) => product.category === category
+  // );
+  return;
+  <div>
+    {categories.map((category) => (
+      <Category key={category} category={category} />
+      // products={}={filterProductsByCategory(products,category)}
+    ))}
+  </div>;
 };
 
 export default ProductList;

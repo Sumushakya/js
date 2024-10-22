@@ -1,31 +1,37 @@
 import React from "react";
-import { Product } from "../types";
+import { ProductType } from "../types";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductType;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/detail/${product.id}`);
+  };
+
   return (
     <div className="container">
-      <div className="card">
+      <div className="card" onClick={handleCardClick}>
         <img
           src={product.image}
           alt={product.title}
-          style={{ width: "100px", height: "100px" }}
+          style={{ width: "100px", height: "100px", marginBottom: "20px" }}
         />
-        <p>
+
+        <div>
           <strong>Title:</strong>
-          {product.title}
-        </p>
-        <p>
+        </div>
+        <p>{product.title}</p>
+        <div>
           <strong>Description:</strong>
-          {product.description}
-        </p>
-        <p>
-          <strong>Price:</strong>
-          {product.price} USD
-        </p>
+        </div>
+        <p>{product.description}</p>
+        <strong>Price:</strong>
+        <p>{product.price} USD</p>
       </div>
     </div>
   );

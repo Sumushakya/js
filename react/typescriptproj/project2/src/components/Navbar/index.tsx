@@ -1,12 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/");
+  };
   return (
-    <div className="container">
-      <nav className="nav">
+    <div>
+      <nav className="navbar">
+        <h2>Shop</h2>
         <ul className="ul">
-          <li>Home</li>
-          <li>add to card</li>
+          <li onClick={handleClick}>Home</li>
+          <li>Add to cart</li>
         </ul>
       </nav>
     </div>
