@@ -10,9 +10,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/detail/${product.id}`);
+    navigate(`/product/${product.id}`);
   };
-  // console.log("cardproduct:", product);
 
   return (
     <div className="container">

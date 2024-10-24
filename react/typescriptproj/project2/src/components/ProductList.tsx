@@ -1,9 +1,7 @@
 import Category from "./Category";
 import { useProducts } from "./useProducts";
-// import { ProductType } from "./types";
-// import { IntrinsicAttributes } from "react";
 
-const ProductList: React.FC = () => {
+const ProductList = () => {
   const { products, isLoading, isError } = useProducts();
   // console.log("productsfetched:", products);
 
@@ -16,7 +14,7 @@ const ProductList: React.FC = () => {
   }
 
   const categories = Array.from(
-    new Set(products?.map((product) => product.category)) //(product.category:map the products their category values)
+    new Set(products?.map((product) => product.category)) //(product.category:map the products  their category values)
   );
 
   const filteredProducts = (category: string) => {

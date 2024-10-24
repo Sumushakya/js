@@ -6,10 +6,10 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const useProducts = () => {
   const { data, error } = useSWR<ProductType[]>(
-    `https://fakestoreapi.com/products`,
+    `https://fakestoreapi.com/products/`,
     fetcher
   );
-  console.log("fetch data", data);
+  // console.log("fetch data", data);
   return {
     products: data,
     isLoading: !data && !error,

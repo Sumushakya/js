@@ -7,8 +7,6 @@ interface Categoryprops {
 }
 
 const Category: React.FC<Categoryprops> = ({ category, products }) => {
-  // console.log("category:", category);
-  // console.log("products in category:", products);
   return (
     <div>
       <h2>{category.toUpperCase()}</h2>

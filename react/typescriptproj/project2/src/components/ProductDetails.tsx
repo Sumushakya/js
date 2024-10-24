@@ -1,53 +1,50 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
+import axios from "axios";
+import useSWR from "swr";
 import { ProductType } from "./types";
 
-interface ProductDetailsProps {
-  category: string;
-  products: ProductType[];
-}
-// const ProductDetails = () => {
-const ProductDetails: React.FC<ProductDetailsProps> = ({
-  products,
-  category,
-}) => {
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+const ProductDetails = () => {
+  const location = useLocation();
   const { id } = useParams<{ id: string }>();
-  console.log("Allproducts:", products);
-  console.log("selected id:", id);
+  const { data: products, error } = useSWR<ProductType>(
+    `https://fakestoreapi.com/products/${id}`,
+    fetcher
+  );
 
-  const parsedId = parseInt(id!);
-  console.log("parsed ID", parsedId);
+  if (error) return <div>Failed to load data</div>;
 
-  if (!products || products.length === 0) {
-    return <div>Loading or No products found</div>;
-  }
+  if (!products) return <div>Loading...</div>;
+  console.log(location);
 
-  const product = products?.find((product) => product.id === parsedId);
-  console.log("selected products:", products);
-
-  if (!product) {
-    return <div>Product not found.</div>; // Handle case where no product matches the ID
-  }
   return (
     <div>
       <Navbar />
-      <h1>Products</h1>
-      <h2>{category}</h2>
-      <img
-        src={product!.image}
-        alt={product!.title}
-        style={{ width: "100px", height: "100px", marginBottom: "20px" }}
-      />
-      <div>
-        <strong>Title:</strong>
+      <h2 style={{ textAlign: "center" }}>Product Details</h2>
+
+      <div className="card">
+        <h2>{products.category.toUpperCase()}</h2>
+        <img
+          src={products.image}
+          alt={products.title}
+          style={{ width: "100px", height: "100px", marginBottom: "20px" }}
+        />
+        <div>
+          <strong>Title:</strong>
+        </div>
+        <p>{products.title}</p>
+        <div>
+          <strong>Description:</strong>
+        </div>
+        <p>{products.description}</p>
+        <strong>Price:</strong>
+        <p>{products.price} USD</p>
+        <div>
+          <button>Add to Cart</button>
+        </div>
       </div>
-      <p>{product!.title}</p>
-      <div>
-        <strong>Description:</strong>
-      </div>
-      <p>{product!.description}</p>
-      <strong>Price:</strong>
-      <p>{product!.price} USD</p>
     </div>
   );
 };

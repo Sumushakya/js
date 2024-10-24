@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import "./index.css";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [count, setCount] = useState(0);
 
   const handleClick = () => {
     navigate("/");
@@ -13,7 +15,7 @@ const Navbar = () => {
         <h2>Shop</h2>
         <ul className="ul">
           <li onClick={handleClick}>Home</li>
-          <li>Add to cart</li>
+          <li>Cart</li>
         </ul>
       </nav>
     </div>
