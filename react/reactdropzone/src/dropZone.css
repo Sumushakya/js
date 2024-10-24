@@ -1,0 +1,17 @@
+.container {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  /* background-Color: isDragActive ? '#e3f2fd' : '#fff' */
+  cursor: pointer;
+  /* width: 50%; */
+}
+.ul {
+  text-align: center;
+  list-style-type: none;
+}
+/* .image {
+  display: flex;
+  flex-direction: column;
+  grid: 4px;
+} */
