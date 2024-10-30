@@ -1,0 +1,39 @@
+/* usertable */
+.table {
+  margin-left: 200px;
+  width: 50%;
+  border-collapse: collapse;
+  text-align: center;
+}
+th,
+td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  /* text-align: left; */
+}
+.button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+/* viewDetails */
+
+.card {
+  /* display: flex; */
+  /* align-items: center;
+   */
+  margin-left: 500px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  /* text-align: center; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-content {
+  text-align: center;
+}

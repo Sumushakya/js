@@ -4,9 +4,6 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import "./dropZone.css";
 
-// interface UploadedFile {
-//   file: File;
-// }
 const FileDropZone: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
 
@@ -36,7 +33,7 @@ const FileDropZone: React.FC = () => {
 
       <div>
         <h3 style={{ textAlign: "center" }}>Selected Files:</h3>
-        {/* <ul className="ul"> */}
+
         {files.map((file, index) => (
           <img
             className="image"
@@ -49,7 +46,6 @@ const FileDropZone: React.FC = () => {
             }}
           />
         ))}
-        {/* </ul> */}
       </div>
     </div>
   );
