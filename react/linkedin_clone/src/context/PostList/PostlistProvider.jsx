@@ -5,7 +5,7 @@ import { PostlistContext } from "./PostlistContext";
 export const PostlistProvider = ({ children }) => {
   const [postlistDetails, setPostlistDetails] = useState([]);
 
-  console.log("post", postlistDetails);
+  // console.log("post", postlistDetails);
   useEffect(() => {
     if (postlistDetails.length) {
       localStorage.setItem("postlistDetails", JSON.stringify(postlistDetails));
@@ -14,7 +14,7 @@ export const PostlistProvider = ({ children }) => {
 
   useEffect(() => {
     const savedPosts = localStorage.getItem("postlistDetails");
-    console.log("save", JSON.parse(savedPosts));
+    // console.log("save", JSON.parse(savedPosts));
     if (savedPosts) {
       setPostlistDetails(JSON.parse(savedPosts));
     }

@@ -22,11 +22,20 @@ const PostList = () => {
   //   }
   // }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/posts`)
+      .then((res) => setPostlistDetails(res.data));
+  }, [setPostlistDetails]);
+
   const navigate = useNavigate();
 
   const handleAdd = () => {
     navigate("/postform");
   };
+  // const handleClick = () => {
+  //   navigate("/list");
+  // };
 
   const handleEdit = (id) => {
     console.log("edit", id, postlistDetails);
@@ -44,13 +53,6 @@ const PostList = () => {
     );
     setPostlistDetails(deleteData);
   };
-
-  useEffect(() => {
-    // const getData
-    axios
-      .get(`http://localhost:5000/posts`)
-      .then((res) => setPostlistDetails(res.data));
-  }, [setPostlistDetails]);
 
   return (
     <Box flex="4" style={styles.container}>
@@ -128,6 +130,13 @@ const PostList = () => {
           onClick={handleAdd}
           style={styles.btn}
         />
+        {/* <CustomButton
+          btnLabel="List Table"
+          regularBtnStyle={{ bg: "blue", _hover: { bg: "#1264b6" } }}
+          btnSxProps={{ color: "white" }}
+          onClick={handleClick}
+          styles={styles.btn}
+        /> */}
       </Box>
     </Box>
   );
