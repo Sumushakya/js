@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CustomTableToolbar = ({ header }) => {
   return (
-    <Heading size="md" fontWeight="medium" pt={4} pb={8} textAlign="center">
+    <Heading size="md" fontWeight="medium" pt={4}>
       {header}
     </Heading>
   );

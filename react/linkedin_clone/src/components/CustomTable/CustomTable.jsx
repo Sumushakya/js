@@ -1,5 +1,7 @@
 import {
   Box,
+  Flex,
+  // Button,
   IconButton,
   Table,
   TableContainer,
@@ -11,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import CustomTableToolbar from "./CustomTableToolbar";
+// import CustomHeaderButton from "./CustomHeaderButton";
+import CustomButton from "../CustomButton";
 
 function CustomTable(props) {
   const { data, columns, header, actionButton } = props;
@@ -18,7 +22,24 @@ function CustomTable(props) {
   return (
     <Box>
       <TableContainer>
-        <CustomTableToolbar header={header} />
+        <Box>
+          <Flex justify="space-between" align="center" />
+          <CustomTableToolbar header={header} />
+          <CustomButton
+            enableHover={true}
+            btnLabel="Create"
+            regularBtnStyle={{
+              bg: "blue",
+              _hover: { bg: "#1264b6" },
+            }}
+            btnSxProps={{
+              color: "white",
+              mt: "8px",
+            }}
+            onClick={() => console.log("button clicked")}
+          />
+        </Box>
+
         <Table size="sm">
           <Thead>
             <Tr>
@@ -62,6 +83,7 @@ CustomTable.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   header: PropTypes.string,
   actionButton: PropTypes.arrayOf(PropTypes.object),
+  headerButton: PropTypes.object,
 };
 
 export default CustomTable;

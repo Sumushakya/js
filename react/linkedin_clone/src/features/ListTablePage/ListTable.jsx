@@ -36,6 +36,12 @@ const ListTable = () => {
 
   const headerButton = {
     label: "Create",
+    colorScheme: "blue",
+    size: "md",
+    onClick: () => {
+      console.log("Create button Clicked");
+    },
+    variant: "solid",
   };
 
   return (
@@ -45,7 +51,7 @@ const ListTable = () => {
         columns={columns}
         data={tabledata}
         actionButton={listActionButton}
-        Button={headerButton}
+        headerButton={headerButton}
       />
     </Box>
   );
