@@ -1,7 +1,7 @@
 import {
   Box,
+  Button,
   Flex,
-  // Button,
   IconButton,
   Table,
   TableContainer,
@@ -13,33 +13,23 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import CustomTableToolbar from "./CustomTableToolbar";
-// import CustomHeaderButton from "./CustomHeaderButton";
-import CustomButton from "../CustomButton";
 
 function CustomTable(props) {
-  const { data, columns, header, actionButton } = props;
+  const {
+    data,
+    columns,
+    header,
+    actionButton,
+    headerButton,
+    currentPage,
+    totalPages,
+    onPageChange,
+  } = props;
 
   return (
     <Box>
       <TableContainer>
-        <Box>
-          <Flex justify="space-between" align="center" />
-          <CustomTableToolbar header={header} />
-          <CustomButton
-            enableHover={true}
-            btnLabel="Create"
-            regularBtnStyle={{
-              bg: "blue",
-              _hover: { bg: "#1264b6" },
-            }}
-            btnSxProps={{
-              color: "white",
-              mt: "8px",
-            }}
-            onClick={() => console.log("button clicked")}
-          />
-        </Box>
-
+        <CustomTableToolbar header={header} headerButton={headerButton} />
         <Table size="sm">
           <Thead>
             <Tr>
@@ -74,6 +64,25 @@ function CustomTable(props) {
           </Tbody>
         </Table>
       </TableContainer>
+      <Flex justify="center" align="center" mt={4} gap={2}>
+        <Button
+          size="sm"
+          onClick={() => onPageChange(currentPage - 1)}
+          isDisabled={currentPage === 1}
+        >
+          Previous
+        </Button>
+        <Box>
+          Page {currentPage} of {totalPages}
+        </Box>
+        <Button
+          size="sm"
+          onClick={() => onPageChange(currentPage + 1)}
+          isDisabled={currentPage === totalPages}
+        >
+          Next
+        </Button>
+      </Flex>
     </Box>
   );
 }
@@ -84,6 +93,9 @@ CustomTable.propTypes = {
   header: PropTypes.string,
   actionButton: PropTypes.arrayOf(PropTypes.object),
   headerButton: PropTypes.object,
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  onPageChange: PropTypes.func,
 };
 
 export default CustomTable;

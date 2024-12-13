@@ -216,34 +216,13 @@ const CreateEditDetailForm = () => {
 };
 
 export default CreateEditDetailForm;
-{
-  /* <CustomHeaderButton label={headerButton.label} /> */
-}
-{
-  /* {headerButton && (
-          <Button
-            label={headerButton.label}
-            onClick={headerButton.onClick}
-            // colorScheme={headerButton.colorScheme}
-            variant={headerButton.variant}
-            size={headerButton.size}
-          />
-        )} */
-}
 
-{
-  /* <CustomButton
-          enableHover={true}
-          btnLabel="Create"
-          // btnRightIcon={<FaCirclePlus />}
-          // tooltipLabel="Remove"
-          regularBtnStyle={{
-            bg: "blue",
-            _hover: { bg: "#1264b6" },
-          }}
-          btnSxProps={{
-            color: "white",
-            mt: "8px",
-          }}
-        /> */
-}
+// const headerButton = {
+//   label: "Create",
+//   colorScheme: "blue",
+//   size: "md",
+//   onClick: () => {
+//     console.log("Create button Clicked");
+//   },
+//   variant: "solid",
+// };

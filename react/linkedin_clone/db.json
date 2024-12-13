@@ -6,11 +6,7 @@
       "image": "",
       "name": "Kasper  ,,,",
       "likes": 14,
-      "comments": [
-        "djf",
-        "ekjkj",
-        "ddd"
-      ],
+      "comments": ["djf", "ekjkj", "ddd"],
       "id": "1"
     },
     {
@@ -20,11 +16,7 @@
       "name": "sssvyeg",
       "id": "2",
       "likes": 12,
-      "comments": [
-        "djf",
-        "ekjkj",
-        "ddd"
-      ]
+      "comments": ["djf", "ekjkj", "ddd"]
     },
     {
       "des": "Rerum dolor in quae ",
@@ -32,12 +24,7 @@
       "image": "",
       "name": "Meghan Roberson",
       "likes": 5,
-      "comments": [
-        "dd",
-        "tyye",
-        "tytey",
-        "msn"
-      ],
+      "comments": ["dd", "tyye", "tytey", "msn"],
       "id": "3"
     },
     {
@@ -46,11 +33,7 @@
       "image": "",
       "name": "ssskkkk",
       "likes": 5,
-      "comments": [
-        "tyye",
-        "tytey",
-        "msn"
-      ],
+      "comments": ["tyye", "tytey", "msn"],
       "id": "4"
     },
     {
@@ -89,7 +72,7 @@
       "image": ""
     },
     {
-      "id": 26,
+      "id": "26",
       "name": "Kennedy Holt",
       "headline": "At consequatur quia",
       "des": "Et ut adipisci sequi",

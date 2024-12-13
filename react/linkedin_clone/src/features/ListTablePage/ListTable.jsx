@@ -4,15 +4,34 @@ import { useEffect, useState } from "react";
 import CustomTable from "../../components/CustomTable/CustomTable";
 import { useTableColumns } from "./useTableColumns";
 import { DeleteIcon, EditIcon, ViewIcon } from "@chakra-ui/icons";
+import CustomButton from "../../components/CustomButton";
 
 const ListTable = () => {
-  const [tabledata, setTableData] = useState();
+  const [tableData, setTableData] = useState([]);
+  // console.log("objectksjdjdjdjdjdjdjd", tableData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/posts`)
       .then((res) => setTableData(res.data));
   }, [setTableData]);
+
+  const totalPages = Math.ceil(tableData.length / itemsPerPage);
+  console.log("pageeeeeeeeeeeeeeee", totalPages);
+
+  const paginatedData = tableData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+  console.log("jdhjdkjkd", paginatedData);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   const columns = useTableColumns();
 
@@ -34,24 +53,31 @@ const ListTable = () => {
     },
   ];
 
-  const headerButton = {
-    label: "Create",
-    colorScheme: "blue",
-    size: "md",
-    onClick: () => {
-      console.log("Create button Clicked");
-    },
-    variant: "solid",
-  };
-
+  const headerButton = (
+    <CustomButton
+      btnLabel="Create"
+      regularBtnStyle={{
+        bg: "blue",
+        _hover: { bg: "#1264b6" },
+      }}
+      btnSxProps={{
+        color: "white",
+        mt: "4px",
+      }}
+      onClick={() => console.log("button clicked")}
+    />
+  );
   return (
     <Box p={4}>
       <CustomTable
         header="User Information Table"
         columns={columns}
-        data={tabledata}
+        data={paginatedData}
         actionButton={listActionButton}
         headerButton={headerButton}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
       />
     </Box>
   );
